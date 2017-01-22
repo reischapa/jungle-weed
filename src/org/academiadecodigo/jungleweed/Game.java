@@ -10,9 +10,9 @@ import org.academiadecodigo.jungleweed.player.PlayerFactory;
  */
 public class Game {
 
-    public static int NUMBER_PLAYERS = 4;
-    public static int NUMBER_CARDS_TOTAL = 80;
-    public static int NUMBER_HAND_CARDS;
+    private static int NUMBER_PLAYERS = 2;
+    private static int NUMBER_CARDS_TOTAL = 80;
+    private static int NUMBER_HAND_CARDS;
 
     private Player[] players;
     private CompareType compareType;
@@ -53,16 +53,16 @@ public class Game {
                 }
                 player.revealNextCard();
                 comparableCards[iterator] = player.getFaceUpCard();
-                System.out.println(comparableCards[iterator]);
+
                 iterator++;
 
             }
             iterator=0;
 
-            for(int i=0; i<comparableCards.length; i++){
-                for(int j=0; j<comparableCards.length;j++) {
+            for(int i=0; i<comparableCards.length -1 ; i++){
+                for(int j=i+1; j<comparableCards.length;j++) {
                     if (compareCards(comparableCards[i], comparableCards[j])) {
-                        System.out.println("Player" + i + " and Player" + (j) + " Cards Match!");
+                        System.out.println("Player" + i + " and Player" + j + " Cards Match!");
                     } else {
                         System.out.println("Cards Dont Match");
                     }
