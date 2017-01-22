@@ -62,11 +62,13 @@ public class Game {
             }
             iterator=0;
 
-            for(int i=0; i<comparableCards.length-1; i++){
-                if(compareCards(comparableCards[i],comparableCards[i+1])){
-                    System.out.println("Player"+i+" and Player"+(i+1)+" Cards Match!");
-                }else{
-                    System.out.println("Cards Dont Match");
+            for(int i=0; i<comparableCards.length; i++){
+                for(int j=0; j<comparableCards.length;j++) {
+                    if (compareCards(comparableCards[i], comparableCards[j])) {
+                        System.out.println("Player" + i + " and Player" + (j) + " Cards Match!");
+                    } else {
+                        System.out.println("Cards Dont Match");
+                    }
                 }
             }
 
