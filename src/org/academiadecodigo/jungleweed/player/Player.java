@@ -24,21 +24,109 @@ public class Player {
 
     }
 
-    public Card revealNextCard() {
-        return null;
+    //TODO remove before commmit
+
+    public Player(Card[] cards) {
+        this(cards.length);
+
+        this.faceDownCards = cards;
+
+    }
+
+    public void revealNextCard() {
+        if (faceUpCard != null) {
+            this.pushRevealedCards();
+        }
+
+        this.faceUpCard = this.faceDownCards[0];
+
+        this.faceDownCards[0] = null;
+
+        this.defragFaceDownCards();
+
+    }
+
+    private void pushRevealedCards() {
+
+        Card[] result = new Card[this.revealedCards.length];
+
+        result[0] = this.faceUpCard;
+
+        for (int i = 0; i < this.revealedCards.length; i++) {
+            result[i+1] = this.revealedCards[i];
+        }
+
+        this.revealedCards = result;
+
+
+
+    }
+
+    private void defragFaceDownCards() {
+
+        Card[] result = new Card[this.faceDownCards.length];
+
+        int i = 0;
+        int j = 0;
+        for (; i < this.faceDownCards.length; i++) {
+            if (faceDownCards[i] == null){
+                continue;
+            }
+
+            result[j] = this.faceDownCards[i];
+            System.out.println(result[j]);
+            j++;
+
+        }
+
+        this.faceDownCards = result;
     }
 
 
+    //when you give the player cards
     public void receiveCards(Card[] cards) {
+
+        int i = 0;
+        int j = 0;
+        for(; i < this.faceDownCards.length; i++) {
+            if (this.faceDownCards[i] != null) {
+                continue;
+            }
+
+            this.faceDownCards[i] = cards[j];
+            j++;
+
+        }
+
     }
+
 
     public int getTotalNumberOfCards() {
-        return 0;
+        return this.faceDownCards.length + this.revealedCards.length + (this.revealedCards == null ? 1 : 0);
     }
 
 
+    //when you take cards from the revealed cards pile and also the last revealed one
     public Card[] giveCards() {
-        return null;
+
+        if (this.faceUpCard == null) {
+            return null;
+        }
+
+        Card[] result = new Card[this.revealedCards.length];
+
+        result[0] = this.faceUpCard;
+
+        for (int i = 0; i < this.revealedCards.length; i++) {
+
+            result[i+1] = this.revealedCards[i];
+            this.revealedCards[i] = null;
+
+        }
+
+
+        return result;
+
     }
 
 
