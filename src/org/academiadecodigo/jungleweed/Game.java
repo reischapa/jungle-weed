@@ -15,7 +15,7 @@ import java.util.ListIterator;
  */
 public class Game {
 
-    public static int NUMBER_PLAYERS = 2;
+    public static int NUMBER_PLAYERS = 4;
 
     private Player[] players;
     private CompareType compareType;
@@ -50,17 +50,25 @@ public class Game {
             Card[] comparableCards = new Card[players.length];
             int iterator = 0;
             for(Player player : players){
-                if(player.getTotalNumberOfCards()==0){
+                if(player.getTotalNumberOfCards() == 0){
                     System.out.println("Game Over");
                     return;
                 }
                 player.revealNextCard();
-            }
-            for(Player player : players){
                 comparableCards[iterator] = player.getFaceUpCard();
+                System.out.println(comparableCards[iterator]);
                 iterator++;
-            }
 
+            }
+            iterator=0;
+
+            for(int i=0; i<comparableCards.length-1; i++){
+                if(compareCards(comparableCards[i],comparableCards[i+1])){
+                    System.out.println("Player"+i+" and Player"+(i+1)+" Cards Match!");
+                }else{
+                    System.out.println("Cards Dont Match");
+                }
+            }
 
         }
 
@@ -88,6 +96,14 @@ public class Game {
                 return this.compareShape(c1, c2);
         }
 
+    }
+
+    private void changeCompareType(){
+        if(compareType == CompareType.SHAPE){
+            compareType = CompareType.COLOR;
+        }else{
+            compareType = CompareType.SHAPE;
+        }
     }
 
 
