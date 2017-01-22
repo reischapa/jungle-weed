@@ -11,4 +11,8 @@ public class PlayerFactory {
         return new Player(100);
     }
 
+    public static Player getNewPlayer(int maxCards){
+        return new Player(maxCards);
+    }
+
 }

@@ -11,6 +11,7 @@ public class Player {
     private Card[] revealedCards;
     private Card faceUpCard;
 
+
     private int maxPossibleCards;
 
     private boolean agarraPau;
@@ -55,6 +56,10 @@ public class Player {
 
     public void largaPau() {
         this.agarraPau = false;
+    }
+
+    public int getMaxPossibleCards() {
+        return maxPossibleCards;
     }
 
 }

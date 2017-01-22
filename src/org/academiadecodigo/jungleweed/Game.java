@@ -1,7 +1,9 @@
 package org.academiadecodigo.jungleweed;
 
 import org.academiadecodigo.jungleweed.card.Card;
+import org.academiadecodigo.jungleweed.card.CardFactory;
 import org.academiadecodigo.jungleweed.player.Player;
+import org.academiadecodigo.jungleweed.player.PlayerFactory;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -28,12 +30,39 @@ public class Game {
 
 
     public void init() {
-
+        for(int i=0; i<NUMBER_PLAYERS;i++){
+            players[i]= PlayerFactory.getNewPlayer(20);
+            int maxPlayerCards = players[i].getMaxPossibleCards();
+            Card[] cards = new Card[maxPlayerCards];
+            for(int j=0; j<maxPlayerCards; j++){
+                cards[j]=CardFactory.getRandomCard();
+            }
+            players[i].receiveCards(cards);
+            System.out.println(players[i]);
+        }
 
     }
 
 
     public void start() {
+
+        while(true){
+            Card[] comparableCards = new Card[players.length];
+            int iterator = 0;
+            for(Player player : players){
+                if(player.getTotalNumberOfCards()==0){
+                    System.out.println("Game Over");
+                    return;
+                }
+                player.revealNextCard();
+            }
+            for(Player player : players){
+                comparableCards[iterator] = player.getFaceUpCard();
+                iterator++;
+            }
+
+
+        }
 
 
     }
