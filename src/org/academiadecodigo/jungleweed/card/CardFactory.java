@@ -22,5 +22,15 @@ public class CardFactory {
         return newCard;
     }
 
+    public static Card[] getCardDeck(int maxNrCards){
+
+        Card[] deckCards = new Card[maxNrCards];
+
+        for(int i = 0; i < maxNrCards; i++){
+            deckCards[i] = getRandomCard();
+        }
+        return deckCards;
+    }
+
    //TODO make this not static
 }
