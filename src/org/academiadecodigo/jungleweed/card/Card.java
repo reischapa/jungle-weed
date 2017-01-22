@@ -27,6 +27,8 @@ public class Card {
         return shape;
     }
 
-
-
+    @Override
+    public String toString() {
+        return shape.toString() + " " + color.toString();
+    }
 }
