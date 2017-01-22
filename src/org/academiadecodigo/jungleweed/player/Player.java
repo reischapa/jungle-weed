@@ -2,6 +2,8 @@ package org.academiadecodigo.jungleweed.player;
 
 import org.academiadecodigo.jungleweed.card.Card;
 
+import java.util.Arrays;
+
 /**
  * Created by codecadet on 1/22/17.
  */
@@ -10,6 +12,8 @@ public class Player {
     private Card[] faceDownCards;
     private Card[] revealedCards;
     private Card faceUpCard;
+
+    private boolean emptyFaceDown;
 
 
     private int maxPossibleCards;
@@ -27,13 +31,25 @@ public class Player {
     //TODO remove before commmit
 
     public Player(Card[] cards) {
-        this(cards.length);
 
-        this.faceDownCards = cards;
+        this.maxPossibleCards = cards.length;
+        this.revealedCards = new Card[this.maxPossibleCards];
+        this.faceDownCards = new Card[this.maxPossibleCards];
+
+        for (int i=0; i < cards.length; i++) {
+            this.faceDownCards[i] = cards[i];
+        }
+
+
 
     }
 
-    public void revealNextCard() {
+    public boolean revealNextCard() {
+
+        if (emptyFaceDown) {
+            return true;
+        }
+
         if (faceUpCard != null) {
             this.pushRevealedCards();
         }
@@ -42,7 +58,14 @@ public class Player {
 
         this.faceDownCards[0] = null;
 
-        this.defragFaceDownCards();
+        boolean hasCardsInPile  = this.defragFaceDownCards();
+
+        if (!hasCardsInPile) {
+            this.emptyFaceDown = true;
+        }
+
+        return this.emptyFaceDown;
+
 
     }
 
@@ -52,7 +75,7 @@ public class Player {
 
         result[0] = this.faceUpCard;
 
-        for (int i = 0; i < this.revealedCards.length; i++) {
+        for (int i = 0; i < this.revealedCards.length - 1; i++) {
             result[i+1] = this.revealedCards[i];
         }
 
@@ -62,7 +85,7 @@ public class Player {
 
     }
 
-    private void defragFaceDownCards() {
+    private boolean defragFaceDownCards() {
 
         Card[] result = new Card[this.faceDownCards.length];
 
@@ -74,12 +97,13 @@ public class Player {
             }
 
             result[j] = this.faceDownCards[i];
-            System.out.println(result[j]);
             j++;
 
         }
 
         this.faceDownCards = result;
+
+        return true;
     }
 
 
@@ -96,7 +120,13 @@ public class Player {
             this.faceDownCards[i] = cards[j];
             j++;
 
+            if (j == cards.length) {
+                break;
+            }
+
         }
+
+        this.emptyFaceDown = false;
 
     }
 
@@ -117,7 +147,11 @@ public class Player {
 
         result[0] = this.faceUpCard;
 
-        for (int i = 0; i < this.revealedCards.length; i++) {
+        for (int i = 0; i < this.revealedCards.length - 1; i++) {
+
+            if (this.revealedCards[i + 1] == null) {
+                break;
+            }
 
             result[i+1] = this.revealedCards[i];
             this.revealedCards[i] = null;
@@ -129,6 +163,17 @@ public class Player {
 
     }
 
+    public void printFaceDownCards() {
+        for (Card c : this.faceDownCards) {
+            System.out.println(c);
+        }
+    }
+
+    public void printRevealedCards() {
+        for (Card c : this.revealedCards) {
+            System.out.println(c);
+        }
+    }
 
     public Card getFaceUpCard() {
         return this.faceUpCard;
