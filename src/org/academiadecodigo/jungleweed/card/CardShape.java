@@ -6,6 +6,7 @@ package org.academiadecodigo.jungleweed.card;
 public enum CardShape {
 
     STAR1,STAR2,STAR3,
-    CIRCLE1,CIRCLE2, CIRCLE3;
+    CIRCLE1,CIRCLE2, CIRCLE3,
+    COLOR;
 
 }

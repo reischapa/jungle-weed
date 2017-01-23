@@ -58,20 +58,32 @@ public class Game {
 
             }
             iterator=0;
-
-            for(int i=0; i<comparableCards.length -1 ; i++){
-                for(int j=i+1; j<comparableCards.length;j++) {
-                    if (compareCards(comparableCards[i], comparableCards[j])) {
-                        System.out.println("Player" + i + " and Player" + j + " Cards Match!");
-                    } else {
-                        System.out.println("Cards Dont Match");
-                    }
-                }
+            Player[] playerCardBattle = compareAllcards(comparableCards, players);
+            if(playerCardBattle[1]!=null) {
+                playerCardBattle[0].receiveCards(playerCardBattle[1].giveCards());
+                System.out.println(playerCardBattle[0].getTotalNumberOfCards());
             }
 
         }
 
 
+    }
+
+    private Player[] compareAllcards(Card[] comparableCards, Player[] players){
+        Player[] playerCardBattle = new Player[2];
+        for(int i=0; i<comparableCards.length -1 ; i++){
+            for(int j=i+1; j<comparableCards.length;j++) {
+                if (compareCards(comparableCards[i], comparableCards[j])) {
+                    playerCardBattle[0]=players[i];
+                    playerCardBattle[1]=players[j];
+                    System.out.println("Player" + i + " and Player" + j + " Cards Match!");
+                    return playerCardBattle;
+                } else {
+                    System.out.println("Cards Dont Match");
+                }
+            }
+        }
+        return playerCardBattle;
     }
 
     private boolean compareShape(Card c1, Card c2) {
