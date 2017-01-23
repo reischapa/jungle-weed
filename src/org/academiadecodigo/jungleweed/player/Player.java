@@ -13,6 +13,7 @@ public class Player {
     private Card[] revealedCards;
     private Card faceUpCard;
 
+
     private boolean emptyFaceDown;
 
 
@@ -81,14 +82,12 @@ public class Player {
 
         this.revealedCards = result;
 
-
-
     }
 
     private boolean defragFaceDownCards() {
 
-        Card[] result = new Card[this.faceDownCards.length];
-
+        Card[] newArray = new Card[this.faceDownCards.length];
+        boolean result = false;
         int i = 0;
         int j = 0;
         for (; i < this.faceDownCards.length; i++) {
@@ -96,16 +95,16 @@ public class Player {
                 continue;
             }
 
-            result[j] = this.faceDownCards[i];
+            result = true;
+            newArray[j] = this.faceDownCards[i];
             j++;
 
         }
 
-        this.faceDownCards = result;
+        this.faceDownCards = newArray;
 
-        return true;
+        return result;
     }
-
 
     //when you give the player cards
     public void receiveCards(Card[] cards) {
@@ -132,7 +131,19 @@ public class Player {
 
 
     public int getTotalNumberOfCards() {
-        return this.faceDownCards.length + this.revealedCards.length + (this.revealedCards == null ? 1 : 0);
+        int nHidden = 0;
+        int nRevealed = 0;
+
+        for (int i = 0; i < this.maxPossibleCards; i++) {
+            if (this.faceDownCards[i] != null) {
+                nHidden++;
+            }
+            if (this.revealedCards[i] != null) {
+                nRevealed++;
+            }
+        }
+
+        return nHidden + nRevealed + (this.faceUpCard != null ? 1 : 0);
     }
 
 
@@ -146,10 +157,11 @@ public class Player {
         Card[] result = new Card[this.revealedCards.length];
 
         result[0] = this.faceUpCard;
+        this.faceUpCard = null;
 
         for (int i = 0; i < this.revealedCards.length - 1; i++) {
 
-            if (this.revealedCards[i + 1] == null) {
+            if (this.revealedCards[i] == null) {
                 break;
             }
 
@@ -157,7 +169,6 @@ public class Player {
             this.revealedCards[i] = null;
 
         }
-
 
         return result;
 
@@ -193,6 +204,10 @@ public class Player {
 
     public int getMaxPossibleCards() {
         return maxPossibleCards;
+    }
+
+    public boolean isEmptyFaceDown() {
+        return emptyFaceDown;
     }
 
 }

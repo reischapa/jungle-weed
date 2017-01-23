@@ -11,9 +11,11 @@ import org.academiadecodigo.jungleweed.player.Player;
 public class MainChapa {
 
 
+    public static void main(String[] args) throws Exception {
+        playerTests();
+    }
 
-    public static void main(String[] args) {
-
+    public static void playerTests() throws Exception {
         Card[] cards = new Card[10];
 
         for (int i = 0; i < 10; i++) {
@@ -24,30 +26,50 @@ public class MainChapa {
 
         p.receiveCards(cards);
 
-        p.printFaceDownCards();
-        System.out.println("");
-        p.printRevealedCards();
-
-        int i = 0;
-
-        while (i < 10) {
-            p.revealNextCard();
-            i++;
+        if (p.getTotalNumberOfCards() != 10 ){
+            throw new Exception();
         }
 
+        p.printFaceDownCards();
         System.out.println("");
+        p.printRevealedCards();
 
+        p.revealNextCard();
+
+        if (p.getFaceUpCard()==null) {
+            throw new Exception();
+        }
+
+
+        System.out.println("");
         p.printFaceDownCards();
         System.out.println("");
         p.printRevealedCards();
 
 
-        Card[] c = p.giveCards();
+        p.receiveCards(cards);
+        p.revealNextCard();
+
+        System.out.println("");
+        p.printFaceDownCards();
+        System.out.println("");
+        p.printRevealedCards();
+
+        Card[] c2 = p.giveCards();
 
 
+        Player p2 = new Player(c2);
 
+        if (p2.getTotalNumberOfCards() != 2) {
+            throw new Exception();
+        }
 
+        p2.revealNextCard();
+        p2.revealNextCard();
+        p2.giveCards();
 
+        System.out.println(p2.isEmptyFaceDown());
+        System.out.println(p2.getTotalNumberOfCards());
 
 
     }
