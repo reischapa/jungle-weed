@@ -76,8 +76,8 @@ public class Player {
 
         result[0] = this.faceUpCard;
 
-        for (int i = 0; i < this.revealedCards.length - 1; i++) {
-            result[i+1] = this.revealedCards[i];
+        for (int i = 1; i < result.length ; i++) {
+            result[i] = this.revealedCards[i-1];
         }
 
         this.revealedCards = result;
@@ -106,8 +106,8 @@ public class Player {
         return result;
     }
 
-    //when you give the player cards
-    public void receiveCards(Card[] cards) {
+    //when the player receives cards from the game
+    public void addCards(Card[] cards) {
 
         int i = 0;
         int j = 0;
@@ -147,7 +147,7 @@ public class Player {
     }
 
 
-    //when you take cards from the revealed cards pile and also the last revealed one
+    //when the player gives cards to the game
     public Card[] giveCards() {
 
         if (this.faceUpCard == null) {

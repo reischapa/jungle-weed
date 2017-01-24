@@ -25,7 +25,7 @@ public class MainChapa {
 
         Player p = new Player(20);
 
-        p.receiveCards(cards);
+        p.addCards(cards);
 
         if (p.getTotalNumberOfCards() != 10 ){
             throw new Exception();
@@ -48,7 +48,7 @@ public class MainChapa {
         p.printRevealedCards();
 
 
-        p.receiveCards(cards);
+        p.addCards(cards);
         p.revealNextCard();
 
         System.out.println("");

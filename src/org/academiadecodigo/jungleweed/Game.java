@@ -34,7 +34,7 @@ public class Game {
             for(int j=0; j < NUMBER_HAND_CARDS; j++){
                 cards[j]=CardFactory.getRandomCard();
             }
-            players[i].receiveCards(cards);
+            players[i].addCards(cards);
             //System.out.println(players[i]);
         }
 
@@ -60,7 +60,7 @@ public class Game {
             iterator=0;
             Player[] playerCardBattle = compareAllcards(comparableCards, players);
             if(playerCardBattle[1]!=null) {
-                playerCardBattle[0].receiveCards(playerCardBattle[1].giveCards());
+                playerCardBattle[0].addCards(playerCardBattle[1].giveCards());
                 System.out.println(playerCardBattle[0].getTotalNumberOfCards());
             }
 
