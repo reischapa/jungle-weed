@@ -5,6 +5,6 @@ package org.academiadecodigo.jungleweed.card;
  */
 public enum CardColor {
 
-    RED,BLUE,YELLOW,PINK,GREEN;
+    RED,BLUE,YELLOW,PINK,GREEN,MAGENTA;
 
 }
