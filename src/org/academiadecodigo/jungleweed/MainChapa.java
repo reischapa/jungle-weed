@@ -25,6 +25,7 @@ public class MainChapa {
 
         Player p = new Player(20);
 
+
         p.addCards(cards);
 
         if (p.getTotalNumberOfCards() != 10 ){
@@ -35,7 +36,17 @@ public class MainChapa {
         System.out.println("");
         p.printRevealedCards();
 
+        System.out.println("");
+        System.out.println(p.getNumberFaceDownCards());
+        System.out.println(p.getNumberRevealedCards());
+        System.out.println("");
+
         p.revealNextCard();
+
+        System.out.println("");
+        System.out.println(p.getNumberFaceDownCards());
+        System.out.println(p.getNumberRevealedCards());
+        System.out.println("");
 
         if (p.getFaceUpCard()==null) {
             throw new Exception();
@@ -46,7 +57,6 @@ public class MainChapa {
         p.printFaceDownCards();
         System.out.println("");
         p.printRevealedCards();
-
 
         p.addCards(cards);
         p.revealNextCard();
@@ -59,7 +69,9 @@ public class MainChapa {
         Card[] c2 = p.giveCards();
 
 
-        Player p2 = new Player(c2);
+        Player p2 = new Player(20);
+
+        p2.addCards(c2);
 
         if (p2.getTotalNumberOfCards() != 2) {
             throw new Exception();
@@ -72,6 +84,10 @@ public class MainChapa {
         System.out.println(p2.isEmptyFaceDown());
         System.out.println(p2.getTotalNumberOfCards());
 
+        System.out.println("");
+        System.out.println(p2.getNumberFaceDownCards());
+        System.out.println(p2.getNumberRevealedCards());
+        System.out.println("");
 
         //TESTING THE NEW AND IMPROVED CARD FACTORY
 

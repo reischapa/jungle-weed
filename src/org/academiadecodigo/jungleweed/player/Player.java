@@ -16,8 +16,10 @@ public class Player {
 
     private boolean emptyFaceDown;
 
-
     private int maxPossibleCards;
+
+    private int numberFaceDownCards;
+    private int numberRevealedCards;
 
     private boolean agarraPau;
 
@@ -29,21 +31,6 @@ public class Player {
 
     }
 
-    //TODO remove before commmit
-
-    public Player(Card[] cards) {
-
-        this.maxPossibleCards = cards.length;
-        this.revealedCards = new Card[this.maxPossibleCards];
-        this.faceDownCards = new Card[this.maxPossibleCards];
-
-        for (int i=0; i < cards.length; i++) {
-            this.faceDownCards[i] = cards[i];
-        }
-
-
-
-    }
 
     public boolean revealNextCard() {
 
@@ -58,12 +45,9 @@ public class Player {
         this.faceUpCard = this.faceDownCards[0];
 
         this.faceDownCards[0] = null;
+        this.numberFaceDownCards--;
 
-        boolean hasCardsInPile  = this.defragFaceDownCards();
-
-        if (!hasCardsInPile) {
-            this.emptyFaceDown = true;
-        }
+        this.defragFaceDownCards();
 
         return this.emptyFaceDown;
 
@@ -80,14 +64,15 @@ public class Player {
             result[i] = this.revealedCards[i-1];
         }
 
+        this.numberRevealedCards++;
         this.revealedCards = result;
 
     }
 
-    private boolean defragFaceDownCards() {
+    private void defragFaceDownCards() {
 
         Card[] newArray = new Card[this.faceDownCards.length];
-        boolean result = false;
+        this.emptyFaceDown = true;
         int i = 0;
         int j = 0;
         for (; i < this.faceDownCards.length; i++) {
@@ -95,28 +80,32 @@ public class Player {
                 continue;
             }
 
-            result = true;
+            this.emptyFaceDown = false;
             newArray[j] = this.faceDownCards[i];
             j++;
 
         }
 
         this.faceDownCards = newArray;
-
-        return result;
     }
 
     //when the player receives cards from the game
     public void addCards(Card[] cards) {
 
-        int i = 0;
+
         int j = 0;
-        for(; i < this.faceDownCards.length; i++) {
+        for(int i = 0; i < this.faceDownCards.length; i++) {
             if (this.faceDownCards[i] != null) {
                 continue;
             }
 
+            if (cards[j] == null) {
+                continue;
+            }
+
+            this.emptyFaceDown = false;
             this.faceDownCards[i] = cards[j];
+            this.numberFaceDownCards++;
             j++;
 
             if (j == cards.length) {
@@ -125,25 +114,12 @@ public class Player {
 
         }
 
-        this.emptyFaceDown = false;
 
     }
 
 
     public int getTotalNumberOfCards() {
-        int nHidden = 0;
-        int nRevealed = 0;
-
-        for (int i = 0; i < this.maxPossibleCards; i++) {
-            if (this.faceDownCards[i] != null) {
-                nHidden++;
-            }
-            if (this.revealedCards[i] != null) {
-                nRevealed++;
-            }
-        }
-
-        return nHidden + nRevealed + (this.faceUpCard != null ? 1 : 0);
+        return this.numberFaceDownCards + this.numberRevealedCards + (this.faceUpCard != null ? 1 : 0);
     }
 
 
@@ -167,6 +143,7 @@ public class Player {
 
             result[i+1] = this.revealedCards[i];
             this.revealedCards[i] = null;
+            this.numberRevealedCards--;
 
         }
 
@@ -210,4 +187,11 @@ public class Player {
         return emptyFaceDown;
     }
 
+    public int getNumberFaceDownCards() {
+        return this.numberFaceDownCards;
+    }
+
+    public int getNumberRevealedCards() {
+        return this.numberRevealedCards;
+    }
 }
