@@ -5,9 +5,9 @@ package org.academiadecodigo.jungleweed;
  */
 public interface Drawable {
 
-    int getX();
+    void setX(int x);
 
-    int getY();
+    void setY(int y);
 
     void draw();
 

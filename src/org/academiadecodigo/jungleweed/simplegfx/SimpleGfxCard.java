@@ -1,6 +1,9 @@
 package org.academiadecodigo.jungleweed.simplegfx;
 
 import org.academiadecodigo.jungleweed.Drawable;
+import org.academiadecodigo.jungleweed.card.CardColor;
+import org.academiadecodigo.jungleweed.card.CardShape;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.nio.file.Path;
 
@@ -9,28 +12,36 @@ import java.nio.file.Path;
  */
 public class SimpleGfxCard implements Drawable {
 
-    public SimpleGfxCard(int x, int y) {
+    private int x;
+    private int y;
+    private Picture pic;
+
+
+    public SimpleGfxCard(CardShape shape, CardColor color) {
+        pic = new Picture(450, 0, "res/JungleWeed " + shape + color + ".jpeg");
 
     }
 
 
     @Override
     public void draw() {
+        pic.draw();
+        pic.grow(-400, -400);
 
     }
 
     @Override
     public void clear() {
-
+        pic.delete();
     }
 
     @Override
-    public int getX() {
-        return 0;
+    public void setX(int x) {
+        this.x = x;
     }
 
     @Override
-    public int getY() {
-        return 0;
+    public void setY(int y) {
+        this.y = y;
     }
 }

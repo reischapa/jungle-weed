@@ -1,16 +1,23 @@
 package org.academiadecodigo.jungleweed.card;
 
+import org.academiadecodigo.jungleweed.Drawable;
+import org.academiadecodigo.jungleweed.simplegfx.SimpleGfxCard;
+
 /**
  * Created by codecadet on 1/22/17.
  */
-public class Card {
+public class Card implements Drawable{
 
     private CardShape shape;
     private CardColor color;
+    private Drawable drawableCard;
+    private int x;
+    private int y;
 
-    public Card(CardShape shape, CardColor color) {
+    public Card(CardShape shape, CardColor color, Drawable drawableCard) {
         this.shape = shape;
         this.color = color;
+        this.drawableCard = drawableCard;
     }
 
     public Card(CardShape shape) {
@@ -30,5 +37,27 @@ public class Card {
     @Override
     public String toString() {
         return shape.toString() + " " + color.toString();
+    }
+
+
+    @Override
+    public void draw() {
+        drawableCard.draw();
+        drawableCard.setX(20);
+        drawableCard.setY(20);
+
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    @Override
+    public void clear() {
+
     }
 }
