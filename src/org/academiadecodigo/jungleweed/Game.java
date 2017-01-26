@@ -13,14 +13,14 @@ import org.academiadecodigo.jungleweed.player.PlayerFactory;
 public class Game {
 
     private static int NUMBER_PLAYERS = 4;
-    private static int NUMBER_CARDS_TOTAL = 80;
+    private static int NUMBER_CARDS_TOTAL = 56;
     private static int NUMBER_HAND_CARDS;
 
     private Player[] players;
     private CompareType compareType;
-    Card[] deck;
-    CardFactory cardFactory;
-    Card[] comparableCards;
+    private Card[] deck;
+    private CardFactory cardFactory;
+    private Card[] comparableCards;
 
     private int playerTurn;
 
@@ -79,22 +79,41 @@ public class Game {
 
     public void getPlayerFaceUpCard(int turn){
 
-        if(playerTurn==turn){
+        if(playerTurn == turn){
             players[playerTurn].revealNextCard();
             comparableCards[playerTurn]=players[playerTurn].getFaceUpCard();
             nextPlayerTurn();
+        }
+        else{
+            System.out.println("Not Your Turn");
         }
 
     }
 
     public void grabTotem(int turn){
-        comparePlayercards(comparableCards, players[turn]);
-        nextPlayerTurn();
+
+        for(int i=0; i<players.length;i++) {
+            if (players[i].isAgarraPau()) {
+                return;
+            }
+        }players[turn].agarraPau();
+
+        System.out.println(comparePlayercards(turn, comparableCards[turn]));
+        players[turn].largaPau();
 
     }
 
-    private boolean comparePlayercards(Card[] comparableCards, Player player) {
-        //comparableCards
+    private boolean comparePlayercards(int turn, Card comparableCard) {
+        comparableCards[turn]=null;
+        int iterator=0;
+        for(Card card : comparableCards){
+            if(card != null && comparableCard !=null) {
+                if (compareCards(comparableCard, card)) {
+                    System.out.println(comparableCard.getShape() + " " + card.getShape());
+                    return true;
+                }
+            }
+        }
         return false;
 
     }
@@ -117,10 +136,10 @@ public class Game {
     }
 
     private void nextPlayerTurn(){
-        if(playerTurn<players.length) {
+        if(playerTurn < players.length-1) {
             playerTurn++;
         }else{
-            playerTurn=0;
+            playerTurn = 0;
         }
     }
 
@@ -135,10 +154,10 @@ public class Game {
 
 
     private void dealAllCards(){
-        //deck = cardFactory.getNCards(NUMBER_CARDS_TOTAL);
-        for(int i=0; i<deck.length; i++) {
+        deck = cardFactory.getNCards(NUMBER_CARDS_TOTAL);
+       /* for(int i=0; i<deck.length; i++) {
             deck[i] = CardFactory.getRandomCard();
-        }
+        }*/
 
         for(int i=0; i<NUMBER_PLAYERS;i++) {
             Card[] cardsPlayer = new Card[NUMBER_HAND_CARDS];
@@ -149,15 +168,15 @@ public class Game {
 
     }
 
-    /*private void changeCardPosition(Card[] cards, Player player){
+    private void changeCardPosition(Card[] cards, Player player){
         for(Card card : cards){
-            cards.setx(player.getx());
-            cards.sety(player.gety());
+            card.setX(player.getX());
+            card.setY(player.getY());
         }
-    }*/
+    }
 
     private boolean compareShape(Card c1, Card c2) {
-        return c1.getShape() == c2.getShape();
+        return c1.getShape().equals(c2.getShape());
     }
 
 

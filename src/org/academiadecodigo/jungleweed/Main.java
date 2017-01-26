@@ -13,6 +13,21 @@ public class Main {
         Game game = new Game();
         game.init();
         game.start();
+        game.grabTotem(0);
+        game.getPlayerFaceUpCard(0);
+        game.getPlayerFaceUpCard(1);
+        game.getPlayerFaceUpCard(2);
+        game.getPlayerFaceUpCard(3);
+        game.getPlayerFaceUpCard(2);
+        game.getPlayerFaceUpCard(1);
+        game.grabTotem(0);
+        game.getPlayerFaceUpCard(0);
+        game.getPlayerFaceUpCard(1);
+        game.getPlayerFaceUpCard(2);
+        game.getPlayerFaceUpCard(3);
+        game.grabTotem(1);
+
+
         System.out.println("Acabou crlh!");
     }
 
