@@ -82,6 +82,7 @@ public class Game {
         if(playerTurn == turn){
             players[playerTurn].revealNextCard();
             comparableCards[playerTurn]=players[playerTurn].getFaceUpCard();
+            //System.out.println(playerTurn);
             nextPlayerTurn();
         }
         else{
@@ -94,10 +95,10 @@ public class Game {
 
         for(int i=0; i<players.length;i++) {
             if (players[i].isAgarraPau()) {
+                System.out.println("Totem is Grabbed");
                 return;
             }
         }players[turn].agarraPau();
-
         System.out.println(comparePlayercards(turn, comparableCards[turn]));
         players[turn].largaPau();
 
@@ -107,9 +108,10 @@ public class Game {
         comparableCards[turn]=null;
         int iterator=0;
         for(Card card : comparableCards){
+            iterator++;
             if(card != null && comparableCard !=null) {
                 if (compareCards(comparableCard, card)) {
-                    System.out.println(comparableCard.getShape() + " " + card.getShape());
+                    System.out.println(turn + ":" + comparableCard.getShape() + " " + iterator + ":" + card.getShape());
                     return true;
                 }
             }
@@ -168,12 +170,12 @@ public class Game {
 
     }
 
-    private void changeCardPosition(Card[] cards, Player player){
+   /* private void changeCardPosition(Card[] cards, Player player){
         for(Card card : cards){
             card.setX(player.getX());
             card.setY(player.getY());
         }
-    }
+    }*/
 
     private boolean compareShape(Card c1, Card c2) {
         return c1.getShape().equals(c2.getShape());

@@ -1,11 +1,9 @@
-package org.academiadecodigo.jungleweed.simplegfx;
+package org.academiadecodigo.jungleweed.HD_Grafiks_2_0;
 
 import org.academiadecodigo.jungleweed.Drawable;
 import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-
-import java.nio.file.Path;
 
 /**
  * Created by anton on 25/01/2017.

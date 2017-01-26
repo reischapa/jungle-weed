@@ -26,6 +26,7 @@ public class Main {
         game.getPlayerFaceUpCard(2);
         game.getPlayerFaceUpCard(3);
         game.grabTotem(1);
+        game.grabTotem(2);
 
 
         System.out.println("Acabou crlh!");
