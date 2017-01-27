@@ -27,6 +27,8 @@ public class Game {
 
     private boolean color;
 
+    private boolean gameEnd;
+
 
 
     public Game(/*TODO NumberPlayers here*/) {
@@ -36,6 +38,7 @@ public class Game {
         NUMBER_HAND_CARDS = NUMBER_CARDS_TOTAL / NUMBER_PLAYERS;
         playerTurn = 0;
         color=false;
+        gameEnd=false;
     }
 
 
@@ -54,30 +57,6 @@ public class Game {
         dealAllCards();
         //Field Dray
         comparableCards = new Card[players.length];
-
-        /*while(true){
-
-            int iterator = 0;
-            for(Player player : players){
-                if(player.getTotalNumberOfCards() == 0){
-                    System.out.println("Game Over");
-                    return;
-                }
-                player.revealNextCard();
-                comparableCards[iterator] = player.getFaceUpCard();
-
-                iterator++;
-
-            }
-            iterator=0;
-            Player[] playerCardBattle = compareAllcards(comparableCards, players);
-            if(playerCardBattle[1]!=null) {
-                playerCardBattle[0].addCards(playerCardBattle[1].giveCards());
-                System.out.println(playerCardBattle[0].getTotalNumberOfCards());
-            }
-
-        }*/
-
 
     }
 
@@ -113,7 +92,17 @@ public class Game {
         }players[turn].agarraPau();
         System.out.println("Player" + (turn+1) + " ganhou : " + comparePlayercards(turn, comparableCards[turn]));
         players[turn].largaPau();
+        isGameOver();
 
+
+    }
+
+    private void isGameOver() {
+        for(Player player : players){
+            if(player.getTotalNumberOfCards()==0){
+                this.gameEnd=true;
+            }
+        }
     }
 
     private boolean comparePlayercards(int turn, Card comparableCard) {
@@ -219,6 +208,20 @@ public class Game {
     private void clearComparableCards(){
         for(Card card : comparableCards){
             card = null;
+        }
+    }
+
+    public boolean getGameEnd() {
+        return gameEnd;
+    }
+
+    public void playerInfo(){
+        for(Player player : players){
+            System.out.print("Total Cards : " + player.getTotalNumberOfCards() + " ");
+            System.out.print("Revealed Cards: " + player.getNumberRevealedCards() + " ");
+            System.out.print("FaceDown Cards: " + player.getNumberFaceDownCards() + " ");
+            System.out.print("FaceUp Card: " + player.getFaceUpCard().getShape() + "|" + player.getFaceUpCard().getColor());
+            System.out.println();
         }
     }
 
