@@ -9,21 +9,36 @@ public class Card {
 
     private CardShape shape;
     private CardColor color;
-    private Drawable drawableCard;
-    private int x;
-    private int y;
-
-    public Card(CardShape shape, CardColor color, Drawable drawableCard) {
-        this.shape = shape;
-        this.color = color;
-        this.drawableCard = drawableCard;
-    }
+    private boolean visible;
+    private int xFaceUp;
+    private int yFaceUp;
+    private int xFaceDown;
+    private int yFaceDown;
 
     public Card(CardShape shape, CardColor color) {
         this.shape = shape;
         this.color = color;
     }
 
+    public void turn(){
+       visible = !visible;
+    }
+
+    public void setXFaceUp(int x) {
+        this.xFaceUp = x;
+    }
+
+    public void setYFaceUp(int y) {
+        this.yFaceUp = y;
+    }
+
+    public void setXFaceDown(int y) {
+        this.xFaceDown = y;
+    }
+
+    public void setYFaceDown(int x) {
+        this.yFaceDown = x;
+    }
 
     public CardColor getColor() {
         return color;
@@ -33,28 +48,28 @@ public class Card {
         return shape;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public int getxFaceUp() {
+        return xFaceUp;
+    }
+
+    public int getyFaceUp() {
+        return yFaceUp;
+    }
+
+    public int getxFaceDown() {
+        return xFaceDown;
+    }
+
+    public int getyFaceDown() {
+        return yFaceDown;
+    }
+
     @Override
     public String toString() {
         return shape.toString() + " " + color.toString();
-    }
-
-
-    public void draw() {
-        //drawableCard.draw();
-        //drawableCard.setX(20);
-        //drawableCard.setY(20);
-
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void clear() {
-        //drawableCard.clear();
     }
 }
