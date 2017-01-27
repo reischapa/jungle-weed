@@ -57,7 +57,8 @@ public class CardFactory {
         for (int i = 0; i < this.allowedShapes.length; i++) {
             for (int j = 0; j < this.allowedColors.length; j++) {
 
-                SimpleGfxCard sgfx = new SimpleGfxCard(this.allowedShapes[i], this.allowedColors[i]);
+                //System.out.println(this.allowedShapes[i] + " " + this.allowedColors[j]);
+                SimpleGfxCard sgfx = new SimpleGfxCard(this.allowedShapes[i], this.allowedColors[j]);
                 Card c = new Card(this.allowedShapes[i], this.allowedColors[j], sgfx);
                 this.readyCards.push(c);
 

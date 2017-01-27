@@ -124,9 +124,14 @@ public class Player {
     //when the player receives cards from the game
     public void addCards(Card[] cards) {
 
+        if (cards == null) {
+            return;
+        }
+
 
         int j = 0;
-        for(int i = 0; i < this.faceDownCards.length; i++) {
+        int i = 0;
+        for(; i < this.faceDownCards.length; i++) {
             if (this.faceDownCards[i] != null) {
                 continue;
             }
@@ -150,6 +155,18 @@ public class Player {
             }
 
         }
+
+        for(int k = 0; k < this.revealedCards.length; k++) {
+
+            if (this.revealedCards[k] == null) {
+                break;
+            }
+
+            this.faceDownCards[j + k] = this.revealedCards[k];
+            this.revealedCards[k] = null;
+
+        }
+
 
         if (!this.emptyFaceDown) {
             this.faceDownCards[0].draw();

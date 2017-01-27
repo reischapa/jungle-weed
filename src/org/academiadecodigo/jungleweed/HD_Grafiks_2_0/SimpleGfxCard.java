@@ -16,7 +16,7 @@ public class SimpleGfxCard implements Drawable {
 
 
     public SimpleGfxCard(CardShape shape, CardColor color) {
-        pic = new Picture(450, 0, "res/JungleWeed " + shape + color + ".jpeg");
+        //pic = new Picture(450, 0, "res/" + shape + color + ".jpeg");
 
     }
 

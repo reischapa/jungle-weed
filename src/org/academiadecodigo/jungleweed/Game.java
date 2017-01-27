@@ -86,7 +86,7 @@ public class Game {
         if(playerTurn == turn){
             players[playerTurn].revealNextCard();
             comparableCards[playerTurn]=players[playerTurn].getFaceUpCard();
-            if(players[playerTurn].getFaceUpCard().getShape() == CardShape.COLOR && color == false){
+            if(players[playerTurn].getFaceUpCard().getShape() == CardShape.CHANGECOLOR && color == false){
                 changeCompareType();
                 color = true;
                 System.out.println("COLOR= " + color);
@@ -162,7 +162,7 @@ public class Game {
 
     private void isColor(){
         for(Card card : comparableCards){
-            if(card.getShape() == CardShape.COLOR){
+            if(card.getShape() == CardShape.CHANGECOLOR){
                 return;
             }
         }
@@ -188,7 +188,7 @@ public class Game {
 
 
     private boolean compareColor(Card c1, Card c2) {
-        if(c1.getShape()!=CardShape.COLOR && c2.getShape()!=CardShape.COLOR) {
+        if(c1.getShape()!=CardShape.CHANGECOLOR && c2.getShape()!=CardShape.CHANGECOLOR) {
             return c1.getColor() == c2.getColor();
         }
         return false;

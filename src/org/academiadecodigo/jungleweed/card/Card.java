@@ -40,9 +40,9 @@ public class Card {
 
 
     public void draw() {
-        drawableCard.draw();
-        drawableCard.setX(20);
-        drawableCard.setY(20);
+        //drawableCard.draw();
+        //drawableCard.setX(20);
+        //drawableCard.setY(20);
 
     }
 
@@ -55,6 +55,6 @@ public class Card {
     }
 
     public void clear() {
-        drawableCard.clear();
+        //drawableCard.clear();
     }
 }
