@@ -237,6 +237,7 @@ public class Game {
         dealAllCards();
     }
 
-
-
+    public int getPlayerTurn() {
+        return playerTurn;
+    }
 }
