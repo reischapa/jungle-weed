@@ -1,5 +1,7 @@
 package org.academiadecodigo.jungleweed.card;
 
+import org.academiadecodigo.jungleweed.HD_Grafiks_2_0.SimpleGfxCard;
+import org.academiadecodigo.jungleweed.HD_Grafiks_2_0.SimpleGfxTable;
 import org.academiadecodigo.jungleweed.Utils;
 
 import java.util.Collections;
@@ -39,13 +41,13 @@ public class CardFactory {
     private CardShape[] allowedShapes;
     private CardColor[] allowedColors;
 
-    private Stack readyCards;
+    private Stack<Card> readyCards;
 
     public CardFactory(CardShape[] allowedShapes, CardColor[] allowedColors ) {
 
         this.allowedShapes = allowedShapes;
         this.allowedColors = allowedColors;
-        this.readyCards = new Stack();
+        this.readyCards = new Stack<>();
         this.createDeck();
 
     }
@@ -54,7 +56,11 @@ public class CardFactory {
 
         for (int i = 0; i < this.allowedShapes.length; i++) {
             for (int j = 0; j < this.allowedColors.length; j++) {
-                this.readyCards.push(new Card(this.allowedShapes[i], this.allowedColors[j]));
+
+                SimpleGfxCard sgfx = new SimpleGfxCard(this.allowedShapes[i], this.allowedColors[i]);
+                Card c = new Card(this.allowedShapes[i], this.allowedColors[j], sgfx);
+                this.readyCards.push(c);
+
             }
         }
 
