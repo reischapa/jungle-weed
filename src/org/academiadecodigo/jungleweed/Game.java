@@ -56,14 +56,14 @@ public class Game {
 
     public void start() {
         dealAllCards();
-        //Field Dray
+        //Field Draw
         comparableCards = new Card[players.length];
 
     }
 
     public void getPlayerFaceUpCard(int turn){
 
-        if(playerTurn == turn){
+        if(playerTurn == turn ){
             players[playerTurn].revealNextCard();
             comparableCards[playerTurn]=players[playerTurn].getFaceUpCard();
             if(players[playerTurn].getFaceUpCard().getShape() == CardShape.CHANGECOLOR && color == false){
@@ -115,11 +115,13 @@ public class Game {
                     System.out.println((turn+1) + ":" + comparableCard.getShape() + ", " + comparableCard.getColor() + " " + (iterator+1) + ":" + card.getShape() + ", " + card.getColor());
                     tradeCards(players[turn],players[iterator]);
                     card = null;
+                    playerTurn = iterator;
                     return true;
                 }
             }
             iterator++;
         }
+        playerTurn = turn;
         clearComparableCards();
         System.out.println(players[0].getNumberRevealedCards());
         System.out.println(players[1].getNumberRevealedCards());
@@ -152,10 +154,11 @@ public class Game {
 
     private void isColor(){
         for(Card card : comparableCards){
-            if(card.getShape() == CardShape.CHANGECOLOR){
+            if(card != null && card.getShape() == CardShape.CHANGECOLOR){
                 return;
             }
         }
+        changeCompareType();
         color=false;
     }
 
@@ -224,6 +227,14 @@ public class Game {
             System.out.print("FaceUp Card: " + player.getFaceUpCard());
             System.out.println();
         }
+    }
+
+    public void reset(){
+        gameEnd = false;
+        playerTurn = 0;
+        cardFactory = new CardFactory(CardShape.values(), CardColor.values());
+        deck = new Card[nCardsTotal];
+        dealAllCards();
     }
 
 
