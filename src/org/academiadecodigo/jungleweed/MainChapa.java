@@ -1,5 +1,6 @@
 package org.academiadecodigo.jungleweed;
 
+import org.academiadecodigo.jungleweed.HD_Grafiks_2_0.SimpleGfxCard;
 import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.CardFactory;
@@ -17,6 +18,7 @@ public class MainChapa {
     }
 
     public static void playerTests() throws Exception {
+
         Card[] cards = new Card[10];
 
         for (int i = 0; i < 10; i++) {

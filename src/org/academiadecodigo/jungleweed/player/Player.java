@@ -23,11 +23,32 @@ public class Player {
 
     private boolean agarraPau;
 
+    private int xFaceDown;
+    private int yFaceDown;
+
+    private int xFaceUp;
+    private int yFaceUp;
+
     public Player(int maxPossibleCards) {
         this.maxPossibleCards = maxPossibleCards;
 
         this.revealedCards = new Card[this.maxPossibleCards];
         this.faceDownCards = new Card[this.maxPossibleCards];
+
+    }
+
+
+    public Player(int maxPossibleCards, int xFaceDown, int yFaceDown, int xFaceUp, int yFaceUp) {
+        this.maxPossibleCards = maxPossibleCards;
+        this.revealedCards = new Card[this.maxPossibleCards];
+        this.faceDownCards = new Card[this.maxPossibleCards];
+
+        this.xFaceDown = xFaceDown;
+        this.yFaceDown = yFaceDown;
+
+        this.xFaceUp = xFaceUp;
+        this.yFaceUp = yFaceUp;
+
 
     }
 
@@ -40,14 +61,25 @@ public class Player {
 
         if (faceUpCard != null) {
             this.pushRevealedCards();
+            faceUpCard.clear();
         }
 
         this.faceUpCard = this.faceDownCards[0];
 
+        this.faceUpCard.setX(this.xFaceUp);
+        this.faceUpCard.setY(this.yFaceUp);
+
         this.faceDownCards[0] = null;
+
         this.numberFaceDownCards--;
 
         this.defragFaceDownCards();
+
+        if (!this.emptyFaceDown) {
+            this.faceDownCards[0].draw();
+        }
+
+        this.faceUpCard.draw();
 
         return this.emptyFaceDown;
 
@@ -105,6 +137,11 @@ public class Player {
 
             this.emptyFaceDown = false;
             this.faceDownCards[i] = cards[j];
+
+            this.faceDownCards[i].clear();
+            this.faceDownCards[i].setX(this.xFaceDown);
+            this.faceDownCards[i].setY(this.yFaceDown);
+
             this.numberFaceDownCards++;
             j++;
 
@@ -112,6 +149,10 @@ public class Player {
                 break;
             }
 
+        }
+
+        if (!this.emptyFaceDown) {
+            this.faceDownCards[0].draw();
         }
 
 
@@ -194,4 +235,7 @@ public class Player {
     public int getNumberRevealedCards() {
         return this.numberRevealedCards;
     }
+
+
+
 }
