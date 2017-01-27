@@ -67,10 +67,8 @@ public class Player {
 
         this.faceUpCard = this.faceDownCards[0];
 
-
-
-
         this.faceDownCards[0] = null;
+
 
         this.numberFaceDownCards--;
 
@@ -79,6 +77,9 @@ public class Player {
         if (!this.emptyFaceDown) {
 
         }
+
+
+        this.faceUpCard.turn();
 
         return this.emptyFaceDown;
 
@@ -142,6 +143,8 @@ public class Player {
             this.emptyFaceDown = false;
             this.faceDownCards[i] = cards[j];
 
+            setCoordinates(this.faceDownCards[i]);
+
             this.numberFaceDownCards++;
             j++;
 
@@ -168,6 +171,14 @@ public class Player {
         }
 
 
+    }
+
+    private void setCoordinates(Card input) {
+        input.setXFaceUp(this.xFaceUp);
+        input.setYFaceUp(this.yFaceUp);
+        input.setXFaceDown(this.xFaceDown);
+        input.setYFaceUp(this.yFaceDown);
+        input.turn();
     }
 
 

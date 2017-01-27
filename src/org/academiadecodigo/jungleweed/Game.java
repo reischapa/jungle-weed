@@ -28,10 +28,9 @@ public class Game {
 
     private boolean gameEnd;
 
-
+    private PlayerFactory playerFactory;
 
     public Game(int nPlayers, int nCardsTotal) {
-
         this.numPlayers = nPlayers;
         this.players = new Player[this.numPlayers];
         this.compareType = CompareType.SHAPE;
@@ -40,13 +39,14 @@ public class Game {
         playerTurn = 0;
         color=false;
         gameEnd=false;
+        this.playerFactory = new PlayerFactory(this.numPlayers, this.nCardsTotal);
     }
 
 
     public void init() {
         // Create Field;
         for(int i = 0; i< numPlayers; i++){
-            players[i]= PlayerFactory.getNewPlayer(nCardsTotal);
+            players[i]= this.playerFactory.getNextPlayer();
         }
         cardFactory = new CardFactory(CardShape.values(), CardColor.values());
         deck = new Card[nCardsTotal];

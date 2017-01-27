@@ -19,8 +19,6 @@ public class SimpleGfxCard extends Card{
             faceUp = new Picture(0, 0, "res/" + shape + color + ".jpeg");
             faceDown = new Picture(0,0, "res/CARDBACK.jpeg");
 
-
-
     }
 
     @Override

@@ -31,12 +31,12 @@ public class Card {
         this.yFaceUp = y;
     }
 
-    public void setXFaceDown(int y) {
-        this.xFaceDown = y;
+    public void setXFaceDown(int x) {
+        this.xFaceDown = x;
     }
 
-    public void setYFaceDown(int x) {
-        this.yFaceDown = x;
+    public void setYFaceDown(int y) {
+        this.yFaceDown = y;
     }
 
     public CardColor getColor() {
