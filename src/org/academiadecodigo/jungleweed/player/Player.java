@@ -39,6 +39,7 @@ public class Player {
 
 
     public Player(int maxPossibleCards, int xFaceDown, int yFaceDown, int xFaceUp, int yFaceUp) {
+
         this.maxPossibleCards = maxPossibleCards;
         this.revealedCards = new Card[this.maxPossibleCards];
         this.faceDownCards = new Card[this.maxPossibleCards];
@@ -61,13 +62,13 @@ public class Player {
 
         if (faceUpCard != null) {
             this.pushRevealedCards();
-            faceUpCard.clear();
+
         }
 
         this.faceUpCard = this.faceDownCards[0];
 
-        this.faceUpCard.setX(this.xFaceUp);
-        this.faceUpCard.setY(this.yFaceUp);
+
+
 
         this.faceDownCards[0] = null;
 
@@ -76,10 +77,8 @@ public class Player {
         this.defragFaceDownCards();
 
         if (!this.emptyFaceDown) {
-            this.faceDownCards[0].draw();
-        }
 
-        this.faceUpCard.draw();
+        }
 
         return this.emptyFaceDown;
 
@@ -143,10 +142,6 @@ public class Player {
             this.emptyFaceDown = false;
             this.faceDownCards[i] = cards[j];
 
-            this.faceDownCards[i].clear();
-            this.faceDownCards[i].setX(this.xFaceDown);
-            this.faceDownCards[i].setY(this.yFaceDown);
-
             this.numberFaceDownCards++;
             j++;
 
@@ -169,7 +164,7 @@ public class Player {
 
 
         if (!this.emptyFaceDown) {
-            this.faceDownCards[0].draw();
+
         }
 
 
@@ -179,6 +174,7 @@ public class Player {
     public int getTotalNumberOfCards() {
         return this.numberFaceDownCards + this.numberRevealedCards + (this.faceUpCard != null ? 1 : 0);
     }
+
 
 
     //when the player gives cards to the game

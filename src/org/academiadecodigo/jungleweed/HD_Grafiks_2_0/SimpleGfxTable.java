@@ -13,12 +13,10 @@ public class SimpleGfxTable extends Table{
 
     }
 
-    @Override
     public void draw() {
 
     }
 
-    @Override
     public void clear() {
 
     }

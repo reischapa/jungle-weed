@@ -1,6 +1,5 @@
 package org.academiadecodigo.jungleweed.card;
 
-import org.academiadecodigo.jungleweed.Drawable;
 
 /**
  * Created by codecadet on 1/22/17.

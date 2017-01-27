@@ -126,7 +126,7 @@ public class SFXController implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
-        for (int i = 0; i < this.allRevealKeys.length; i++) {
+        for (int i = 0; i < this.numPlayers; i++) {
 
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
                 System.exit(0);
@@ -142,7 +142,7 @@ public class SFXController implements KeyboardHandler {
                 return;
             }
 
-            if (keyboardEvent.getKey() == this.allGrabKeys[i]) {
+            if (keyboardEvent.getKey() == this.grabKeys.get(i)) {
                 this.game.grabTotem(i);
                 return;
             }
