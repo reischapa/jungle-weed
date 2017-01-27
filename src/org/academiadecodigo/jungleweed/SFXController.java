@@ -1,5 +1,7 @@
 package org.academiadecodigo.jungleweed;
 
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -30,7 +32,12 @@ public class SFXController implements KeyboardHandler {
 
     public static void main(String[] args) {
 
-        SFXController c = new SFXController(2);
+
+        Rectangle r = new Rectangle(0, 0, 1600, 900);
+        r.setColor(Color.WHITE);
+        r.fill();
+
+        SFXController c = new SFXController(4);
 
 
 

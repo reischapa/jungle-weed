@@ -177,8 +177,7 @@ public class Player {
         input.setXFaceUp(this.xFaceUp);
         input.setYFaceUp(this.yFaceUp);
         input.setXFaceDown(this.xFaceDown);
-        input.setYFaceUp(this.yFaceDown);
-        input.turn();
+        input.setYFaceDown(this.yFaceDown);
     }
 
 
