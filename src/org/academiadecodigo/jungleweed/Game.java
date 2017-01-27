@@ -6,6 +6,7 @@ import org.academiadecodigo.jungleweed.card.CardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.player.Player;
 import org.academiadecodigo.jungleweed.player.PlayerFactory;
+import org.academiadecodigo.simplegraphics.graphics.Color;
 
 /**
  * Created by codecadet on 1/22/17.
@@ -13,7 +14,7 @@ import org.academiadecodigo.jungleweed.player.PlayerFactory;
 public class Game {
 
     private static int NUMBER_PLAYERS = 4;
-    private static int NUMBER_CARDS_TOTAL = 56;
+    private static int NUMBER_CARDS_TOTAL = 60;
     private static int NUMBER_HAND_CARDS;
 
     private Player[] players;
@@ -24,6 +25,8 @@ public class Game {
 
     private int playerTurn;
 
+    private boolean color;
+
 
 
     public Game(/*TODO NumberPlayers here*/) {
@@ -32,6 +35,7 @@ public class Game {
         this.compareType = CompareType.SHAPE;
         NUMBER_HAND_CARDS = NUMBER_CARDS_TOTAL / NUMBER_PLAYERS;
         playerTurn = 0;
+        color=false;
     }
 
 
@@ -82,7 +86,15 @@ public class Game {
         if(playerTurn == turn){
             players[playerTurn].revealNextCard();
             comparableCards[playerTurn]=players[playerTurn].getFaceUpCard();
-            //System.out.println(playerTurn);
+            if(players[playerTurn].getFaceUpCard().getShape() == CardShape.COLOR && color == false){
+                changeCompareType();
+                color = true;
+                System.out.println("COLOR= " + color);
+            }
+            else if(color==true){
+                isColor();
+            }
+            System.out.println(players[playerTurn].getFaceUpCard().getShape() + " " + players[playerTurn].getFaceUpCard().getColor());
             nextPlayerTurn();
         }
         else{
@@ -99,7 +111,7 @@ public class Game {
                 return;
             }
         }players[turn].agarraPau();
-        System.out.println(comparePlayercards(turn, comparableCards[turn]));
+        System.out.println("Player" + (turn+1) + " ganhou : " + comparePlayercards(turn, comparableCards[turn]));
         players[turn].largaPau();
 
     }
@@ -108,33 +120,23 @@ public class Game {
         comparableCards[turn]=null;
         int iterator=0;
         for(Card card : comparableCards){
-            iterator++;
             if(card != null && comparableCard !=null) {
                 if (compareCards(comparableCard, card)) {
-                    System.out.println(turn + ":" + comparableCard.getShape() + " " + iterator + ":" + card.getShape());
+                    System.out.println((turn+1) + ":" + comparableCard.getShape() + ", " + comparableCard.getColor() + " " + (iterator+1) + ":" + card.getShape() + ", " + card.getColor());
+                    tradeCards(players[turn],players[iterator]);
+                    card = null;
                     return true;
                 }
             }
+            iterator++;
         }
+        clearComparableCards();
+        System.out.println(players[0].getNumberRevealedCards());
+        System.out.println(players[1].getNumberRevealedCards());
+        players[turn].getTotalNumberOfCards();
+        tradeAllCards(turn);
         return false;
 
-    }
-
-    private Player[] compareAllcards(Card[] comparableCards, Player[] players){
-        Player[] playerCardBattle = new Player[2];
-        for(int i=0; i<comparableCards.length -1 ; i++){
-            for(int j=i+1; j<comparableCards.length;j++) {
-                if (compareCards(comparableCards[i], comparableCards[j])) {
-                    playerCardBattle[0]=players[i];
-                    playerCardBattle[1]=players[j];
-                    System.out.println("Player" + i + " and Player" + j + " Cards Match!");
-                    return playerCardBattle;
-                } else {
-                    System.out.println("Cards Dont Match");
-                }
-            }
-        }
-        return playerCardBattle;
     }
 
     private void nextPlayerTurn(){
@@ -146,14 +148,26 @@ public class Game {
     }
 
     private void tradeCards(Player player1, Player player2){
+        player2.addCards(player1.giveCards());
+        System.out.println(player2.getTotalNumberOfCards());
+    }
+
+    private void tradeAllCards(int turn){
+        for(Player player : players){
+            players[turn].addCards(player.giveCards());
+        }
+        System.out.println(players[turn].getTotalNumberOfCards());
 
     }
 
-    private void tradeAllCards(Player[] players){
-
+    private void isColor(){
+        for(Card card : comparableCards){
+            if(card.getShape() == CardShape.COLOR){
+                return;
+            }
+        }
+        color=false;
     }
-
-
 
     private void dealAllCards(){
         deck = cardFactory.getNCards(NUMBER_CARDS_TOTAL);
@@ -161,18 +175,12 @@ public class Game {
         for(int i=0; i<NUMBER_PLAYERS;i++) {
             Card[] cardsPlayer = new Card[NUMBER_HAND_CARDS];
             System.arraycopy(deck,i*NUMBER_HAND_CARDS,cardsPlayer,0,NUMBER_HAND_CARDS);
-            //changeCardPosition(cardsPlayer, players[i]);
             players[i].addCards(cardsPlayer);
+            //players[i].drawFaceDownCard();
         }
 
     }
 
-   /* private void changeCardPosition(Card[] cards, Player player){
-        for(Card card : cards){
-            card.setX(player.getX());
-            card.setY(player.getY());
-        }
-    }*/
 
     private boolean compareShape(Card c1, Card c2) {
         return c1.getShape().equals(c2.getShape());
@@ -180,7 +188,10 @@ public class Game {
 
 
     private boolean compareColor(Card c1, Card c2) {
-        return c1.getColor() == c2.getColor();
+        if(c1.getShape()!=CardShape.COLOR && c2.getShape()!=CardShape.COLOR) {
+            return c1.getColor() == c2.getColor();
+        }
+        return false;
     }
 
 
@@ -202,6 +213,12 @@ public class Game {
             compareType = CompareType.COLOR;
         }else{
             compareType = CompareType.SHAPE;
+        }
+    }
+
+    private void clearComparableCards(){
+        for(Card card : comparableCards){
+            card = null;
         }
     }
 
