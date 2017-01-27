@@ -5,6 +5,8 @@ package org.academiadecodigo.jungleweed.card;
  */
 public enum CardShape {
 
+    BALLS1,
+    BALLS2,
     CIRCLE1,
     CIRCLE2,
     CIRCLE3,
@@ -18,6 +20,6 @@ public enum CardShape {
     SPAGHETTI1,
     SPAGHETTI2,
     SPAGHETTI3,
-    SPAGHETTI4;
-
+    SPAGHETTI4,
+    CHANGECOLOR;
 }
