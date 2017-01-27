@@ -74,12 +74,11 @@ public class Player {
 
         this.defragFaceDownCards();
 
-        if (!this.emptyFaceDown) {
-
-        }
-
-
         this.faceUpCard.turn();
+
+        if (!emptyFaceDown) {
+            this.faceDownCards[0].turn();
+        }
 
         return this.emptyFaceDown;
 
@@ -145,6 +144,10 @@ public class Player {
 
             setCoordinates(this.faceDownCards[i]);
 
+            this.faceDownCards[i].turn();
+            this.faceDownCards[i].turn();
+
+
             this.numberFaceDownCards++;
             j++;
 
@@ -166,10 +169,10 @@ public class Player {
         }
 
 
-        if (!this.emptyFaceDown) {
-
-        }
-
+//        if (this.faceDownCards[0] != null) {
+//            this.faceDownCards[0].turn();
+//            this.faceDownCards[0].turn();
+//        }
 
     }
 
