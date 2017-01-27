@@ -6,16 +6,15 @@ import org.academiadecodigo.jungleweed.card.CardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.player.Player;
 import org.academiadecodigo.jungleweed.player.PlayerFactory;
-import org.academiadecodigo.simplegraphics.graphics.Color;
 
 /**
  * Created by codecadet on 1/22/17.
  */
 public class Game {
 
-    private static int NUMBER_PLAYERS = 4;
-    private static int NUMBER_CARDS_TOTAL = 60;
-    private static int NUMBER_HAND_CARDS;
+    private int numPlayers;
+    private int nCardsTotal;
+    private int nCardsHand;
 
     private Player[] players;
     private CompareType compareType;
@@ -31,11 +30,13 @@ public class Game {
 
 
 
-    public Game(/*TODO NumberPlayers here*/) {
-        //TODO
-        this.players = new Player[NUMBER_PLAYERS];
+    public Game(int nPlayers, int nCardsTotal) {
+
+        this.numPlayers = nPlayers;
+        this.players = new Player[this.numPlayers];
         this.compareType = CompareType.SHAPE;
-        NUMBER_HAND_CARDS = NUMBER_CARDS_TOTAL / NUMBER_PLAYERS;
+        this.nCardsTotal = nCardsTotal;
+        this.nCardsHand = this.nCardsTotal / this.numPlayers;
         playerTurn = 0;
         color=false;
         gameEnd=false;
@@ -44,11 +45,11 @@ public class Game {
 
     public void init() {
         // Create Field;
-        for(int i=0; i<NUMBER_PLAYERS;i++){
-            players[i]= PlayerFactory.getNewPlayer(NUMBER_CARDS_TOTAL);
+        for(int i = 0; i< numPlayers; i++){
+            players[i]= PlayerFactory.getNewPlayer(nCardsTotal);
         }
         cardFactory = new CardFactory(CardShape.values(), CardColor.values());
-        deck = new Card[NUMBER_CARDS_TOTAL];
+        deck = new Card[nCardsTotal];
 
     }
 
@@ -159,11 +160,11 @@ public class Game {
     }
 
     private void dealAllCards(){
-        deck = cardFactory.getNCards(NUMBER_CARDS_TOTAL);
+        deck = cardFactory.getNCards(nCardsTotal);
 
-        for(int i=0; i<NUMBER_PLAYERS;i++) {
-            Card[] cardsPlayer = new Card[NUMBER_HAND_CARDS];
-            System.arraycopy(deck,i*NUMBER_HAND_CARDS,cardsPlayer,0,NUMBER_HAND_CARDS);
+        for(int i = 0; i< numPlayers; i++) {
+            Card[] cardsPlayer = new Card[nCardsHand];
+            System.arraycopy(deck,i* nCardsHand,cardsPlayer,0, nCardsHand);
             players[i].addCards(cardsPlayer);
             //players[i].drawFaceDownCard();
         }
@@ -220,10 +221,11 @@ public class Game {
             System.out.print("Total Cards : " + player.getTotalNumberOfCards() + " ");
             System.out.print("Revealed Cards: " + player.getNumberRevealedCards() + " ");
             System.out.print("FaceDown Cards: " + player.getNumberFaceDownCards() + " ");
-            System.out.print("FaceUp Card: " + player.getFaceUpCard().getShape() + "|" + player.getFaceUpCard().getColor());
+            System.out.print("FaceUp Card: " + player.getFaceUpCard());
             System.out.println();
         }
     }
+
 
 
 }

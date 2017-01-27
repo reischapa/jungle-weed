@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("AGARRA O PAU GAME START");
-        Game game = new Game();
+        Game game = new Game(4,80);
         game.init();
         game.start();
         int rounds = 0;

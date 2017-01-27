@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
+import java.security.Key;
 import java.util.IllegalFormatCodePointException;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class SFXController implements KeyboardHandler {
 
     public static void main(String[] args) {
 
-        SFXController c = new SFXController(4);
+        SFXController c = new SFXController(2);
 
 
 
@@ -74,7 +75,7 @@ public class SFXController implements KeyboardHandler {
 
         this.numPlayers = numPlayers;
 
-        this.game = new Game();
+        this.game = new Game(numPlayers,60);
 
         this.game.init();
         this.game.start();
@@ -88,6 +89,19 @@ public class SFXController implements KeyboardHandler {
 
 
     private void constructEventListeners() {
+
+
+        KeyboardEvent exitEvent = new KeyboardEvent();
+        KeyboardEvent debugEvent = new KeyboardEvent();
+
+        exitEvent.setKey(KeyboardEvent.KEY_RIGHT);
+        debugEvent.setKey(KeyboardEvent.KEY_LEFT);
+
+        exitEvent.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        debugEvent.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        this.keyboard.addEventListener(exitEvent);
+        this.keyboard.addEventListener(debugEvent);
 
 
         for (int i = 0; i < this.revealKeys.size(); i++) {
@@ -118,12 +132,19 @@ public class SFXController implements KeyboardHandler {
                 System.exit(0);
             }
 
+            if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
+                this.game.playerInfo();
+                return;
+            }
+
             if (keyboardEvent.getKey() == this.revealKeys.get(i)) {
                 this.game.getPlayerFaceUpCard(i);
+                return;
             }
 
             if (keyboardEvent.getKey() == this.allGrabKeys[i]) {
                 this.game.grabTotem(i);
+                return;
             }
 
         }
