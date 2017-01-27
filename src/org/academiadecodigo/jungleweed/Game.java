@@ -157,9 +157,6 @@ public class Game {
 
     private void dealAllCards(){
         deck = cardFactory.getNCards(NUMBER_CARDS_TOTAL);
-       /* for(int i=0; i<deck.length; i++) {
-            deck[i] = CardFactory.getRandomCard();
-        }*/
 
         for(int i=0; i<NUMBER_PLAYERS;i++) {
             Card[] cardsPlayer = new Card[NUMBER_HAND_CARDS];

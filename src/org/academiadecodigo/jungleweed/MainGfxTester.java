@@ -1,8 +1,5 @@
 package org.academiadecodigo.jungleweed;
 
-import org.academiadecodigo.jungleweed.card.CardColor;
-import org.academiadecodigo.jungleweed.card.CardShape;
-import org.academiadecodigo.jungleweed.simplegfx.SimpleGfxCard;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;

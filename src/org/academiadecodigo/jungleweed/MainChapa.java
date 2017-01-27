@@ -20,7 +20,7 @@ public class MainChapa {
         Card[] cards = new Card[10];
 
         for (int i = 0; i < 10; i++) {
-            cards[i] = new Card(CardShape.CIRCLE1);
+            cards[i] = new Card(CardShape.CIRCLE1, CardColor.GREEN);
         }
 
         Player p = new Player(20);

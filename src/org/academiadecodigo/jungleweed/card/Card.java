@@ -1,7 +1,6 @@
 package org.academiadecodigo.jungleweed.card;
 
 import org.academiadecodigo.jungleweed.Drawable;
-import org.academiadecodigo.jungleweed.simplegfx.SimpleGfxCard;
 
 /**
  * Created by codecadet on 1/22/17.
@@ -20,9 +19,9 @@ public class Card implements Drawable{
         this.drawableCard = drawableCard;
     }
 
-    public Card(CardShape shape) {
+    public Card(CardShape shape, CardColor color) {
         this.shape = shape;
-        this.color = CardColor.BLUE;
+        this.color = color;
     }
 
 
