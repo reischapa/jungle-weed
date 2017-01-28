@@ -1,4 +1,4 @@
-package org.academiadecodigo.jungleweed.GameObjects;
+package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
 /**
  * Created by Luis on 28/01/2017.
@@ -7,7 +7,11 @@ public interface Representable {
 
     public void setX(int x);
 
-    public void sety(int y);
+    public void setY(int y);
+
+    public int getX();
+
+    public int getY();
 
     public void draw();
 

@@ -1,7 +1,6 @@
 package org.academiadecodigo.jungleweed;
 
-import org.academiadecodigo.jungleweed.card.Card;
-import org.academiadecodigo.jungleweed.card.CardFactory;
+import org.academiadecodigo.jungleweed.LogicEngine.LogicEngine;
 
 /**
  * Created by codecadet on 1/22/17.
@@ -10,17 +9,17 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("AGARRA O PAU GAME START");
-        Game game = new Game(4,80);
-        game.init();
-        game.start();
+        LogicEngine logicEngine = new LogicEngine(4,80);
+        logicEngine.init();
+        logicEngine.start();
         int rounds = 0;
-        //game.grabTotem(0);
-        while(!game.getGameEnd()) {
-            game.getPlayerFaceUpCard(0);
-            game.getPlayerFaceUpCard(1);
-            game.getPlayerFaceUpCard(2);
-            game.getPlayerFaceUpCard(3);
-            game.grabTotem(0);
+        //logicEngine.grabTotem(0);
+        while(!logicEngine.getGameEnd()) {
+            logicEngine.getPlayerFaceUpCard(0);
+            logicEngine.getPlayerFaceUpCard(1);
+            logicEngine.getPlayerFaceUpCard(2);
+            logicEngine.getPlayerFaceUpCard(3);
+            logicEngine.grabTotem(0);
             rounds++;
 
         }

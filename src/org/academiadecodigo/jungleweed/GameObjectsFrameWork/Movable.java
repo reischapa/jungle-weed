@@ -1,4 +1,4 @@
-package org.academiadecodigo.jungleweed.GameObjects;
+package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
 /**
  * Created by Luis on 28/01/2017.
