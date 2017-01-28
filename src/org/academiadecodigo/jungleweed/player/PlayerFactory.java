@@ -27,10 +27,10 @@ public class PlayerFactory {
 
     private void init() {
 
-        playerList.add(new PlayerList(this.maxCards, 48, 470, 48, 290));
-        playerList.add(new PlayerList(this.maxCards, 640, 30, 820, 30));
-        playerList.add(new PlayerList(this.maxCards, 1412, 290, 1412, 470));
-        playerList.add(new PlayerList(this.maxCards, 820, 725, 640, 725));
+        playerList.add(new Player(this.maxCards, 48, 470, 48, 290));
+        playerList.add(new Player(this.maxCards, 640, 30, 820, 30));
+        playerList.add(new Player(this.maxCards, 1412, 290, 1412, 470));
+        playerList.add(new Player(this.maxCards, 820, 725, 640, 725));
 
         this.iterator = playerList.iterator();
 

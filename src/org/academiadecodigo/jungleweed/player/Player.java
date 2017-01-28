@@ -2,24 +2,17 @@ package org.academiadecodigo.jungleweed.player;
 
 import org.academiadecodigo.jungleweed.card.Card;
 
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by codecadet on 1/22/17.
  */
-public class Player {
-
-    private Card[] faceDownCards;
-    private Card[] revealedCards;
-    private Card faceUpCard;
-
-
-    private boolean emptyFaceDown;
+public class Player{
 
     private int maxPossibleCards;
-
-    private int numberFaceDownCards;
-    private int numberRevealedCards;
 
     private boolean agarraPau;
 
@@ -29,20 +22,27 @@ public class Player {
     private int xFaceUp;
     private int yFaceUp;
 
-    public Player(int maxPossibleCards) {
-        this.maxPossibleCards = maxPossibleCards;
+    private Deque<Card> faceDownCards;
+    private Deque<Card> faceUpCards;
 
-        this.revealedCards = new Card[this.maxPossibleCards];
-        this.faceDownCards = new Card[this.maxPossibleCards];
+
+
+    public Player(int maxPossibleCards) {
+
+
+        this.maxPossibleCards = maxPossibleCards;
+        this.faceDownCards = new LinkedList<>();
+        this.faceUpCards = new LinkedList<>();
 
     }
 
 
     public Player(int maxPossibleCards, int xFaceDown, int yFaceDown, int xFaceUp, int yFaceUp) {
-
         this.maxPossibleCards = maxPossibleCards;
-        this.revealedCards = new Card[this.maxPossibleCards];
-        this.faceDownCards = new Card[this.maxPossibleCards];
+
+//
+        this.faceDownCards = new LinkedList<>();
+        this.faceUpCards = new LinkedList<>();
 
         this.xFaceDown = xFaceDown;
         this.yFaceDown = yFaceDown;
@@ -50,113 +50,66 @@ public class Player {
         this.xFaceUp = xFaceUp;
         this.yFaceUp = yFaceUp;
 
+    }
+
+    //when the player recieves cards from the game
+    public void addCards(Card[] cards) {
+
+        if (cards == null || cards.length == 0) {
+            return;
+        }
+
+        for (Card c : cards) {
+            if (c != null) {
+                this.setCoordinates(c);
+                c.setCardStatus(Card.CardStatus.HIDDEN);
+                this.faceDownCards.addLast(c);
+            }
+        }
+
+        if (!this.faceDownCards.isEmpty()) {
+            this.faceDownCards.getFirst().setCardStatus(Card.CardStatus.FACEDOWN);
+        }
 
     }
 
 
     public boolean revealNextCard() {
 
-        if (emptyFaceDown) {
+        if (this.faceDownCards.isEmpty()) {
             return true;
         }
 
-        if (faceUpCard != null) {
-            this.pushRevealedCards();
-
+        if (!this.faceUpCards.isEmpty()) {
+            this.faceUpCards.getFirst().setCardStatus(Card.CardStatus.HIDDEN);
         }
 
-        this.faceUpCard = this.faceDownCards[0];
+        Card nextCard = this.faceDownCards.removeFirst();
+        nextCard.setCardStatus(Card.CardStatus.VISIBLE);
+        this.faceUpCards.addFirst(nextCard);
 
-        this.faceDownCards[0] = null;
-
-
-        this.numberFaceDownCards--;
-
-        this.defragFaceDownCards();
-
-        this.faceUpCard.setCardStatus(Card.CardStatus.VISIBLE);
-
-        if (!emptyFaceDown) {
-            this.faceDownCards[0].setCardStatus(Card.CardStatus.FACEDOWN);
+        if (!this.faceDownCards.isEmpty()) {
+            this.faceDownCards.getFirst().setCardStatus(Card.CardStatus.FACEDOWN);
         }
 
-        return this.emptyFaceDown;
-
+        return false;
 
     }
 
-    private void pushRevealedCards() {
 
-        Card[] result = new Card[this.revealedCards.length];
+    //when the player gives all the cards in the face up pile to the game
+    public Card[] giveCards() {
 
-        result[0] = this.faceUpCard;
+        List<Card> output = new LinkedList<>();
 
-        for (int i = 1; i < result.length ; i++) {
-            result[i] = this.revealedCards[i-1];
+        while (!this.faceUpCards.isEmpty()) {
+            output.add(this.faceUpCards.removeFirst());
         }
 
-        this.numberRevealedCards++;
-        this.revealedCards = result;
-
+        Card[] output2 = new Card[this.maxPossibleCards];
+        return output.toArray(output2);
     }
 
-    private void defragFaceDownCards() {
-
-        Card[] newArray = new Card[this.faceDownCards.length];
-        this.emptyFaceDown = true;
-        int i = 0;
-        int j = 0;
-        for (; i < this.faceDownCards.length; i++) {
-            if (faceDownCards[i] == null){
-                continue;
-            }
-
-            this.emptyFaceDown = false;
-            newArray[j] = this.faceDownCards[i];
-            j++;
-
-        }
-
-        this.faceDownCards = newArray;
-    }
-
-    //when the player receives cards from the game
-    public void addCards(Card[] cards) {
-
-        if (cards == null) {
-            return;
-        }
-
-
-        int j = 0;
-        int i = 0;
-        for(; i < this.faceDownCards.length; i++) {
-            if (this.faceDownCards[i] != null) {
-                continue;
-            }
-
-            if (cards[j] == null) {
-                continue;
-            }
-
-            this.emptyFaceDown = false;
-            this.faceDownCards[i] = cards[j];
-
-            setCoordinates(this.faceDownCards[i]);
-
-
-
-            this.numberFaceDownCards++;
-            j++;
-
-            if (j == cards.length) {
-                break;
-            }
-
-        }
-
-
-    }
 
 
     private void setCoordinates(Card input) {
@@ -168,41 +121,9 @@ public class Player {
 
 
     public int getTotalNumberOfCards() {
-        return this.numberFaceDownCards + this.numberRevealedCards + (this.faceUpCard != null ? 1 : 0);
+        return this.getNumberFaceDownCards() + this.getNumberRevealedCards() + (this.faceUpCards.peekFirst()==null? 0:1);
     }
 
-
-
-    //when the player gives cards to the game
-    public Card[] giveCards() {
-
-        if (this.faceUpCard == null) {
-            return null;
-        }
-
-        Card[] result = new Card[this.revealedCards.length];
-
-        result[0] = this.faceUpCard;
-        this.faceUpCard = null;
-
-        result[0].setCardStatus(Card.CardStatus.HIDDEN);
-
-        for (int i = 0; i < this.revealedCards.length - 1; i++) {
-
-            if (this.revealedCards[i] == null) {
-                break;
-            }
-
-            result[i+1] = this.revealedCards[i];
-            result[i+1].setCardStatus(Card.CardStatus.HIDDEN);
-            this.revealedCards[i] = null;
-            this.numberRevealedCards--;
-
-        }
-
-        return result;
-
-    }
 
     public void printFaceDownCards() {
         for (Card c : this.faceDownCards) {
@@ -211,13 +132,13 @@ public class Player {
     }
 
     public void printRevealedCards() {
-        for (Card c : this.revealedCards) {
+        for (Card c : this.faceUpCards) {
             System.out.println(c);
         }
     }
 
     public Card getFaceUpCard() {
-        return this.faceUpCard;
+        return this.faceUpCards.peekFirst();
     }
 
     public boolean isAgarraPau() {
@@ -237,30 +158,17 @@ public class Player {
     }
 
     public boolean isEmptyFaceDown() {
-        return emptyFaceDown;
+        return this.faceDownCards.isEmpty();
     }
 
     public int getNumberFaceDownCards() {
-        return this.numberFaceDownCards;
+        return this.faceDownCards.size();
     }
 
     public int getNumberRevealedCards() {
-        return this.numberRevealedCards;
+        return this.faceUpCards.size() - (this.faceUpCards.peekFirst()==null? 0:1);
     }
 
-    public int getxFaceDown() {
-        return xFaceDown;
-    }
 
-    public int getyFaceDown() {
-        return yFaceDown;
-    }
 
-    public int getxFaceUp() {
-        return xFaceUp;
-    }
-
-    public int getyFaceUp() {
-        return yFaceUp;
-    }
 }
