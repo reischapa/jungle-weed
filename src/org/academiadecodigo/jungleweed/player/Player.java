@@ -158,32 +158,6 @@ public class Player {
 
     }
 
-    private void tuckOwnCards() {
-
-        Card[] result = new Card[this.numberRevealedCards+1];
-
-        for(int k = 1; k < this.numberRevealedCards+1; k++) {
-
-            if (this.revealedCards[k-1] == null) {
-                continue;
-            }
-
-            result[k] = this.revealedCards[k];
-            this.numberFaceDownCards++;
-
-            this.faceDownCards[this.numberFaceDownCards - 1 + k].setCardStatus(Card.CardStatus.HIDDEN);
-
-            this.revealedCards[k] = null;
-
-        }
-
-        if (!this.emptyFaceDown) {
-            this.faceDownCards[0].setCardStatus(Card.CardStatus.FACEDOWN);
-        }
-
-
-
-    }
 
     private void setCoordinates(Card input) {
         input.setXFaceUp(this.xFaceUp);
@@ -274,6 +248,19 @@ public class Player {
         return this.numberRevealedCards;
     }
 
+    public int getxFaceDown() {
+        return xFaceDown;
+    }
 
+    public int getyFaceDown() {
+        return yFaceDown;
+    }
 
+    public int getxFaceUp() {
+        return xFaceUp;
+    }
+
+    public int getyFaceUp() {
+        return yFaceUp;
+    }
 }

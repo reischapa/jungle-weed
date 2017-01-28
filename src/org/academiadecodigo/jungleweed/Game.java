@@ -74,19 +74,19 @@ public class Game {
             players[playerTurn].revealNextCard();
             comparableCards[playerTurn] = players[playerTurn].getFaceUpCard();
 
-            if (players[playerTurn].getFaceUpCard().getShape() == CardShape.CHANGECOLOR && color == false) {
+            if (comparableCards[playerTurn].getShape() == CardShape.CHANGECOLOR && color == false) {
 
                 changeCompareType();
                 color = true;
                 System.out.println("COLOR= " + color);
 
-            } else if (color == true) {
+            } else if (color) {
 
                 isColor();
 
             }
 
-            System.out.println(players[playerTurn].getFaceUpCard().getShape() + " " + players[playerTurn].getFaceUpCard().getColor());
+            System.out.println(comparableCards[playerTurn].getShape() + " " + comparableCards[playerTurn].getColor());
             nextPlayerTurn();
 
         } else {
