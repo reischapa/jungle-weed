@@ -35,9 +35,9 @@ public class Game {
         this.compareType = CompareType.SHAPE;
         this.nCardsTotal = nCardsTotal;
         this.nCardsHand = this.nCardsTotal / this.numPlayers;
-        playerTurn = 0;
-        color = false;
-        gameEnd = false;
+        this.playerTurn = 0;
+        this.color = false;
+        this.gameEnd = false;
         this.playerFactory = new PlayerFactory(this.numPlayers, this.nCardsTotal);
 
     }
@@ -47,20 +47,20 @@ public class Game {
 
         for (int i = 0; i < numPlayers; i++) {
 
-            players[i] = this.playerFactory.getNextPlayer();
+            this.players[i] = this.playerFactory.getNextPlayer();
 
         }
 
-        cardFactory = new CardFactory(CardShape.values(), CardColor.values());
-        deck = new Card[nCardsTotal];
+        this.cardFactory = new CardFactory(CardShape.values(), CardColor.values());
 
     }
 
 
     public void start() {
 
+        this.deck = new Card[nCardsTotal];
         dealAllCards();
-        comparableCards = new Card[players.length];
+        this.comparableCards = new Card[this.players.length];
 
     }
 
@@ -69,18 +69,18 @@ public class Game {
     // when that card is no longer on top changes the game logic back to shapes.
     public void getPlayerFaceUpCard(int turn) {
 
-        if (playerTurn == turn) {
+        if (this.playerTurn == turn) {
 
-            players[playerTurn].revealNextCard();
-            comparableCards[playerTurn] = players[playerTurn].getFaceUpCard();
+            this.players[this.playerTurn].revealNextCard();
+            this.comparableCards[this.playerTurn] = this.players[this.playerTurn].getFaceUpCard();
 
-            if (comparableCards[playerTurn].getShape() == CardShape.CHANGECOLOR && color == false) {
+            if (this.comparableCards[this.playerTurn].getShape() == CardShape.CHANGECOLOR && this.color == false) {
 
                 changeCompareType();
-                color = true;
-                System.out.println("COLOR= " + color);
+                this.color = true;
+                System.out.println("COLOR= " + this.color);
 
-            } else if (color) {
+            } else if (this.color) {
 
                 isColor();
 
@@ -101,9 +101,9 @@ public class Game {
     // the player wins and the loser must take his cards, if he loses he must take everybody's face up cards.
     public void grabTotem(int turn) {
 
-        for (int i = 0; i < players.length; i++) {
+        for (int i = 0; i < this.players.length; i++) {
 
-            if (players[i].isAgarraPau()) {
+            if (this.players[i].isAgarraPau()) {
 
                 System.out.println("Totem is Grabbed");
                 return;
@@ -111,12 +111,12 @@ public class Game {
             }
         }
 
-        players[turn].agarraPau();
-        boolean ganhou = comparePlayercards(turn, comparableCards[turn]);
+        this.players[turn].agarraPau();
+        boolean ganhou = this.comparePlayerCards(turn, this.comparableCards[turn]);
 
         System.out.println("Player" + (turn + 1) + " ganhou : " + ganhou);
 
-        players[turn].largaPau();
+        this.players[turn].largaPau();
         isGameOver();
 
     }
@@ -138,8 +138,8 @@ public class Game {
     //Resets the game back to the beginning, creates all the cards again and gives them to the players.
     public void reset() {
 
-        gameEnd = false;
-        playerTurn = 0;
+        this.gameEnd = false;
+        this.playerTurn = 0;
         clearComparableCards();
         init();
         start();
@@ -147,21 +147,21 @@ public class Game {
     }
 
     //Compares the cards on the field with the card of the player who called the check, return true if there is any card on top of the face up pile that matches the player's card.
-    private boolean comparePlayercards(int turn, Card comparableCard) {
+    private boolean comparePlayerCards(int turn, Card comparableCard) {
 
-        comparableCards[turn] = null;
+        this.comparableCards[turn] = null;
         int iterator = 0;
 
-        for (Card card : comparableCards) {
+        for (Card card : this.comparableCards) {
 
             if (card != null && comparableCard != null) {
 
                 if (compareCards(comparableCard, card)) {
 
                     System.out.println((turn + 1) + ":" + comparableCard.getShape() + ", " + comparableCard.getColor() + " " + (iterator + 1) + ":" + card.getShape() + ", " + card.getColor());
-                    tradeCards(players[turn], players[iterator]);
+                    tradeCards(this.players[turn], this.players[iterator]);
                     card = null;
-                    playerTurn = iterator;
+                    this.playerTurn = iterator;
                     return true;
 
                 }
@@ -171,11 +171,11 @@ public class Game {
             iterator++;
         }
 
-        playerTurn = turn;
+        this.playerTurn = turn;
         clearComparableCards();
         System.out.println(players[0].getNumberRevealedCards());
         System.out.println(players[1].getNumberRevealedCards());
-        players[turn].getTotalNumberOfCards();
+        this.players[turn].getTotalNumberOfCards();
         tradeAllCards(turn);
         return false;
 
@@ -184,13 +184,13 @@ public class Game {
     //Changes playerTurn to the next playerTurn until the max number of players.
     private void nextPlayerTurn() {
 
-        if (playerTurn < players.length - 1) {
+        if (this.playerTurn < this.players.length - 1) {
 
-            playerTurn++;
+            this.playerTurn++;
 
         } else {
 
-            playerTurn = 0;
+            this.playerTurn = 0;
 
         }
 
@@ -204,12 +204,12 @@ public class Game {
 
     }
 
-    //Gives the losing player all the other player's cards.
+    //Gives the player all the other player's cards.
     private void tradeAllCards(int turn) {
 
-        for (Player player : players) {
+        for (Player player : this.players) {
 
-            players[turn].addCards(player.giveCards());
+            this.players[turn].addCards(player.giveCards());
 
         }
 
@@ -220,7 +220,7 @@ public class Game {
     //Checks if the CHANGECOLOR card is still on the table, if not it changes back the compare type to shapes.
     private void isColor() {
 
-        for (Card card : comparableCards) {
+        for (Card card : this.comparableCards) {
 
             if (card != null && card.getShape() == CardShape.CHANGECOLOR) {
                 return;
@@ -229,20 +229,20 @@ public class Game {
         }
 
         changeCompareType();
-        color = false;
+        this.color = false;
 
     }
 
     //Deals all cards to the respective players equally.
     private void dealAllCards() {
 
-        deck = cardFactory.getNCards(nCardsTotal);
+        this.deck = this.cardFactory.getNCards(nCardsTotal);
 
-        for (int i = 0; i < numPlayers; i++) {
+        for (int i = 0; i < this.numPlayers; i++) {
 
-            Card[] cardsPlayer = new Card[nCardsHand];
-            System.arraycopy(deck, i * nCardsHand, cardsPlayer, 0, nCardsHand);
-            players[i].addCards(cardsPlayer);
+            Card[] cardsPlayer = new Card[this.nCardsHand];
+            System.arraycopy(this.deck, i * this.nCardsHand, cardsPlayer, 0, this.nCardsHand);
+            this.players[i].addCards(cardsPlayer);
 
         }
 
@@ -290,13 +290,13 @@ public class Game {
     //Changes the compare type from shape to color and from color to shape.
     private void changeCompareType() {
 
-        if (compareType == CompareType.SHAPE) {
+        if (this.compareType == CompareType.SHAPE) {
 
-            compareType = CompareType.COLOR;
+            this.compareType = CompareType.COLOR;
 
         } else {
 
-            compareType = CompareType.SHAPE;
+            this.compareType = CompareType.SHAPE;
 
         }
     }
@@ -304,7 +304,7 @@ public class Game {
     //Clears all comparable cards.
     private void clearComparableCards() {
 
-        for (Card card : comparableCards) {
+        for (Card card : this.comparableCards) {
 
             card = null;
 
@@ -315,14 +315,16 @@ public class Game {
     //Returns boolean gameEnd.
     public boolean getGameEnd() {
 
-        return gameEnd;
+        return this.gameEnd;
 
     }
+
+    //Debugging tools
 
     //Prints all player info to the console.
     public void playerInfo() {
 
-        for (Player player : players) {
+        for (Player player : this.players) {
 
             System.out.print("Total Cards : " + player.getTotalNumberOfCards() + " ");
             System.out.print("Revealed Cards: " + player.getNumberRevealedCards() + " ");
@@ -337,28 +339,28 @@ public class Game {
     //Returns a player's total number of cards.
     public int playerTotalCards(int turn) {
 
-        return players[turn].getTotalNumberOfCards();
+        return this.players[turn].getTotalNumberOfCards();
 
     }
 
     //Returns a player's face down cards.
     public int playerFaceDownCards(int turn) {
 
-        return players[turn].getNumberFaceDownCards();
+        return this.players[turn].getNumberFaceDownCards();
 
     }
 
     //Return a player's revealed card.
     public int playerRevealedCards(int turn) {
 
-        return players[turn].getNumberRevealedCards();
+        return this.players[turn].getNumberRevealedCards();
 
     }
 
     //Returns the current player turn.
     public int getPlayerTurn() {
 
-        return playerTurn;
+        return this.playerTurn;
 
     }
 
