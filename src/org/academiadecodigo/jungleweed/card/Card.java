@@ -6,21 +6,33 @@ package org.academiadecodigo.jungleweed.card;
  */
 public class Card {
 
+
+    public enum CardStatus {
+        VISIBLE,FACEDOWN,HIDDEN
+    }
+
+
     private CardShape shape;
     private CardColor color;
-    private boolean visible;
     private int xFaceUp;
     private int yFaceUp;
     private int xFaceDown;
     private int yFaceDown;
 
-    public Card(CardShape shape, CardColor color) {
-        this.shape = shape;
-        this.color = color;
+    private CardStatus cardStatus;
+
+    public CardStatus getCardStatus() {
+        return cardStatus;
     }
 
-    public void turn(){
-       visible = !visible;
+    public void setCardStatus(CardStatus cardStatus) {
+        this.cardStatus = cardStatus;
+    }
+
+    public Card(CardShape shape, CardColor color) {
+        this.cardStatus = CardStatus.VISIBLE;
+        this.shape = shape;
+        this.color = color;
     }
 
     public void setXFaceUp(int x) {
@@ -47,9 +59,6 @@ public class Card {
         return shape;
     }
 
-    public boolean isVisible() {
-        return visible;
-    }
 
     public int getxFaceUp() {
         return xFaceUp;

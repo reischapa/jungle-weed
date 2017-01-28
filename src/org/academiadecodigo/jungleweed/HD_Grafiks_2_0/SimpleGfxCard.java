@@ -21,27 +21,27 @@ public class SimpleGfxCard extends Card {
     private void recreateShapes() {
 
 
-        if (this.faceUp != null || this.faceDown != null) {
+        if (this.faceUp != null ) {
             this.faceUp.delete();
-            this.faceDown.delete();
         }
 
+        if (this.faceDown != null) {
+            this.faceDown.delete();
+        }
         faceUp = new Picture(this.getxFaceUp(), this.getyFaceUp(), "res/" + this.getShape() + this.getColor() + ".jpeg");
         faceDown = new Picture(this.getxFaceDown(), this.getyFaceDown(), "res/CARDBACK.jpeg");
 
-        if (this.isVisible()) {
-            faceUp.draw();
-        } else {
-            faceDown.draw();
+        switch (this.getCardStatus()) {
+
+            case VISIBLE:
+                this.faceUp.draw();
+                break;
+            case FACEDOWN:
+                this.faceDown.draw();
+                break;
         }
 
-    }
 
-    @Override
-    public void turn() {
-        super.turn();
-
-        this.recreateShapes();
 
     }
 
@@ -65,4 +65,15 @@ public class SimpleGfxCard extends Card {
         super.setYFaceDown(y);
     }
 
+
+    @Override
+    public CardStatus getCardStatus() {
+        return super.getCardStatus();
+    }
+
+    @Override
+    public void setCardStatus(CardStatus cardStatus) {
+        super.setCardStatus(cardStatus);
+        this.recreateShapes();
+    }
 }

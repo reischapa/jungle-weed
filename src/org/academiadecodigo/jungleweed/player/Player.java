@@ -74,10 +74,10 @@ public class Player {
 
         this.defragFaceDownCards();
 
-        this.faceUpCard.turn();
+        this.faceUpCard.setCardStatus(Card.CardStatus.VISIBLE);
 
         if (!emptyFaceDown) {
-            this.faceDownCards[0].turn();
+            this.faceDownCards[0].setCardStatus(Card.CardStatus.FACEDOWN);
         }
 
         return this.emptyFaceDown;
@@ -144,8 +144,6 @@ public class Player {
 
             setCoordinates(this.faceDownCards[i]);
 
-            this.faceDownCards[i].turn();
-            this.faceDownCards[i].turn();
 
 
             this.numberFaceDownCards++;
@@ -157,22 +155,33 @@ public class Player {
 
         }
 
-        for(int k = 0; k < this.revealedCards.length; k++) {
 
-            if (this.revealedCards[k] == null) {
-                break;
+    }
+
+    private void tuckOwnCards() {
+
+        Card[] result = new Card[this.numberRevealedCards+1];
+
+        for(int k = 1; k < this.numberRevealedCards+1; k++) {
+
+            if (this.revealedCards[k-1] == null) {
+                continue;
             }
 
-            this.faceDownCards[j + k] = this.revealedCards[k];
+            result[k] = this.revealedCards[k];
+            this.numberFaceDownCards++;
+
+            this.faceDownCards[this.numberFaceDownCards - 1 + k].setCardStatus(Card.CardStatus.HIDDEN);
+
             this.revealedCards[k] = null;
 
         }
 
+        if (!this.emptyFaceDown) {
+            this.faceDownCards[0].setCardStatus(Card.CardStatus.FACEDOWN);
+        }
 
-//        if (this.faceDownCards[0] != null) {
-//            this.faceDownCards[0].turn();
-//            this.faceDownCards[0].turn();
-//        }
+
 
     }
 
@@ -202,6 +211,8 @@ public class Player {
         result[0] = this.faceUpCard;
         this.faceUpCard = null;
 
+        result[0].setCardStatus(Card.CardStatus.HIDDEN);
+
         for (int i = 0; i < this.revealedCards.length - 1; i++) {
 
             if (this.revealedCards[i] == null) {
@@ -209,6 +220,7 @@ public class Player {
             }
 
             result[i+1] = this.revealedCards[i];
+            result[i+1].setCardStatus(Card.CardStatus.HIDDEN);
             this.revealedCards[i] = null;
             this.numberRevealedCards--;
 
