@@ -8,6 +8,9 @@ import java.util.List;
  * Created by codecadet on 1/22/17.
  */
 public class PlayerFactory {
+    public static final int[] playerPositionX = {48, 640, 1412, 820};
+    public static final int[] playerPositionY = {470, 30, 290, 725};
+
 
     private int nPlayers;
 

@@ -1,5 +1,6 @@
 package org.academiadecodigo.jungleweed;
 
+import org.academiadecodigo.jungleweed.GameObjects.SimpleGfxIndicator;
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.GameObjectFactory;
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
 import org.academiadecodigo.jungleweed.card.CardColor;
@@ -36,11 +37,14 @@ public class Game implements KeyboardHandler {
 
     private List<Representable> representables;
 
+    private SimpleGfxIndicator indicator;
+
     public static void main(String[] args) {
 
         Game c = new Game(4);
 
         c.init();
+
         c.start();
 
     }
@@ -96,6 +100,7 @@ public class Game implements KeyboardHandler {
 
         this.logicEngine.init();
 
+        indicator = new SimpleGfxIndicator(logicEngine.getPlayerTurn());
     }
 
     public void start() {
@@ -179,11 +184,17 @@ public class Game implements KeyboardHandler {
 
             if (keyboardEvent.getKey() == this.revealKeys.get(i)) {
                 this.logicEngine.getPlayerFaceUpCard(i);
+                indicator.hide();
+                indicator.setPosition(logicEngine.getPlayerTurn());
+                indicator.draw();
                 break;
             }
 
             if (keyboardEvent.getKey() == this.grabKeys.get(i)) {
                 this.logicEngine.grabTotem(i);
+                indicator.hide();
+                indicator.setPosition(logicEngine.getPlayerTurn());
+                indicator.draw();
                 break;
             }
 
