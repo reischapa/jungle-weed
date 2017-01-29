@@ -95,19 +95,19 @@ public class SimpleGFXCard extends Card {
     }
 
 
-    public int getxFaceUp() {
+    public int getXFaceUp() {
         return xFaceUp;
     }
 
-    public int getyFaceUp() {
+    public int getYFaceUp() {
         return yFaceUp;
     }
 
-    public int getxFaceDown() {
+    public int getXFaceDown() {
         return xFaceDown;
     }
 
-    public int getyFaceDown() {
+    public int getYFaceDown() {
         return yFaceDown;
     }
 

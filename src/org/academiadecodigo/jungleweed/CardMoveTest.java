@@ -10,11 +10,11 @@ import org.academiadecodigo.jungleweed.card.CardShape;
  */
 public class CardMoveTest {
     public static void main(String[] args) throws InterruptedException {
-        SimpleGfxCard sgfx = new SimpleGfxCard(CardShape.BALLS1, CardColor.GREEN);
-        sgfx.setXFaceUp(10);
-        sgfx.setYFaceUp(10);
-        sgfx.setCardStatus(Card.CardStatus.VISIBLE);
-        sgfx.move(500,500);
+//        SimpleGfxCard sgfx = new SimpleGfxCard(CardShape.BALLS1, CardColor.GREEN);
+//        sgfx.setXFaceUp(10);
+//        sgfx.setYFaceUp(10);
+//        sgfx.setCardStatus(Card.CardStatus.VISIBLE);
+//        sgfx.move(500,500);
     }
 
 }

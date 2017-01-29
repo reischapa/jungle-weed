@@ -70,6 +70,29 @@ public class SimpleGFXPlayer extends Player {
     }
 
 
+//    public void move(SimpleGFXCard simpleGFXCard)  {
+//        while(simpleGFXCard.getXFaceDown()!= x && faceUp.getY()!=y) {
+//
+//            if(x > faceUp.getX() && y < faceUp.getX()) {
+//                faceUp.translate( 1, -1 );
+//            }else if(x > faceUp.getX() && y > faceUp.getY()){
+//                faceUp.translate( 1 , 1 );
+//            }else if(x < faceUp.getX() && y < faceUp.getY()){
+//                faceUp.translate( -1, -1 );
+//            }else{
+//                faceUp.translate( -1, 1 );
+//            }
+//            try {
+//                Thread.sleep(5);
+//            } catch (Exception e) {
+//                System.out.println("FUCK");
+//                e.printStackTrace();
+//            }
+//        }
+//        System.out.println(faceUp.getX());
+//    }
+
+
     private void setCorrectCardStatus() {
 
         Iterator<Card> faceDownIterator = this.peekFaceDownCards().iterator();
