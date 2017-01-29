@@ -1,30 +1,31 @@
 package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
-import org.academiadecodigo.jungleweed.GameObjects.SimpleGFXTotem;
-import org.academiadecodigo.jungleweed.logic.LogicEngine;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.academiadecodigo.jungleweed.Game;
+import org.academiadecodigo.jungleweed.GameObjects.Table;
+import org.academiadecodigo.jungleweed.GameObjects.Totem;
 
 /**
- * Created by chapa on 1/28/2017.
+ * Created by codecadet on 1/29/17.
  */
 public class GameObjectFactory {
 
 
-    private LogicEngine logicEngine;
-
-    public GameObjectFactory(LogicEngine logicEngine) {
-        this.logicEngine = logicEngine;
+    public Representable getRepresentableOfType(Game.RepresentableType type) {
+        switch (type) {
+            case TOTEM:
+                return new Totem();
+            case TABLE:
+                return new Table();
+            default:
+                System.out.println("DEU MERDA");
+                return null;
+        }
     }
 
-    public List<Representable> getRepresentableGameObjects(){
 
-        List<Representable> result = new ArrayList<>();
-
-        result.add(new SimpleGFXTotem(logicEngine));
-
-        return result;
+    public Indicator getIndicatorOfType(Game.IndicatorType type) {
+        return null;
     }
+
 
 }

@@ -1,4 +1,4 @@
-package org.academiadecodigo.jungleweed.GameObjects;
+package org.academiadecodigo.jungleweed.card;
 
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
 import org.academiadecodigo.jungleweed.card.Card;
@@ -10,14 +10,14 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 /**
  * Created by anton on 25/01/2017.
  */
-public class SimpleGFXCard extends Card {
+public class SGFXCard extends Card {
 
 
     private Picture faceUp;
     private Picture faceDown;
 
 
-    public SimpleGFXCard(CardShape shape, CardColor color) {
+    public SGFXCard(CardShape shape, CardColor color) {
         super(shape, color);
     }
 

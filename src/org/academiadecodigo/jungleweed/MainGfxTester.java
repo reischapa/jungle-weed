@@ -11,14 +11,14 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
  */
 public class MainGfxTester {
     public static void main(String[] args) {
-        //SimpleGFXCard card = new SimpleGFXCard("Bolas1", "Amarela");
+        //SGFXCard card = new SGFXCard("Bolas1", "Amarela");
 
         Rectangle rect = new Rectangle(10, 10, 1600, 900);
         rect.fill();
         rect.setColor(Color.BLACK);
 
 
-//        SimpleGFXCard sgfx = new SimpleGFXCard(CardShape.BALLS1, CardColor.GREEN);
+//        SGFXCard sgfx = new SGFXCard(CardShape.BALLS1, CardColor.GREEN);
 
         Picture pic = new Picture(410,20 , "res/" + CardShape.BALLS1 + CardColor.GREEN+ ".jpeg");
         pic.draw();

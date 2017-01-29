@@ -12,7 +12,7 @@ public class Main {
 //        System.out.println("AGARRA O PAU GAME START");
 //        LogicEngine logicEngine = new LogicEngine(new PlayerFactory(4));
 //        logicEngine.init();
-//        logicEngine.start();
+//        logicEngine.startGame();
 //        int rounds = 0;
 //        //logicEngine.grabTotem(0);
 //        while(!logicEngine.getGameEnd()) {

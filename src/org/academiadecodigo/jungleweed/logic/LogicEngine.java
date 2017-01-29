@@ -2,7 +2,7 @@ package org.academiadecodigo.jungleweed.logic;
 
 import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;
-import org.academiadecodigo.jungleweed.card.SimpleGFXCardFactory;
+import org.academiadecodigo.jungleweed.card.SGFXCardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.player.Player;
 import org.academiadecodigo.jungleweed.player.PlayerFactory;
@@ -28,7 +28,7 @@ public class LogicEngine {
     private Player[] players;
     private CompareType compareType;
     private Card[] deck;
-    private SimpleGFXCardFactory cardFactory;
+    private SGFXCardFactory cardFactory;
     private Card[] comparableCards;
 
     private int playerTurn;
@@ -37,7 +37,7 @@ public class LogicEngine {
     private PlayerFactory playerFactory;
 
 
-    public LogicEngine(PlayerFactory playerFactory, SimpleGFXCardFactory cardFactory) {
+    public LogicEngine(PlayerFactory playerFactory, SGFXCardFactory cardFactory) {
 
         this.playerFactory = playerFactory;
         this.numPlayers = this.playerFactory.getNPlayers();
@@ -113,7 +113,7 @@ public class LogicEngine {
 
             if (this.players[i].isAgarraPau()) {
 
-                System.out.println("SimpleGFXTotem is Grabbed");
+                System.out.println("SGFXTotem is Grabbed");
                 return;
 
             }

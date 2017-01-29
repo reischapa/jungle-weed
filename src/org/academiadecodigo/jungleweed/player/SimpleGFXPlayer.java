@@ -1,10 +1,8 @@
 package org.academiadecodigo.jungleweed.player;
 
-import org.academiadecodigo.jungleweed.GameObjects.SimpleGFXCard;
 import org.academiadecodigo.jungleweed.card.Card;
 
 import java.util.Deque;
-import java.util.Iterator;
 
 /**
  * Created by codecadet on 1/22/17.
