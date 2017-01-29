@@ -1,6 +1,7 @@
 package org.academiadecodigo.jungleweed;
 
 import org.academiadecodigo.jungleweed.logic.LogicEngine;
+import org.academiadecodigo.jungleweed.player.PlayerFactory;
 
 /**
  * Created by codecadet on 1/22/17.
@@ -9,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("AGARRA O PAU GAME START");
-        LogicEngine logicEngine = new LogicEngine(4,80);
+        LogicEngine logicEngine = new LogicEngine(new PlayerFactory(4));
         logicEngine.init();
         logicEngine.start();
         int rounds = 0;

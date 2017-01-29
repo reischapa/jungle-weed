@@ -12,14 +12,12 @@ public class PlayerFactory {
     private int nPlayers;
 
     private List<Player> playerList;
-    private int maxCards;
     private Iterator<Player> iterator;
 
 
 
-    public PlayerFactory(int nPlayers, int maxCards) {
+    public PlayerFactory(int nPlayers) {
         this.nPlayers = nPlayers;
-        this.maxCards = maxCards;
         this.playerList = new LinkedList<>();
         this.init();
 
@@ -27,10 +25,10 @@ public class PlayerFactory {
 
     private void init() {
 
-        playerList.add(new Player(this.maxCards, 48, 470, 48, 290));
-        playerList.add(new Player(this.maxCards, 640, 30, 820, 30));
-        playerList.add(new Player(this.maxCards, 1412, 290, 1412, 470));
-        playerList.add(new Player(this.maxCards, 820, 725, 640, 725));
+        playerList.add(new SimpleGFXPlayer(48, 470, 48, 290));
+        playerList.add(new SimpleGFXPlayer(640, 30, 820, 30));
+        playerList.add(new SimpleGFXPlayer(1412, 290, 1412, 470));
+        playerList.add(new SimpleGFXPlayer(820, 725, 640, 725));
 
         this.iterator = playerList.iterator();
 
@@ -43,7 +41,10 @@ public class PlayerFactory {
 
         return this.iterator.next();
 
+    }
 
+    public int getNPlayers() {
+        return this.nPlayers;
     }
 
 }

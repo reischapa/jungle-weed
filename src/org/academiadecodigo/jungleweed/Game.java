@@ -3,6 +3,7 @@ package org.academiadecodigo.jungleweed;
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.GameObjectFactory;
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.RepresentableGameObject;
 import org.academiadecodigo.jungleweed.logic.LogicEngine;
+import org.academiadecodigo.jungleweed.player.PlayerFactory;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -38,7 +39,6 @@ public class Game implements KeyboardHandler {
 
         c.init();
         c.start();
-
 
     }
 
@@ -85,7 +85,7 @@ public class Game implements KeyboardHandler {
 
     public void init() {
 
-        this.logicEngine = new LogicEngine(numPlayers,60);
+        this.logicEngine = new LogicEngine(new PlayerFactory(this.numPlayers));
 
         this.keyboard = new Keyboard(this);
 

@@ -25,7 +25,7 @@ public class MainChapa {
             cards[i] = new Card(CardShape.CIRCLE1, CardColor.GREEN);
         }
 
-        Player p = new Player(20);
+        Player p = new Player();
 
 
         p.addCards(cards);
@@ -71,7 +71,7 @@ public class MainChapa {
         Card[] c2 = p.giveCards();
 
 
-        Player p2 = new Player(20);
+        Player p2 = new Player();
 
         p2.addCards(c2);
 

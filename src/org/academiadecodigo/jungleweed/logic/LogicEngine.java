@@ -12,9 +12,14 @@ import org.academiadecodigo.jungleweed.player.PlayerFactory;
  */
 public class LogicEngine {
 
-    public static enum CompareType {
+    private enum CompareType {
         COLOR, SHAPE;
     }
+
+    public enum LogicStatus {
+        TOBERUN, WAITING, GRABBING, TRADING, FINISHED;
+    }
+
 
     private int numPlayers;
     private int nCardsTotal;
@@ -32,17 +37,17 @@ public class LogicEngine {
     private PlayerFactory playerFactory;
 
 
-    public LogicEngine(int nPlayers, int nCardsTotal) {
+    public LogicEngine(PlayerFactory playerFactory ) {
 
-        this.numPlayers = nPlayers;
+        this.playerFactory = playerFactory;
+        this.numPlayers = this.playerFactory.getNPlayers();
         this.players = new Player[this.numPlayers];
         this.compareType = CompareType.SHAPE;
-        this.nCardsTotal = nCardsTotal;
+        this.nCardsTotal = CardShape.values().length * CardColor.values().length;
         this.nCardsHand = this.nCardsTotal / this.numPlayers;
         this.playerTurn = 0;
         this.color = false;
         this.gameEnd = false;
-        this.playerFactory = new PlayerFactory(this.numPlayers, this.nCardsTotal);
 
     }
 
@@ -56,7 +61,6 @@ public class LogicEngine {
         }
 
         this.cardFactory = new CardFactory(CardShape.values(), CardColor.values());
-
     }
 
 

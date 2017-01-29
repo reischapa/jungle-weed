@@ -67,11 +67,6 @@ public class SimpleGfxCard extends Card {
 
 
     @Override
-    public CardStatus getCardStatus() {
-        return super.getCardStatus();
-    }
-
-    @Override
     public void setCardStatus(CardStatus cardStatus) {
         super.setCardStatus(cardStatus);
         this.recreateShapes();

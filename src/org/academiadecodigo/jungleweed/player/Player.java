@@ -12,43 +12,17 @@ import java.util.List;
  */
 public class Player{
 
-    private int maxPossibleCards;
-
     private boolean agarraPau;
-
-    private int xFaceDown;
-    private int yFaceDown;
-
-    private int xFaceUp;
-    private int yFaceUp;
 
     private Deque<Card> faceDownCards;
     private Deque<Card> faceUpCards;
 
 
 
-    public Player(int maxPossibleCards) {
+    public Player() {
 
-
-        this.maxPossibleCards = maxPossibleCards;
         this.faceDownCards = new LinkedList<>();
         this.faceUpCards = new LinkedList<>();
-
-    }
-
-
-    public Player(int maxPossibleCards, int xFaceDown, int yFaceDown, int xFaceUp, int yFaceUp) {
-        this.maxPossibleCards = maxPossibleCards;
-
-//
-        this.faceDownCards = new LinkedList<>();
-        this.faceUpCards = new LinkedList<>();
-
-        this.xFaceDown = xFaceDown;
-        this.yFaceDown = yFaceDown;
-
-        this.xFaceUp = xFaceUp;
-        this.yFaceUp = yFaceUp;
 
     }
 
@@ -61,14 +35,8 @@ public class Player{
 
         for (Card c : cards) {
             if (c != null) {
-                this.setCoordinates(c);
-                c.setCardStatus(Card.CardStatus.HIDDEN);
                 this.faceDownCards.addLast(c);
             }
-        }
-
-        if (!this.faceDownCards.isEmpty()) {
-            this.faceDownCards.getFirst().setCardStatus(Card.CardStatus.FACEDOWN);
         }
 
     }
@@ -80,17 +48,8 @@ public class Player{
             return true;
         }
 
-        if (!this.faceUpCards.isEmpty()) {
-            this.faceUpCards.getFirst().setCardStatus(Card.CardStatus.HIDDEN);
-        }
-
         Card nextCard = this.faceDownCards.removeFirst();
-        nextCard.setCardStatus(Card.CardStatus.VISIBLE);
         this.faceUpCards.addFirst(nextCard);
-
-        if (!this.faceDownCards.isEmpty()) {
-            this.faceDownCards.getFirst().setCardStatus(Card.CardStatus.FACEDOWN);
-        }
 
         return false;
 
@@ -102,22 +61,16 @@ public class Player{
 
         List<Card> output = new LinkedList<>();
 
+        int arraySize = this.faceUpCards.size();
+
         while (!this.faceUpCards.isEmpty()) {
             output.add(this.faceUpCards.removeFirst());
         }
 
-        Card[] output2 = new Card[this.maxPossibleCards];
+        Card[] output2 = new Card[arraySize];
         return output.toArray(output2);
     }
 
-
-
-    private void setCoordinates(Card input) {
-        input.setXFaceUp(this.xFaceUp);
-        input.setYFaceUp(this.yFaceUp);
-        input.setXFaceDown(this.xFaceDown);
-        input.setYFaceDown(this.yFaceDown);
-    }
 
 
     public int getTotalNumberOfCards() {
@@ -153,10 +106,6 @@ public class Player{
         this.agarraPau = false;
     }
 
-    public int getMaxPossibleCards() {
-        return maxPossibleCards;
-    }
-
     public boolean isEmptyFaceDown() {
         return this.faceDownCards.isEmpty();
     }
@@ -168,6 +117,15 @@ public class Player{
     public int getNumberRevealedCards() {
         return this.faceUpCards.size() - (this.faceUpCards.peekFirst()==null? 0:1);
     }
+
+    public Deque<Card> peekFaceDownCards() {
+        return this.faceDownCards;
+    }
+
+    public Deque<Card> peekFaceUpCards() {
+        return this.faceUpCards;
+    }
+
 
 
 
