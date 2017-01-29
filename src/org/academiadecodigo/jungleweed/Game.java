@@ -62,7 +62,7 @@ public class Game implements KeyboardHandler {
 
     public static void main(String[] args) {
 
-        Game c = new Game(3,GameGraphicsType.SIMPLEGFX);
+        Game c = new Game(4,GameGraphicsType.SIMPLEGFX);
 
         c.init();
         c.startGame();

@@ -1,5 +1,7 @@
 package org.academiadecodigo.jungleweed.player;
 
+import org.academiadecodigo.jungleweed.GameObjects.SGFXTable;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,10 +10,10 @@ import java.util.List;
  * Created by codecadet on 1/22/17.
  */
 public class SGFXPlayerFactory extends PlayerFactory {
-    public static final int[] faceUpPositionX = {48, 640, 1412, 820};
-    public static final int[] faceUpPositionY = {470, 30, 290, 725};
-    public static final int[] faceDownPositionX = {48, 820, 1412, 640};
-    public static final int[] faceDownPositionY = {290, 30, 470, 725};
+    public static final int[] faceUpPositionX = {48 + SGFXTable.X_PADDING, 640 + SGFXTable.X_PADDING, 1412 + SGFXTable.X_PADDING, 820 + SGFXTable.X_PADDING};
+    public static final int[] faceUpPositionY = {470 + SGFXTable.Y_PADDING, 30 + SGFXTable.Y_PADDING, 290 + SGFXTable.Y_PADDING, 725 + SGFXTable.Y_PADDING};
+    public static final int[] faceDownPositionX = {48 + SGFXTable.X_PADDING, 820 + SGFXTable.X_PADDING, 1412 + SGFXTable.X_PADDING, 640 + SGFXTable.X_PADDING};
+    public static final int[] faceDownPositionY = {290 + SGFXTable.Y_PADDING, 30 + SGFXTable.Y_PADDING, 470 + SGFXTable.Y_PADDING, 725 + SGFXTable.Y_PADDING};
 
     private int nPlayers;
 
@@ -61,10 +63,8 @@ public class SGFXPlayerFactory extends PlayerFactory {
 
 
     private SGFXPlayer getPlayerAtPosition(int index) {
-        return new SGFXPlayer(faceUpPositionX[index],
-                                faceUpPositionY[index],
-                                    faceDownPositionX[index],
-                                        faceDownPositionY[index]);
+
+        return new SGFXPlayer(faceUpPositionX[index], faceUpPositionY[index], faceDownPositionX[index], faceDownPositionY[index]);
     }
 
 
