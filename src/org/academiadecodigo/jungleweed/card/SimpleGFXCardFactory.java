@@ -1,25 +1,31 @@
 package org.academiadecodigo.jungleweed.card;
 
+import org.academiadecodigo.jungleweed.Game;
+import org.academiadecodigo.jungleweed.GameObjects.SimpleGFXCard;
+
 import java.util.Collections;
 import java.util.Stack;
 
 /**
  * Created by codecadet on 1/22/17.
  */
-public class CardFactory {
+public class SimpleGFXCardFactory {
 
     private CardShape[] allowedShapes;
     private CardColor[] allowedColors;
 
     private Stack<Card> readyCards;
 
-    public CardFactory(CardShape[] allowedShapes, CardColor[] allowedColors ) {
+    private Game game;
+
+    public SimpleGFXCardFactory(CardShape[] allowedShapes, CardColor[] allowedColors ) {
 
         this.allowedShapes = allowedShapes;
         this.allowedColors = allowedColors;
         this.readyCards = new Stack<>();
         this.createDeck();
 
+        this.game = game;
     }
 
     private void createDeck() {
@@ -27,7 +33,7 @@ public class CardFactory {
         for (int i = 0; i < this.allowedShapes.length; i++) {
             for (int j = 0; j < this.allowedColors.length; j++) {
 
-                Card sgfx = new Card(this.allowedShapes[i], this.allowedColors[j]);
+                SimpleGFXCard sgfx = new SimpleGFXCard(this.allowedShapes[i], this.allowedColors[j]);
                 this.readyCards.push(sgfx);
 
             }
@@ -59,8 +65,9 @@ public class CardFactory {
             throw new NullPointerException();
         }
 
-        return  this.readyCards.pop();
+        return this.readyCards.pop();
 
     }
+
 
 }

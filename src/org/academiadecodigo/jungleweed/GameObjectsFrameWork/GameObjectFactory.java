@@ -18,9 +18,9 @@ public class GameObjectFactory {
         this.logicEngine = logicEngine;
     }
 
-    public List<RepresentableGameObject> getRepresentableGameObjects(){
+    public List<Representable> getRepresentableGameObjects(){
 
-        List<RepresentableGameObject> result = new ArrayList<>();
+        List<Representable> result = new ArrayList<>();
 
         result.add(new SimpleGFXTotem(logicEngine));
 

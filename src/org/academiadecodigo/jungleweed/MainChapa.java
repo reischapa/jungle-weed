@@ -2,7 +2,7 @@ package org.academiadecodigo.jungleweed;
 
 import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;
-import org.academiadecodigo.jungleweed.card.CardFactory;
+import org.academiadecodigo.jungleweed.card.SimpleGFXCardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.player.Player;
 
@@ -92,9 +92,9 @@ public class MainChapa {
 
         //TESTING THE NEW AND IMPROVED CARD FACTORY
 
-        CardFactory cf = new CardFactory(CardShape.values(), CardColor.values());
-
-        System.out.println(cf.getACard());
+//        SimpleGFXCardFactory cf = new SimpleGFXCardFactory(CardShape.values(), CardColor.values());
+//
+//        System.out.println(cf.getACard());
 
 
     }

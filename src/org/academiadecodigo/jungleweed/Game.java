@@ -1,7 +1,10 @@
 package org.academiadecodigo.jungleweed;
 
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.GameObjectFactory;
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.RepresentableGameObject;
+import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
+import org.academiadecodigo.jungleweed.card.CardColor;
+import org.academiadecodigo.jungleweed.card.SimpleGFXCardFactory;
+import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.logic.LogicEngine;
 import org.academiadecodigo.jungleweed.player.PlayerFactory;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -31,7 +34,7 @@ public class Game implements KeyboardHandler {
 
     private GameObjectFactory objectFactory;
 
-    private List<RepresentableGameObject> representableGameObjects;
+    private List<Representable> representables;
 
     public static void main(String[] args) {
 
@@ -85,7 +88,7 @@ public class Game implements KeyboardHandler {
 
     public void init() {
 
-        this.logicEngine = new LogicEngine(new PlayerFactory(this.numPlayers));
+        this.logicEngine = new LogicEngine(new PlayerFactory(this.numPlayers),new SimpleGFXCardFactory(CardShape.values(), CardColor.values()));
 
         this.keyboard = new Keyboard(this);
 
@@ -98,22 +101,30 @@ public class Game implements KeyboardHandler {
     public void start() {
 
         this.logicEngine.start();
-        this.representableGameObjects = this.objectFactory.getRepresentableGameObjects();
+        this.representables = this.objectFactory.getRepresentableGameObjects();
         this.constructEventListeners();
         this.drawAllGameObjects();
 
     }
 
     private void drawAllGameObjects() {
-        for (RepresentableGameObject r : this.representableGameObjects) {
+        for (Representable r : this.representables) {
             r.draw();
         }
     }
 
     private void hideAllGameObjects() {
-        for (RepresentableGameObject r : this.representableGameObjects) {
+        for (Representable r : this.representables) {
             r.hide();
         }
+    }
+
+    public void addRepresentable(Representable r) {
+        this.representables.add(r);
+    }
+
+    public LogicEngine getLogicEngine() {
+        return this.logicEngine;
     }
 
 

@@ -10,7 +10,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 /**
  * Created by anton on 25/01/2017.
  */
-public class SimpleGFXCard extends Card implements Representable{
+public class SimpleGFXCard extends Card {
 
 
     public enum CardStatus {
@@ -27,11 +27,10 @@ public class SimpleGFXCard extends Card implements Representable{
 
     private CardStatus cardStatus;
 
-    private LogicEngine logicEngine;
 
-    public SimpleGFXCard(CardShape shape, CardColor color, LogicEngine logicEngine) {
+    public SimpleGFXCard(CardShape shape, CardColor color) {
         super(shape, color);
-
+        this.cardStatus = CardStatus.HIDDEN;
     }
 
     private void recreateShapes() {
@@ -39,7 +38,44 @@ public class SimpleGFXCard extends Card implements Representable{
         faceUp = new Picture(this.xFaceUp, this.yFaceUp, "res/" + this.getShape() + this.getColor() + ".jpeg");
         faceDown = new Picture(this.xFaceDown, this.yFaceDown, "res/CARDBACK.jpeg");
 
+    }
 
+
+    public void setCardStatus(CardStatus cardStatus) {
+        this.cardStatus = cardStatus;
+        this.draw();
+    }
+
+    public SimpleGFXCard.CardStatus getCardStatus() {
+        return cardStatus;
+    }
+
+    public void draw() {
+
+        this.hide();
+
+        this.recreateShapes();
+
+
+        switch (this.cardStatus) {
+            case VISIBLE:
+                this.faceUp.draw();
+                return;
+            case FACEDOWN:
+                this.faceDown.draw();
+                return;
+        }
+
+    }
+
+    public void hide() {
+        if (this.faceUp != null ) {
+            this.faceUp.delete();
+        }
+
+        if (this.faceDown != null) {
+            this.faceDown.delete();
+        }
     }
 
     public void setXFaceUp(int x) {
@@ -58,68 +94,21 @@ public class SimpleGFXCard extends Card implements Representable{
         this.yFaceDown = y;
     }
 
-    public void setCardStatus(CardStatus cardStatus) {
-        this.cardStatus = cardStatus;
-        this.recreateShapes();
+
+    public int getxFaceUp() {
+        return xFaceUp;
     }
 
-    public SimpleGFXCard.CardStatus getCardStatus() {
-        return cardStatus;
+    public int getyFaceUp() {
+        return yFaceUp;
     }
 
-
-    @Override
-    public void setX(int x) {
-        //TODO change the position of both cards
+    public int getxFaceDown() {
+        return xFaceDown;
     }
 
-    @Override
-    public void setY(int y) {
-        //TODO change the position of both cards
-    }
-
-    @Override
-    public int getX() {
-        //TODO give the position of the card on the top right
-        return 0;
-    }
-
-    @Override
-    public int getY() {
-        //TODO give the position of the card on the top right
-        return 0;
-    }
-
-    @Override
-    public void draw() {
-
-        this.hide();
-
-        this.recreateShapes();
-
-        if (this.logicEngine.getCurrentLogicStatus() == LogicEngine.LogicStatus.WAITING) {
-
-            switch (this.cardStatus) {
-                case VISIBLE:
-                    this.faceUp.draw();
-                    return;
-                case FACEDOWN:
-                    this.faceDown.draw();
-                    return;
-            }
-
-        }
-    }
-
-    @Override
-    public void hide() {
-        if (this.faceUp != null ) {
-            this.faceUp.delete();
-        }
-
-        if (this.faceDown != null) {
-            this.faceDown.delete();
-        }
+    public int getyFaceDown() {
+        return yFaceDown;
     }
 
 }

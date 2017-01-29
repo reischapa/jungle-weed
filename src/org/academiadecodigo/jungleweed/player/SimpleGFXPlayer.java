@@ -3,6 +3,9 @@ package org.academiadecodigo.jungleweed.player;
 import org.academiadecodigo.jungleweed.GameObjects.SimpleGFXCard;
 import org.academiadecodigo.jungleweed.card.Card;
 
+import java.util.Deque;
+import java.util.Iterator;
+
 /**
  * Created by codecadet on 1/22/17.
  */
@@ -45,7 +48,21 @@ public class SimpleGFXPlayer extends Player {
         return result;
     }
 
+    public Card[] giveCards() {
+        Card[] result = super.giveCards();
+
+        for (Card c : result) {
+            if (c != null && c instanceof SimpleGFXCard) {
+                ((SimpleGFXCard) c).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
+            }
+        }
+
+        return result;
+    }
+
+
     private void setCoordinates(SimpleGFXCard input) {
+        //TODO implement animation logic here using the values that the card had previously
        input.setXFaceUp(this.xFaceUp);
        input.setYFaceUp(this.yFaceUp);
        input.setXFaceDown(this.xFaceDown);
@@ -54,7 +71,40 @@ public class SimpleGFXPlayer extends Player {
 
 
     private void setCorrectCardStatus() {
-        
+
+        Iterator<Card> faceDownIterator = this.peekFaceDownCards().iterator();
+        Iterator<Card> faceUpIterator = this.peekFaceUpCards().iterator();
+
+        boolean first = true;
+
+        while (faceDownIterator.hasNext()) {
+
+            Card card = faceDownIterator.next();
+            if (card != null && card instanceof SimpleGFXCard) {
+                if (first) {
+                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.FACEDOWN);
+                    first = false;
+                } else {
+                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
+                }
+            }
+        }
+
+        first = true;
+
+        while (faceUpIterator.hasNext()) {
+
+            Card card = faceUpIterator.next();
+            if (card != null && card instanceof SimpleGFXCard) {
+                if (first) {
+                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.VISIBLE);
+                    first = false;
+                } else {
+                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
+                }
+            }
+        }
+
     }
 
 

@@ -2,7 +2,7 @@ package org.academiadecodigo.jungleweed.logic;
 
 import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;
-import org.academiadecodigo.jungleweed.card.CardFactory;
+import org.academiadecodigo.jungleweed.card.SimpleGFXCardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.player.Player;
 import org.academiadecodigo.jungleweed.player.PlayerFactory;
@@ -28,7 +28,7 @@ public class LogicEngine {
     private Player[] players;
     private CompareType compareType;
     private Card[] deck;
-    private CardFactory cardFactory;
+    private SimpleGFXCardFactory cardFactory;
     private Card[] comparableCards;
 
     private int playerTurn;
@@ -37,7 +37,7 @@ public class LogicEngine {
     private PlayerFactory playerFactory;
 
 
-    public LogicEngine(PlayerFactory playerFactory, CardFactory cardFactory) {
+    public LogicEngine(PlayerFactory playerFactory, SimpleGFXCardFactory cardFactory) {
 
         this.playerFactory = playerFactory;
         this.numPlayers = this.playerFactory.getNPlayers();
