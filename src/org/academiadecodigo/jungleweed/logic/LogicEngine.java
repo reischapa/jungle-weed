@@ -37,7 +37,7 @@ public class LogicEngine {
     private PlayerFactory playerFactory;
 
 
-    public LogicEngine(PlayerFactory playerFactory ) {
+    public LogicEngine(PlayerFactory playerFactory, CardFactory cardFactory) {
 
         this.playerFactory = playerFactory;
         this.numPlayers = this.playerFactory.getNPlayers();
@@ -49,6 +49,7 @@ public class LogicEngine {
         this.color = false;
         this.gameEnd = false;
 
+        this.cardFactory = cardFactory;
     }
 
     // Initializes Players, creates a deck of crads and deals all the cards to the respective players.
@@ -60,7 +61,6 @@ public class LogicEngine {
 
         }
 
-        this.cardFactory = new CardFactory(CardShape.values(), CardColor.values());
     }
 
 
@@ -113,7 +113,7 @@ public class LogicEngine {
 
             if (this.players[i].isAgarraPau()) {
 
-                System.out.println("Totem is Grabbed");
+                System.out.println("SimpleGFXTotem is Grabbed");
                 return;
 
             }
@@ -370,6 +370,11 @@ public class LogicEngine {
 
         return this.playerTurn;
 
+    }
+
+    public LogicStatus getCurrentLogicStatus() {
+        //TODO give proper information regarding the game status
+        return LogicStatus.WAITING;
     }
 
 }

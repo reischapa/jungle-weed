@@ -1,6 +1,6 @@
 package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
-import org.academiadecodigo.jungleweed.GameObjects.Totem;
+import org.academiadecodigo.jungleweed.GameObjects.SimpleGFXTotem;
 import org.academiadecodigo.jungleweed.logic.LogicEngine;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class GameObjectFactory {
 
         List<RepresentableGameObject> result = new ArrayList<>();
 
-        result.add(new Totem(logicEngine));
+        result.add(new SimpleGFXTotem(logicEngine));
 
         return result;
     }

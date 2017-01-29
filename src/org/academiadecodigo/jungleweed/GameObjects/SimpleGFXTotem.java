@@ -7,12 +7,12 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 /**
  * Created by codecadet on 1/27/17.
  */
-public class Totem extends RepresentableGameObject {
+public class SimpleGFXTotem extends RepresentableGameObject {
 
     private Picture picture;
     private String pictureFileName;
 
-    public Totem(LogicEngine logicEngine) {
+    public SimpleGFXTotem(LogicEngine logicEngine) {
         super(logicEngine,800,450);
         this.pictureFileName = "res/TOTEM.jpeg";
     }

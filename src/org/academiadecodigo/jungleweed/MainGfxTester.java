@@ -1,7 +1,5 @@
 package org.academiadecodigo.jungleweed;
 
-import org.academiadecodigo.jungleweed.HD_Grafiks_2_0.SimpleGfxCard;
-import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.simplegraphics.graphics.Color;
@@ -13,14 +11,14 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
  */
 public class MainGfxTester {
     public static void main(String[] args) {
-        //SimpleGfxCard card = new SimpleGfxCard("Bolas1", "Amarela");
+        //SimpleGFXCard card = new SimpleGFXCard("Bolas1", "Amarela");
 
         Rectangle rect = new Rectangle(10, 10, 1600, 900);
         rect.fill();
         rect.setColor(Color.BLACK);
 
 
-//        SimpleGfxCard sgfx = new SimpleGfxCard(CardShape.BALLS1, CardColor.GREEN);
+//        SimpleGFXCard sgfx = new SimpleGFXCard(CardShape.BALLS1, CardColor.GREEN);
 
         Picture pic = new Picture(410,20 , "res/" + CardShape.BALLS1 + CardColor.GREEN+ ".jpeg");
         pic.draw();
