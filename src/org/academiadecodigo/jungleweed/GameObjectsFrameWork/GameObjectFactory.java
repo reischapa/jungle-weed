@@ -1,7 +1,7 @@
 package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
 import org.academiadecodigo.jungleweed.GameObjects.Totem;
-import org.academiadecodigo.jungleweed.LogicEngine.LogicEngine;
+import org.academiadecodigo.jungleweed.logic.LogicEngine;
 
 import java.util.ArrayList;
 import java.util.List;

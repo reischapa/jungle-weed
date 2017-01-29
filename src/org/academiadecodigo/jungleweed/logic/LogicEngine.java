@@ -1,4 +1,4 @@
-package org.academiadecodigo.jungleweed.LogicEngine;
+package org.academiadecodigo.jungleweed.logic;
 
 import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;

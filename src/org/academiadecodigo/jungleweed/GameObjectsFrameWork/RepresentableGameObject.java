@@ -1,6 +1,6 @@
 package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
-import org.academiadecodigo.jungleweed.LogicEngine.LogicEngine;
+import org.academiadecodigo.jungleweed.logic.LogicEngine;
 
 /**
  * Created by chapa on 1/28/2017.

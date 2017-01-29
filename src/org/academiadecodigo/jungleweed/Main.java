@@ -1,6 +1,6 @@
 package org.academiadecodigo.jungleweed;
 
-import org.academiadecodigo.jungleweed.LogicEngine.LogicEngine;
+import org.academiadecodigo.jungleweed.logic.LogicEngine;
 
 /**
  * Created by codecadet on 1/22/17.

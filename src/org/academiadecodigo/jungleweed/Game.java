@@ -2,9 +2,7 @@ package org.academiadecodigo.jungleweed;
 
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.GameObjectFactory;
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.RepresentableGameObject;
-import org.academiadecodigo.jungleweed.LogicEngine.LogicEngine;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.jungleweed.logic.LogicEngine;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -36,10 +34,10 @@ public class Game implements KeyboardHandler {
 
     public static void main(String[] args) {
 
-
-
         Game c = new Game(4);
 
+        c.init();
+        c.start();
 
 
     }
@@ -80,27 +78,42 @@ public class Game implements KeyboardHandler {
                 break;
         }
 
-
         this.numPlayers = numPlayers;
+
+    }
+
+
+    public void init() {
 
         this.logicEngine = new LogicEngine(numPlayers,60);
 
-        this.logicEngine.init();
-        this.logicEngine.start();
-
         this.keyboard = new Keyboard(this);
-
-        this.constructEventListeners();
 
         this.objectFactory = new GameObjectFactory(this.logicEngine);
 
-        this.representableGameObjects = this.objectFactory.getRepresentableGameObjects();
+        this.logicEngine.init();
 
+    }
+
+    public void start() {
+
+        this.logicEngine.start();
+        this.representableGameObjects = this.objectFactory.getRepresentableGameObjects();
+        this.constructEventListeners();
+        this.drawAllGameObjects();
+
+    }
+
+    private void drawAllGameObjects() {
         for (RepresentableGameObject r : this.representableGameObjects) {
             r.draw();
         }
+    }
 
-
+    private void hideAllGameObjects() {
+        for (RepresentableGameObject r : this.representableGameObjects) {
+            r.hide();
+        }
     }
 
 
@@ -150,25 +163,27 @@ public class Game implements KeyboardHandler {
 
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
                 this.logicEngine.playerInfo();
-                return;
+                break;
             }
 
             if (keyboardEvent.getKey() == this.revealKeys.get(i)) {
                 this.logicEngine.getPlayerFaceUpCard(i);
-                return;
+                break;
             }
 
             if (keyboardEvent.getKey() == this.grabKeys.get(i)) {
                 this.logicEngine.grabTotem(i);
-                return;
+                break;
             }
 
         }
 
+        this.drawAllGameObjects();
+
     }
 
+
     @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {
-        System.out.println("BOOP");
-    }
+    public void keyReleased(KeyboardEvent keyboardEvent) {}
+
 }
