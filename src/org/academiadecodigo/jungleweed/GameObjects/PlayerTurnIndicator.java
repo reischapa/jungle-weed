@@ -1,12 +1,13 @@
 package org.academiadecodigo.jungleweed.GameObjects;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
+import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Indicator;
 
 /**
  * Created by codecadet on 1/29/17.
  */
-public class Totem implements Representable {
+public class PlayerTurnIndicator implements Indicator{
 
+    private int playerTurn;
 
     private int x;
     private int y;
@@ -31,14 +32,15 @@ public class Totem implements Representable {
         return y;
     }
 
-    @Override
     public void draw() {
-        System.out.println("the totem has been drawn");
+    }
+
+    public void hide() {
+        System.out.println();
     }
 
     @Override
-    public void hide() {
-        System.out.println("the totem has been hidden");
-    }
+    public void setProperty(int value) {
 
+    }
 }

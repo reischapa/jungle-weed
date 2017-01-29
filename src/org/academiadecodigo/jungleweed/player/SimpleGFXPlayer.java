@@ -1,6 +1,8 @@
 package org.academiadecodigo.jungleweed.player;
 
 import org.academiadecodigo.jungleweed.card.Card;
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 
 import java.util.Deque;
 
@@ -14,6 +16,8 @@ public class SimpleGFXPlayer extends Player {
 
     private int xFaceUp;
     private int yFaceUp;
+
+    private Text score;
 
     public SimpleGFXPlayer( int xFaceDown, int yFaceDown, int xFaceUp, int yFaceUp) {
 
@@ -35,8 +39,8 @@ public class SimpleGFXPlayer extends Player {
         }
 
         super.addCards(cards);
-
         this.drawCards();
+        this.showScore();
     }
 
 
@@ -44,6 +48,8 @@ public class SimpleGFXPlayer extends Player {
         boolean result = super.revealNextCard();
 
         this.drawCards();
+        this.deleteScore();
+        this.showScore();
         return result;
     }
 
@@ -51,6 +57,8 @@ public class SimpleGFXPlayer extends Player {
         Card[] result = super.giveCards();
 
         this.drawCards();
+        this.deleteScore();
+        this.showScore();
         return result;
     }
 
@@ -91,6 +99,17 @@ public class SimpleGFXPlayer extends Player {
             cFaceUp.draw();
         }
 
+    }
+
+    private void showScore(){
+        score = new Text(xFaceDown + 70, yFaceDown + 70, Integer.toString(super.getTotalNumberOfCards()));
+        score.draw();
+        score.setColor(Color.CYAN);
+        score.grow(40,40);
+    }
+
+    private void deleteScore(){
+        score.delete();
     }
 
 
