@@ -1,6 +1,6 @@
 package org.academiadecodigo.jungleweed;
 
-import org.academiadecodigo.jungleweed.HD_Grafiks_2_0.SimpleGfxCard;
+import org.academiadecodigo.jungleweed.GameObjects.SimpleGFXCard;
 import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.CardShape;

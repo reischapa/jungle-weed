@@ -26,7 +26,7 @@ public class Player{
 
     }
 
-    //when the player recieves cards from the game
+    //when the player receives cards from the game
     public void addCards(Card[] cards) {
 
         if (cards == null || cards.length == 0) {
