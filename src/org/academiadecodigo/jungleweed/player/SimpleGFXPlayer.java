@@ -31,9 +31,16 @@ public class SimpleGFXPlayer extends Player {
 
     //when the player recieves cards from the game
     public void addCards(Card[] cards) {
-        for (Card c : cards) {
-            if (c instanceof SimpleGFXCard) {
-                this.setCoordinates( (SimpleGFXCard) c);
+
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] instanceof SimpleGFXCard) {
+                if (i == 0) {
+                    ((SimpleGFXCard) cards[i]).setCardStatus(SimpleGFXCard.CardStatus.VISIBLE);
+                } else {
+                    ((SimpleGFXCard) cards[i]).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
+                }
+                this.setCoordinates( (SimpleGFXCard) cards[i] );
+
             }
         }
 
@@ -62,21 +69,21 @@ public class SimpleGFXPlayer extends Player {
 
 
     private void setCoordinates(SimpleGFXCard input) {
-       if(input.getXFaceUp() !=0 && input.getYFaceUp() !=0) {
+       if(input.getCardStatus() == SimpleGFXCard.CardStatus.VISIBLE) {
            while (input.getXFaceUp() != this.xFaceDown && input.getYFaceUp() != this.yFaceDown) {
                System.out.println(input.getXFaceUp());
                if (this.xFaceDown > input.getXFaceUp() && this.yFaceDown < input.getYFaceUp()) {
-                   input.setXFaceUp(input.getYFaceUp() + 1);
-                   input.setYFaceUp(input.getYFaceDown() - 1);
+                   input.setXFaceUp(input.getXFaceUp() + 2);
+                   input.setYFaceUp(input.getYFaceUp() - 2);
                } else if (this.xFaceDown > input.getXFaceUp() && this.yFaceDown > input.getYFaceUp()){
-                   input.setXFaceUp(input.getYFaceUp() + 1);
-                   input.setYFaceUp(input.getYFaceDown() + 1);
+                   input.setXFaceUp(input.getXFaceUp() + 2);
+                   input.setYFaceUp(input.getYFaceUp() + 2);
                }else if(this.xFaceDown < input.getXFaceUp() && this.yFaceDown > input.getYFaceUp()){
-                   input.setXFaceUp(input.getYFaceUp() - 1);
-                   input.setYFaceUp(input.getYFaceDown() + 1);
+                   input.setXFaceUp(input.getXFaceUp() - 2);
+                   input.setYFaceUp(input.getYFaceUp() + 2);
                }else{
-                   input.setXFaceUp(input.getYFaceUp() - 1);
-                   input.setYFaceUp(input.getYFaceDown() - 1);
+                   input.setXFaceUp(input.getXFaceUp() - 2);
+                   input.setYFaceUp(input.getYFaceUp() - 2);
                }
                try {
                    Thread.sleep(20);
@@ -86,11 +93,11 @@ public class SimpleGFXPlayer extends Player {
                input.draw();
            }
        }
-        //TODO implement animation logic here using the values that the card had previously
-       input.setXFaceUp(this.xFaceUp);
-       input.setYFaceUp(this.yFaceUp);
-       input.setXFaceDown(this.xFaceDown);
-       input.setYFaceDown(this.yFaceDown);
+           input.setXFaceUp(this.xFaceUp);
+           input.setYFaceUp(this.yFaceUp);
+           input.setXFaceDown(this.xFaceDown);
+           input.setYFaceDown(this.yFaceDown);
+
     }
 
 
