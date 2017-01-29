@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by codecadet on 1/22/17.
  */
-public class SGFXPlayerFactory {
+public class SGFXPlayerFactory extends PlayerFactory {
     public static final int[] faceUpPositionX = {48, 640, 1412, 820};
     public static final int[] faceUpPositionY = {470, 30, 290, 725};
     public static final int[] faceDownPositionX = {48, 820, 1412, 640};
@@ -15,9 +15,8 @@ public class SGFXPlayerFactory {
 
     private int nPlayers;
 
-    private List<Player> playerList;
-    private Iterator<Player> iterator;
-
+    private List<SGFXPlayer> playerList;
+    private Iterator<SGFXPlayer> iterator;
 
 
     public SGFXPlayerFactory(int nPlayers) {
@@ -38,9 +37,9 @@ public class SGFXPlayerFactory {
                 playerList.add(this.getPlayerAtPosition(0));
                 playerList.add(this.getPlayerAtPosition(2));
             case 3:
-                playerList.add(this.getPlayerAtPosition(3));
                 playerList.add(this.getPlayerAtPosition(0));
-                playerList.add(this.getPlayerAtPosition(2));
+                playerList.add(this.getPlayerAtPosition(1));
+                playerList.add(this.getPlayerAtPosition(3));
             case 4:
                 for (int i = 0; i < 4; i++) {
                     playerList.add(this.getPlayerAtPosition(i));
@@ -51,21 +50,22 @@ public class SGFXPlayerFactory {
 
     }
 
-    public Player getNextPlayer() {
+    public SGFXPlayer getNextPlayer() {
         if (!this.iterator.hasNext()) {
-            this.iterator = playerList.iterator();
+            this.iterator = this.playerList.iterator();
         }
 
         return this.iterator.next();
-
     }
 
-    public int getNPlayers() {
-        return this.nPlayers;
-    }
+
 
     private SGFXPlayer getPlayerAtPosition(int index) {
-        return new SGFXPlayer(faceUpPositionX[index], faceUpPositionY[index], faceDownPositionX[index], faceDownPositionY[index]);
+        return new SGFXPlayer(faceUpPositionX[index],
+                                faceUpPositionY[index],
+                                    faceDownPositionX[index],
+                                        faceDownPositionY[index]);
     }
+
 
 }

@@ -10,6 +10,10 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
  */
 public class SGFXTable extends AbstractRepresentable{
 
+    public final int X_PADDING = 0;
+    public final int Y_PADDING = 0;
+
+
     private Picture picture;
 
     public SGFXTable() {
