@@ -7,5 +7,7 @@ public interface Indicator extends Representable {
 
     public void setProperty(int value);
 
+    public int getProperty();
+
 
 }

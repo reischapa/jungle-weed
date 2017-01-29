@@ -1,46 +1,22 @@
 package org.academiadecodigo.jungleweed.GameObjects;
 
+import org.academiadecodigo.jungleweed.GameObjectsFrameWork.AbstractIndicator;
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Indicator;
 
 /**
  * Created by codecadet on 1/29/17.
  */
-public class PlayerTurnIndicator implements Indicator{
+public class PlayerTurnIndicator  extends AbstractIndicator{
 
-    private int playerTurn;
-
-    private int x;
-    private int y;
 
     @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
     public void draw() {
-    }
-
-    public void hide() {
-        System.out.println();
+        System.out.println("the current player turn is " + this.getProperty());
     }
 
     @Override
-    public void setProperty(int value) {
-
+    public void hide() {
+        System.out.println("The indicator has been hidden");
     }
+
 }

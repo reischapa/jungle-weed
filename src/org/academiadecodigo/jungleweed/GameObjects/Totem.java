@@ -1,35 +1,11 @@
 package org.academiadecodigo.jungleweed.GameObjects;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
+import org.academiadecodigo.jungleweed.GameObjectsFrameWork.AbstractRepresentable;
 
 /**
  * Created by codecadet on 1/29/17.
  */
-public class Totem implements Representable {
-
-
-    private int x;
-    private int y;
-
-    @Override
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    @Override
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
+public class Totem extends AbstractRepresentable {
 
     @Override
     public void draw() {

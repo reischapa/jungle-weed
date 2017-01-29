@@ -15,9 +15,8 @@ public class SGFXPlayerTurnIndicator implements Indicator {
     private int x;
     private int y;
 
-    public SGFXPlayerTurnIndicator(int turn) {
-        circle = new Ellipse(PlayerFactory.playerPositionX[turn], PlayerFactory.playerPositionY[turn], 50, 50);
-        circle.setColor(Color.GREEN);
+    public SGFXPlayerTurnIndicator() {
+        circle = new Ellipse(0, 0, 50, 50);
     }
 
 
@@ -51,7 +50,13 @@ public class SGFXPlayerTurnIndicator implements Indicator {
 
     @Override
     public void setProperty(int value) {
-        circle = new Ellipse(PlayerFactory.playerPositionX[value], PlayerFactory.playerPositionY[value], 50, 50);
+        this.setProperty(value);
+        circle = new Ellipse(PlayerFactory.playerPositionX[this.getProperty()], PlayerFactory.playerPositionY[this.getProperty()], 50, 50);
         circle.setColor(Color.GREEN);
+    }
+
+    @Override
+    public int getProperty() {
+        return this.getProperty();
     }
 }

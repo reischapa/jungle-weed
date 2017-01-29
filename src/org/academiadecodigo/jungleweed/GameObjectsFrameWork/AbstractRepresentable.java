@@ -3,34 +3,33 @@ package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 /**
  * Created by codecadet on 1/29/17.
  */
-public class AbstractGameObject implements Representable {
+public abstract class AbstractRepresentable implements Representable {
+
+    private int x;
+    private int y;
+
     @Override
     public void setX(int x) {
-        
+        this.x = x;
     }
 
     @Override
     public void setY(int y) {
-
+        this.y = y;
     }
 
     @Override
     public int getX() {
-        return 0;
+        return this.x;
     }
 
     @Override
     public int getY() {
-        return 0;
+        return this.y;
     }
 
-    @Override
-    public void draw() {
+    public abstract void draw();
 
-    }
+    public abstract void hide();
 
-    @Override
-    public void hide() {
-
-    }
 }
