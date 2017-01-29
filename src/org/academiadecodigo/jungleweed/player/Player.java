@@ -35,6 +35,9 @@ public class Player{
 
         for (Card c : cards) {
             if (c != null) {
+                if (c.isFaceUp()) {
+                    c.turn();
+                }
                 this.faceDownCards.addLast(c);
             }
         }
@@ -49,6 +52,7 @@ public class Player{
         }
 
         Card nextCard = this.faceDownCards.removeFirst();
+        nextCard.turn();
         this.faceUpCards.addFirst(nextCard);
 
         return false;
@@ -64,7 +68,11 @@ public class Player{
         int arraySize = this.faceUpCards.size();
 
         while (!this.faceUpCards.isEmpty()) {
-            output.add(this.faceUpCards.removeFirst());
+            Card c = this.faceUpCards.removeFirst();
+            if (c.isFaceUp()) {
+                c.turn();
+            }
+            output.add(c);
         }
 
         Card[] output2 = new Card[arraySize];

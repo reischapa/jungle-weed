@@ -13,58 +13,28 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class SimpleGFXCard extends Card {
 
 
-    public enum CardStatus {
-        VISIBLE,FACEDOWN,HIDDEN
-    }
-
     private Picture faceUp;
     private Picture faceDown;
-
-    private int xFaceUp;
-    private int yFaceUp;
-    private int xFaceDown;
-    private int yFaceDown;
-
-    private CardStatus cardStatus;
 
 
     public SimpleGFXCard(CardShape shape, CardColor color) {
         super(shape, color);
-        this.cardStatus = CardStatus.HIDDEN;
     }
 
-    private void recreateShapes() {
-
-        faceUp = new Picture(this.xFaceUp, this.yFaceUp, "res/" + this.getShape() + this.getColor() + ".jpeg");
-        faceDown = new Picture(this.xFaceDown, this.yFaceDown, "res/CARDBACK.jpeg");
-
-    }
-
-
-    public void setCardStatus(CardStatus cardStatus) {
-        this.cardStatus = cardStatus;
-        this.draw();
-    }
-
-    public SimpleGFXCard.CardStatus getCardStatus() {
-        return cardStatus;
-    }
 
     public void draw() {
 
         this.hide();
 
-        this.recreateShapes();
 
-
-        switch (this.cardStatus) {
-            case VISIBLE:
-                this.faceUp.draw();
-                return;
-            case FACEDOWN:
-                this.faceDown.draw();
-                return;
+        if (this.isFaceUp()) {
+            this.faceUp = new Picture(this.getXFaceUp(), this.getYFaceUp(), "res/" + this.getShape() + this.getColor() + ".jpeg");
+            this.faceUp.draw();
+        } else {
+            this.faceDown = new Picture(this.getXFaceDown(), this.getYFaceDown(), "res/CARDBACK.jpeg");
+            this.faceDown.draw();
         }
+
 
     }
 
@@ -78,37 +48,5 @@ public class SimpleGFXCard extends Card {
         }
     }
 
-    public void setXFaceUp(int x) {
-        this.xFaceUp = x;
-    }
-
-    public void setYFaceUp(int y) {
-        this.yFaceUp = y;
-    }
-
-    public void setXFaceDown(int x) {
-        this.xFaceDown = x;
-    }
-
-    public void setYFaceDown(int y) {
-        this.yFaceDown = y;
-    }
-
-
-    public int getXFaceUp() {
-        return xFaceUp;
-    }
-
-    public int getYFaceUp() {
-        return yFaceUp;
-    }
-
-    public int getXFaceDown() {
-        return xFaceDown;
-    }
-
-    public int getYFaceDown() {
-        return yFaceDown;
-    }
 
 }
