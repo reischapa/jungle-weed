@@ -31,37 +31,33 @@ public class SimpleGFXPlayer extends Player {
 
     //when the player recieves cards from the game
     public void addCards(Card[] cards) {
+
         for (Card c : cards) {
-            if (c instanceof SimpleGFXCard) {
-                this.setCoordinates( (SimpleGFXCard) c);
-            }
+            this.setCoordinates(c);
         }
 
         super.addCards(cards);
-        this.setCorrectCardStatus();
+
+        this.drawCards();
     }
 
 
     public boolean revealNextCard() {
         boolean result = super.revealNextCard();
-        this.setCorrectCardStatus();
+
+        this.drawCards();
         return result;
     }
 
     public Card[] giveCards() {
         Card[] result = super.giveCards();
 
-        for (Card c : result) {
-            if (c != null && c instanceof SimpleGFXCard) {
-                ((SimpleGFXCard) c).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
-            }
-        }
-
+        this.drawCards();
         return result;
     }
 
 
-    private void setCoordinates(SimpleGFXCard input) {
+    private void setCoordinates(Card input) {
         //TODO implement animation logic here using the values that the card had previously
        input.setXFaceUp(this.xFaceUp);
        input.setYFaceUp(this.yFaceUp);
@@ -69,68 +65,35 @@ public class SimpleGFXPlayer extends Player {
        input.setYFaceDown(this.yFaceDown);
     }
 
+    private void drawCards() {
 
-//    public void move(SimpleGFXCard simpleGFXCard)  {
-//        while(simpleGFXCard.getXFaceDown()!= x && faceUp.getY()!=y) {
-//
-//            if(x > faceUp.getX() && y < faceUp.getX()) {
-//                faceUp.translate( 1, -1 );
-//            }else if(x > faceUp.getX() && y > faceUp.getY()){
-//                faceUp.translate( 1 , 1 );
-//            }else if(x < faceUp.getX() && y < faceUp.getY()){
-//                faceUp.translate( -1, -1 );
-//            }else{
-//                faceUp.translate( -1, 1 );
-//            }
-//            try {
-//                Thread.sleep(5);
-//            } catch (Exception e) {
-//                System.out.println("FUCK");
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println(faceUp.getX());
-//    }
+        Deque<Card> faceDownList = this.peekFaceDownCards();
+        Deque<Card> faceUpList = this.peekFaceUpCards();
 
-
-    private void setCorrectCardStatus() {
-
-        Iterator<Card> faceDownIterator = this.peekFaceDownCards().iterator();
-        Iterator<Card> faceUpIterator = this.peekFaceUpCards().iterator();
-
-        boolean first = true;
-
-        while (faceDownIterator.hasNext()) {
-
-            Card card = faceDownIterator.next();
-            if (card != null && card instanceof SimpleGFXCard) {
-                if (first) {
-                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.FACEDOWN);
-                    first = false;
-                } else {
-                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
-                }
+        if (faceDownList != null) {
+            for (Card c : faceDownList) {
+                c.hide();
             }
         }
 
-        first = true;
-
-        while (faceUpIterator.hasNext()) {
-
-            Card card = faceUpIterator.next();
-            if (card != null && card instanceof SimpleGFXCard) {
-                if (first) {
-                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.VISIBLE);
-                    first = false;
-                } else {
-                    ((SimpleGFXCard) card).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
-                }
+        if (faceUpList != null) {
+            for (Card c : faceUpList) {
+                c.hide();
             }
+        }
+
+        Card cFaceDown = this.peekFaceDownCards().peekFirst();
+        Card cFaceUp = this.peekFaceUpCards().peekFirst();
+
+        if (cFaceDown != null) {
+            cFaceDown.draw();
+        }
+
+        if (cFaceUp != null) {
+            cFaceUp.draw();
         }
 
     }
-
-
 
 
 }

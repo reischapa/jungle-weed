@@ -208,6 +208,7 @@ public class LogicEngine {
     private void tradeCards(Player player1, Player player2) {
 
         player2.addCards(player1.giveCards());
+        player2.addCards(player2.giveCards());
         System.out.println(player2.getTotalNumberOfCards());
 
     }
