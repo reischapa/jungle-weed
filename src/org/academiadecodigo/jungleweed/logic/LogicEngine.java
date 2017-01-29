@@ -5,7 +5,7 @@ import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.SGFXCardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.player.Player;
-import org.academiadecodigo.jungleweed.player.PlayerFactory;
+import org.academiadecodigo.jungleweed.player.SGFXPlayerFactory;
 
 /**
  * Created by codecadet on 1/22/17.
@@ -34,10 +34,10 @@ public class LogicEngine {
     private int playerTurn;
     private boolean color;
     private boolean gameEnd;
-    private PlayerFactory playerFactory;
+    private SGFXPlayerFactory playerFactory;
 
 
-    public LogicEngine(PlayerFactory playerFactory, SGFXCardFactory cardFactory) {
+    public LogicEngine(SGFXPlayerFactory playerFactory, SGFXCardFactory cardFactory) {
 
         this.playerFactory = playerFactory;
         this.numPlayers = this.playerFactory.getNPlayers();

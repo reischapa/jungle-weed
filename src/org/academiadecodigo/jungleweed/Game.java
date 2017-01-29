@@ -8,7 +8,7 @@ import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.SGFXCardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.logic.LogicEngine;
-import org.academiadecodigo.jungleweed.player.PlayerFactory;
+import org.academiadecodigo.jungleweed.player.SGFXPlayerFactory;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -59,7 +59,7 @@ public class Game implements KeyboardHandler {
 
     public static void main(String[] args) {
 
-        Game c = new Game(4,GameGraphicsType.CONSOLE);
+        Game c = new Game(3,GameGraphicsType.CONSOLE);
 
         c.init();
         c.startGame();
@@ -111,7 +111,7 @@ public class Game implements KeyboardHandler {
         this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
         this.field.draw();
 
-        this.logicEngine = new LogicEngine(new PlayerFactory(this.numPlayers),new SGFXCardFactory(CardShape.values(), CardColor.values()));
+        this.logicEngine = new LogicEngine(new SGFXPlayerFactory(this.numPlayers),new SGFXCardFactory(CardShape.values(), CardColor.values()));
 
         this.logicEngine.init();
 

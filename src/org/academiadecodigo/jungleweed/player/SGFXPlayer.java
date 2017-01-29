@@ -9,7 +9,7 @@ import java.util.Deque;
 /**
  * Created by codecadet on 1/22/17.
  */
-public class SimpleGFXPlayer extends Player {
+public class SGFXPlayer extends Player {
 
     private int xFaceDown;
     private int yFaceDown;
@@ -19,7 +19,7 @@ public class SimpleGFXPlayer extends Player {
 
     private Text score;
 
-    public SimpleGFXPlayer( int xFaceDown, int yFaceDown, int xFaceUp, int yFaceUp) {
+    public SGFXPlayer(int xFaceDown, int yFaceDown, int xFaceUp, int yFaceUp) {
 
         super();
 

@@ -1,8 +1,7 @@
 package org.academiadecodigo.jungleweed.GameObjects;
 
 import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Indicator;
-import org.academiadecodigo.jungleweed.logic.LogicEngine;
-import org.academiadecodigo.jungleweed.player.PlayerFactory;
+import org.academiadecodigo.jungleweed.player.SGFXPlayerFactory;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Ellipse;
 
@@ -51,7 +50,7 @@ public class SGFXPlayerTurnIndicator implements Indicator {
     @Override
     public void setProperty(int value) {
         this.setProperty(value);
-        circle = new Ellipse(PlayerFactory.playerPositionX[this.getProperty()], PlayerFactory.playerPositionY[this.getProperty()], 50, 50);
+        circle = new Ellipse(SGFXPlayerFactory.faceUpPositionX[this.getProperty()], SGFXPlayerFactory.faceUpPositionY[this.getProperty()], 50, 50);
         circle.setColor(Color.GREEN);
     }
 
