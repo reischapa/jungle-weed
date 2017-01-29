@@ -31,7 +31,7 @@ public class SimpleGFXCard extends Card {
             this.faceUp = new Picture(this.getXFaceUp(), this.getYFaceUp(), "res/" + this.getShape() + this.getColor() + ".jpeg");
             this.faceUp.draw();
         } else {
-            this.faceDown = new Picture(this.getXFaceDown(), this.getYFaceDown(), "res/CARDBACK.jpeg");
+            this.faceDown = new Picture(this.getXFaceDown(), this.getYFaceDown(), "res/CARDBACK2.jpeg");
             this.faceDown.draw();
         }
 
