@@ -62,7 +62,7 @@ public class Game implements KeyboardHandler {
 
     public static void main(String[] args) {
 
-        Game c = new Game(3,GameGraphicsType.CONSOLE);
+        Game c = new Game(3,GameGraphicsType.SIMPLEGFX);
 
         c.init();
         c.startGame();
@@ -194,11 +194,11 @@ public class Game implements KeyboardHandler {
                 break;
             case 3:
                 this.revealKeys.add(this.allRevealKeys[0]);
+                this.revealKeys.add(this.allRevealKeys[1]);
                 this.revealKeys.add(this.allRevealKeys[2]);
-                this.revealKeys.add(this.allRevealKeys[3]);
                 this.grabKeys.add(this.allGrabKeys[0]);
+                this.grabKeys.add(this.allGrabKeys[1]);
                 this.grabKeys.add(this.allGrabKeys[2]);
-                this.grabKeys.add(this.allGrabKeys[0]);
                 break;
             case 4:
                 this.revealKeys.add(this.allRevealKeys[0]);

@@ -35,11 +35,11 @@ public class SGFXPlayerFactory extends PlayerFactory {
         switch (this.nPlayers) {
             case (2):
                 playerList.add(this.getPlayerAtPosition(0));
-                playerList.add(this.getPlayerAtPosition(2));
+                playerList.add(this.getPlayerAtPosition(1));
             case 3:
                 playerList.add(this.getPlayerAtPosition(0));
                 playerList.add(this.getPlayerAtPosition(1));
-                playerList.add(this.getPlayerAtPosition(3));
+                playerList.add(this.getPlayerAtPosition(2));
             case 4:
                 for (int i = 0; i < 4; i++) {
                     playerList.add(this.getPlayerAtPosition(i));
