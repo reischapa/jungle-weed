@@ -62,6 +62,30 @@ public class SimpleGFXPlayer extends Player {
 
 
     private void setCoordinates(SimpleGFXCard input) {
+       if(input.getXFaceUp() !=0 && input.getYFaceUp() !=0) {
+           while (input.getXFaceUp() != this.xFaceDown && input.getYFaceUp() != this.yFaceDown) {
+               System.out.println(input.getXFaceUp());
+               if (this.xFaceDown > input.getXFaceUp() && this.yFaceDown < input.getYFaceUp()) {
+                   input.setXFaceUp(input.getYFaceUp() + 1);
+                   input.setYFaceUp(input.getYFaceDown() - 1);
+               } else if (this.xFaceDown > input.getXFaceUp() && this.yFaceDown > input.getYFaceUp()){
+                   input.setXFaceUp(input.getYFaceUp() + 1);
+                   input.setYFaceUp(input.getYFaceDown() + 1);
+               }else if(this.xFaceDown < input.getXFaceUp() && this.yFaceDown > input.getYFaceUp()){
+                   input.setXFaceUp(input.getYFaceUp() - 1);
+                   input.setYFaceUp(input.getYFaceDown() + 1);
+               }else{
+                   input.setXFaceUp(input.getYFaceUp() - 1);
+                   input.setYFaceUp(input.getYFaceDown() - 1);
+               }
+               try {
+                   Thread.sleep(20);
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+               input.draw();
+           }
+       }
         //TODO implement animation logic here using the values that the card had previously
        input.setXFaceUp(this.xFaceUp);
        input.setYFaceUp(this.yFaceUp);
