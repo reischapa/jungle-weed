@@ -1,5 +1,6 @@
 package org.academiadecodigo.jungleweed.HD_Grafiks_2_0;
 
+import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Movable;
 import org.academiadecodigo.jungleweed.card.Card;
 import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.CardShape;
@@ -8,7 +9,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 /**
  * Created by anton on 25/01/2017.
  */
-public class SimpleGfxCard extends Card {
+public class SimpleGfxCard extends Card{
 
     private Picture faceUp;
     private Picture faceDown;
@@ -43,6 +44,26 @@ public class SimpleGfxCard extends Card {
 
 
 
+    }
+
+    public void move(int x, int y) throws InterruptedException {
+        int offset = 1;
+        //faceUp.translate( 20, 20 );
+        //Thread.sleep(500);
+       while(faceUp.getX() != x && faceUp.getY()!=y) {
+
+            if(x > faceUp.getX() && y < faceUp.getX()) {
+                faceUp.translate( 1, -1 );
+            }else if(x > faceUp.getX() && y > faceUp.getY()){
+                faceUp.translate( 1 , 1 );
+            }else if(x < faceUp.getX() && y < faceUp.getY()){
+                faceUp.translate( -1, -1 );
+            }else{
+                faceUp.translate( -1, 1 );
+            }
+            Thread.sleep(5);
+       }
+        System.out.println(faceUp.getX());
     }
 
     @Override
