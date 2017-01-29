@@ -35,7 +35,7 @@ public class SimpleGFXPlayer extends Player {
         for (int i = 0; i < cards.length; i++) {
             if (cards[i] instanceof SimpleGFXCard) {
                 if (i == 0) {
-                    ((SimpleGFXCard) cards[i]).setCardStatus(SimpleGFXCard.CardStatus.VISIBLE);
+                    ((SimpleGFXCard) cards[i]).setCardStatus(SimpleGFXCard.CardStatus.FACEDOWN);
                 } else {
                     ((SimpleGFXCard) cards[i]).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
                 }
@@ -58,33 +58,40 @@ public class SimpleGFXPlayer extends Player {
     public Card[] giveCards() {
         Card[] result = super.giveCards();
 
-        for (Card c : result) {
-            if (c != null && c instanceof SimpleGFXCard) {
-                ((SimpleGFXCard) c).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
+
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] != null && result[i] instanceof SimpleGFXCard) {
+//                if (i == 0) {
+//                    ((SimpleGFXCard) result[i]).setCardStatus(SimpleGFXCard.CardStatus.FACEDOWN);
+//                } else {
+                    ((SimpleGFXCard) result[i]).setCardStatus(SimpleGFXCard.CardStatus.HIDDEN);
+//                }
             }
         }
+
 
         return result;
     }
 
 
     private void setCoordinates(SimpleGFXCard input) {
-       if(input.getCardStatus() == SimpleGFXCard.CardStatus.VISIBLE) {
-           while (input.getXFaceUp() != this.xFaceDown && input.getYFaceUp() != this.yFaceDown) {
-               System.out.println(input.getXFaceUp());
-               if (this.xFaceDown > input.getXFaceUp() && this.yFaceDown < input.getYFaceUp()) {
-                   input.setXFaceUp(input.getXFaceUp() + 2);
-                   input.setYFaceUp(input.getYFaceUp() - 2);
-               } else if (this.xFaceDown > input.getXFaceUp() && this.yFaceDown > input.getYFaceUp()){
-                   input.setXFaceUp(input.getXFaceUp() + 2);
-                   input.setYFaceUp(input.getYFaceUp() + 2);
-               }else if(this.xFaceDown < input.getXFaceUp() && this.yFaceDown > input.getYFaceUp()){
-                   input.setXFaceUp(input.getXFaceUp() - 2);
-                   input.setYFaceUp(input.getYFaceUp() + 2);
-               }else{
-                   input.setXFaceUp(input.getXFaceUp() - 2);
-                   input.setYFaceUp(input.getYFaceUp() - 2);
+        int pixeldelta = 10;
+        if (input.getCardStatus() == SimpleGFXCard.CardStatus.FACEDOWN) {
+           while (input.getXFaceDown() != this.xFaceDown || input.getYFaceDown() != this.yFaceDown) {
+               System.out.println(input.getXFaceDown() + "," + input.getYFaceDown());
+
+               if (input.getXFaceDown() < this.xFaceDown) {
+                   input.setXFaceDown(input.getXFaceDown() + pixeldelta);
+               } else if (input.getXFaceDown() > this.xFaceDown) {
+                   input.setXFaceDown(input.getXFaceDown() - pixeldelta);
                }
+
+               if (input.getYFaceDown() < this.yFaceDown) {
+                   input.setYFaceDown(input.getYFaceDown() + pixeldelta);
+               } else if (input.getYFaceDown() > this.yFaceDown) {
+                   input.setYFaceDown(input.getYFaceDown() - pixeldelta);
+               }
+
                try {
                    Thread.sleep(20);
                } catch (Exception e) {
@@ -93,10 +100,12 @@ public class SimpleGFXPlayer extends Player {
                input.draw();
            }
        }
-           input.setXFaceUp(this.xFaceUp);
-           input.setYFaceUp(this.yFaceUp);
-           input.setXFaceDown(this.xFaceDown);
-           input.setYFaceDown(this.yFaceDown);
+
+
+       input.setXFaceUp(this.xFaceUp);
+       input.setYFaceUp(this.yFaceUp);
+       input.setXFaceDown(this.xFaceDown);
+       input.setYFaceDown(this.yFaceDown);
 
     }
 
