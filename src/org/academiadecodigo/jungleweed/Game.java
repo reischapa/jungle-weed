@@ -10,6 +10,7 @@ import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.logic.LogicEngine;
 import org.academiadecodigo.jungleweed.player.PlayerFactory;
 import org.academiadecodigo.jungleweed.player.SGFXPlayerFactory;
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -27,8 +28,13 @@ public class Game implements KeyboardHandler {
         CONSOLE, SIMPLEGFX,
     }
 
+    private enum GameState {
+        GREET, GAME, GAMEEND,
+    }
+
+
     public enum RepresentableType {
-        TOTEM, TABLE,
+        TOTEM, TABLE, TITLESCREEN,
     }
 
     public enum IndicatorType {
@@ -38,6 +44,9 @@ public class Game implements KeyboardHandler {
 
     private final Integer[] allRevealKeys = {KeyboardEvent.KEY_1, KeyboardEvent.KEY_4, KeyboardEvent.KEY_7, KeyboardEvent.KEY_0};
     private final Integer[] allGrabKeys = {KeyboardEvent.KEY_Q, KeyboardEvent.KEY_R, KeyboardEvent.KEY_Y, KeyboardEvent.KEY_O};
+    private final Integer startGameKey = KeyboardEvent.KEY_SPACE;
+    private final Integer resetGameKey = KeyboardEvent.KEY_Z;
+    private final Integer exitGameKey = KeyboardEvent.KEY_RIGHT;
 
     private List<Integer> revealKeys;
     private List<Integer> grabKeys;
@@ -48,11 +57,15 @@ public class Game implements KeyboardHandler {
 
     private LogicEngine logicEngine;
 
+    private PlayerFactory playerFactory;
 
+    private SGFXCardFactory cardFactory;
 
     private GameGraphicsType gameGraphicsType;
 
     private GameObjectFactory gameObjectFactory;
+
+    private Representable titleScreen;
 
     private Representable field;
 
@@ -62,12 +75,14 @@ public class Game implements KeyboardHandler {
 
     private Indicator playerGrabIndicator;
 
+    private GameState gameState;
+
     public static void main(String[] args) {
 
-        Game c = new Game(4,GameGraphicsType.SIMPLEGFX);
+        Game c = new Game(4, GameGraphicsType.SIMPLEGFX);
 
         c.init();
-        c.startGame();
+        c.start();
 
     }
 
@@ -84,6 +99,8 @@ public class Game implements KeyboardHandler {
 
         this.gameGraphicsType = type;
 
+        this.gameState = GameState.GREET;
+
     }
 
 
@@ -93,172 +110,180 @@ public class Game implements KeyboardHandler {
         switch (this.gameGraphicsType) {
             case CONSOLE:
                 this.gameObjectFactory = new GameObjectFactory();
+                this.playerFactory = new PlayerFactory();
                 break;
             case SIMPLEGFX:
                 this.gameObjectFactory = new SGFXGameObjectFactory();
+                this.playerFactory = new SGFXPlayerFactory(this.numPlayers);
                 break;
             default:
                 System.out.println("DEU MERDA");
-                this.gameObjectFactory = new GameObjectFactory();
+                throw new UnsupportedOperationException();
         }
+
+        this.logicEngine = new LogicEngine(this.numPlayers, playerFactory, new SGFXCardFactory(CardShape.values(), CardColor.values()));
+        this.logicEngine.init();
 
         this.keyboard = new Keyboard(this);
 
-        this.registerInputKeys();
+        this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
+        this.totem = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEM);
+        this.titleScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TITLESCREEN);
+
+        this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
+        this.playerGrabIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.GRABTOTEM);
+
         this.constructEventListeners();
 
     }
 
+    public void start() {
+        this.showGreetMenu();
+    }
+
+    public void reset() {
+        this.init();
+        this.showGreetMenu();
+    }
+
+    private void showGreetMenu() {
+        this.hideAllRepresentables();
+        this.gameState = GameState.GREET;
+        this.titleScreen.setX(10);
+        this.titleScreen.setY(10);
+        this.titleScreen.draw();
+    }
 
 
-    public void startGame() {
+    private void showMainGame() {
+        this.gameState = GameState.GAME;
+        this.titleScreen.hide();
 
-        this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
         this.field.draw();
-
-        PlayerFactory playerFactory = null;
-//        CardFactory cardFactory = null;
-        switch (this.gameGraphicsType) {
-            case CONSOLE:
-                playerFactory = new PlayerFactory();
-                break;
-            case SIMPLEGFX:
-                playerFactory = new SGFXPlayerFactory(this.numPlayers);
-                break;
-            default:
-                System.out.println("DEU MERDA");
-                playerFactory = new PlayerFactory();
-        }
-
-        this.logicEngine = new LogicEngine(this.numPlayers, playerFactory ,new SGFXCardFactory(CardShape.values(), CardColor.values()));
-
-        this.logicEngine.init();
 
         this.logicEngine.start();
 
-        this.totem = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEM);
         this.totem.draw();
-
-        this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
 
         this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
         this.playerTurnIndicator.draw();
 
-        this.playerGrabIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.GRABTOTEM);
+
+    }
+
+    private void showEndScreen() {
+        this.gameState = GameState.GAMEEND;
+    }
+
+
+    public void catchGreetKeys(KeyboardEvent event) {
+        Integer key = event.getKey();
+
+        if (key == startGameKey) {
+            this.showMainGame();
+        }
+
+        if (key == exitGameKey) {
+            System.exit(0);
+        }
+
+    }
+
+    public void catchGameKeys(KeyboardEvent event) {
+
+        Integer key = event.getKey();
+
+        for (int i = 0; i < this.numPlayers; i++) {
+            if (allRevealKeys[i] == key) {
+                this.logicEngine.getPlayerFaceUpCard(i);
+                return;
+            }
+
+            if (allGrabKeys[i] == key) {
+                this.logicEngine.grabTotem(i);
+                return;
+            }
+        }
+
+        if (exitGameKey == key) {
+            System.exit(0);
+        }
+
+        if (resetGameKey == key) {
+            this.reset();
+            this.showGreetMenu();
+            return;
+        }
 
     }
 
 
+    public void catchEndScreenKeys(KeyboardEvent event) {
+        this.catchGreetKeys(event);
+    }
 
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
-        for (int i = 0; i < this.numPlayers; i++) {
-
-            if (keyboardEvent.getKey() == KeyboardEvent.KEY_RIGHT) {
-                System.exit(0);
-            }
-
-            if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
-                this.logicEngine.playerInfo();
+        switch (this.gameState) {
+            case GREET:
+                this.catchGreetKeys(keyboardEvent);
                 break;
-            }
-
-            if (keyboardEvent.getKey() == this.revealKeys.get(i)) {
-                this.logicEngine.getPlayerFaceUpCard(i);
+            case GAME:
+                this.catchGameKeys(keyboardEvent);
                 break;
-            }
-
-            if (keyboardEvent.getKey() == this.grabKeys.get(i)) {
-                this.playerGrabIndicator.setProperty(i);
-                this.playerGrabIndicator.draw();
-                this.logicEngine.grabTotem(i);
-
-                try {
-                    Thread.sleep(250);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+            case GAMEEND:
+                this.catchEndScreenKeys(keyboardEvent);
                 break;
-            }
-
+            default:
+                System.out.println("Deu merda");
+                throw new UnsupportedOperationException();
         }
 
-        this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
-        this.playerTurnIndicator.draw();
     }
 
 
     @Override
-    public void keyReleased(KeyboardEvent keyboardEvent) {}
-
-
-
-    public void registerInputKeys() {
-
-        switch (this.numPlayers) {
-            case 2:
-                this.revealKeys.add(this.allRevealKeys[0]);
-                this.revealKeys.add(this.allRevealKeys[3]);
-                this.grabKeys.add(this.allGrabKeys[0]);
-                this.grabKeys.add(this.allGrabKeys[3]);
-                break;
-            case 3:
-                this.revealKeys.add(this.allRevealKeys[0]);
-                this.revealKeys.add(this.allRevealKeys[1]);
-                this.revealKeys.add(this.allRevealKeys[2]);
-                this.grabKeys.add(this.allGrabKeys[0]);
-                this.grabKeys.add(this.allGrabKeys[1]);
-                this.grabKeys.add(this.allGrabKeys[2]);
-                break;
-            case 4:
-                this.revealKeys.add(this.allRevealKeys[0]);
-                this.revealKeys.add(this.allRevealKeys[1]);
-                this.revealKeys.add(this.allRevealKeys[2]);
-                this.revealKeys.add(this.allRevealKeys[3]);
-                this.grabKeys.add(this.allGrabKeys[0]);
-                this.grabKeys.add(this.allGrabKeys[1]);
-                this.grabKeys.add(this.allGrabKeys[2]);
-                this.grabKeys.add(this.allGrabKeys[3]);
-                break;
-        }
-
+    public void keyReleased(KeyboardEvent keyboardEvent) {
     }
 
     private void constructEventListeners() {
 
-
-        KeyboardEvent exitEvent = new KeyboardEvent();
-        KeyboardEvent debugEvent = new KeyboardEvent();
-
-        exitEvent.setKey(KeyboardEvent.KEY_RIGHT);
-        debugEvent.setKey(KeyboardEvent.KEY_LEFT);
-
-        exitEvent.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-        debugEvent.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        this.keyboard.addEventListener(exitEvent);
-        this.keyboard.addEventListener(debugEvent);
-
-
-        for (int i = 0; i < this.revealKeys.size(); i++) {
-
-            KeyboardEvent revealEvent = new KeyboardEvent();
-            KeyboardEvent grabEvent = new KeyboardEvent();
-
-            revealEvent.setKey(this.revealKeys.get(i));
-            grabEvent.setKey(this.grabKeys.get(i));
-
-            revealEvent.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-            grabEvent.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-            this.keyboard.addEventListener(revealEvent);
-            this.keyboard.addEventListener(grabEvent);
-
+        for (Integer i : allRevealKeys) {
+            this.addEventListener(i);
         }
+
+        for (Integer i : allGrabKeys) {
+            this.addEventListener(i);
+        }
+
+        this.addEventListener(startGameKey);
+        this.addEventListener(resetGameKey);
+        this.addEventListener(exitGameKey);
+
 
     }
 
+    private void addEventListener(Integer keyNumber) {
+        KeyboardEvent event = new KeyboardEvent();
+
+        event.setKey(keyNumber);
+
+        event.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+
+        this.keyboard.addEventListener(event);
+
+    }
+
+    private void hideAllRepresentables() {
+        this.field.hide();
+        this.totem.hide();
+        this.playerGrabIndicator.hide();
+        this.playerTurnIndicator.hide();
+    }
+
+
+
 }
+

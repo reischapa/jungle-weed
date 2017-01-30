@@ -1,10 +1,7 @@
 package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
 import org.academiadecodigo.jungleweed.Game;
-import org.academiadecodigo.jungleweed.GameObjects.GrabTotemIndicator;
-import org.academiadecodigo.jungleweed.GameObjects.PlayerTurnIndicator;
-import org.academiadecodigo.jungleweed.GameObjects.Table;
-import org.academiadecodigo.jungleweed.GameObjects.Totem;
+import org.academiadecodigo.jungleweed.GameObjects.*;
 
 /**
  * Created by codecadet on 1/29/17.
@@ -18,6 +15,8 @@ public class GameObjectFactory {
                 return new Totem();
             case TABLE:
                 return new Table();
+            case TITLESCREEN:
+                return new TitleScreen();
             default:
                 System.out.println("DEU MERDA");
                 return new Totem();

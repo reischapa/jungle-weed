@@ -30,6 +30,8 @@ public class SGFXTable extends AbstractRepresentable{
 
     @Override
     public void hide() {
-        this.picture.delete();
+        if (this.picture != null) {
+            picture.delete();
+        }
     }
 }

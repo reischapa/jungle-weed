@@ -23,6 +23,8 @@ public class SGFXGrabTotemIndicator extends AbstractIndicator {
 
     @Override
     public void hide() {
-        this.text.delete();
+        if (this.text != null) {
+            this.text.delete();
+        }
     }
 }
