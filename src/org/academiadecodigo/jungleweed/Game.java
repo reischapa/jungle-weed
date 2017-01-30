@@ -34,7 +34,7 @@ public class Game implements KeyboardHandler {
 
 
     public enum RepresentableType {
-        TOTEM, TABLE, TITLESCREEN,
+        TOTEM, TABLE, TITLESCREEN, ENDSCREEN
     }
 
     public enum IndicatorType {
@@ -70,6 +70,8 @@ public class Game implements KeyboardHandler {
     private Representable field;
 
     private Representable totem;
+
+    private Representable endScreen;
 
     private Indicator playerTurnIndicator;
 
@@ -129,6 +131,7 @@ public class Game implements KeyboardHandler {
         this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
         this.totem = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEM);
         this.titleScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TITLESCREEN);
+        this.endScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.ENDSCREEN);
 
         this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
         this.playerGrabIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.GRABTOTEM);
@@ -149,15 +152,14 @@ public class Game implements KeyboardHandler {
     private void showGreetMenu() {
         this.hideAllRepresentables();
         this.gameState = GameState.GREET;
-        this.titleScreen.setX(10);
-        this.titleScreen.setY(10);
+
         this.titleScreen.draw();
     }
 
 
     private void showMainGame() {
         this.gameState = GameState.GAME;
-        this.titleScreen.hide();
+        this.hideAllRepresentables();
 
         this.field.draw();
 
@@ -173,6 +175,9 @@ public class Game implements KeyboardHandler {
 
     private void showEndScreen() {
         this.gameState = GameState.GAMEEND;
+        this.hideAllRepresentables();
+
+        this.endScreen.draw();
     }
 
 
@@ -196,14 +201,18 @@ public class Game implements KeyboardHandler {
         for (int i = 0; i < this.numPlayers; i++) {
             if (allRevealKeys[i] == key) {
                 this.logicEngine.getPlayerFaceUpCard(i);
-                return;
             }
 
             if (allGrabKeys[i] == key) {
                 this.logicEngine.grabTotem(i);
-                return;
             }
         }
+
+        if (this.logicEngine.getGameEnd()) {
+            this.showEndScreen();
+            return;
+        }
+
 
         if (exitGameKey == key) {
             System.exit(0);
@@ -279,6 +288,8 @@ public class Game implements KeyboardHandler {
     private void hideAllRepresentables() {
         this.field.hide();
         this.totem.hide();
+        this.titleScreen.hide();
+        this.endScreen.hide();
         this.playerGrabIndicator.hide();
         this.playerTurnIndicator.hide();
     }

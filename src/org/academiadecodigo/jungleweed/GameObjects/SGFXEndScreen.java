@@ -6,18 +6,17 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 /**
  * Created by codecadet on 1/30/17.
  */
-public class SGFXTitleScreen extends AbstractRepresentable {
-
+public class SGFXEndScreen extends AbstractRepresentable {
     private Picture picture;
 
-    public SGFXTitleScreen() {
-        this.picture = new Picture(10, 10, "res/TITLESCREEN.jpeg");
+    public SGFXEndScreen() {
+        this.picture = new Picture(10, 10, "res/ENDSCREEN.jpeg");
     }
 
     @Override
     public void draw() {
-       this.picture.translate(this.getX() - this.picture.getX(), this.getY() - this.picture.getY());
-       this.picture.draw();
+        this.picture.translate(this.getX() - this.picture.getX(), this.getY() - this.picture.getY());
+        this.picture.draw();
     }
 
     @Override

@@ -17,6 +17,8 @@ public class GameObjectFactory {
                 return new Table();
             case TITLESCREEN:
                 return new TitleScreen();
+            case ENDSCREEN:
+                return new EndScreen();
             default:
                 System.out.println("DEU MERDA");
                 return new Totem();

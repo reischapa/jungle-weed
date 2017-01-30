@@ -145,15 +145,15 @@ public class LogicEngine {
     }
 
     //Resets the game back to the beginning, creates all the cards again and gives them to the players.
-    public void reset() {
-
-        this.gameEnd = false;
-        this.playerTurn = 0;
-        clearComparableCards();
-        init();
-        start();
-
-    }
+//    public void reset() {
+//
+//        this.gameEnd = false;
+//        this.playerTurn = 0;
+//        clearComparableCards();
+//        init();
+//        start();
+//
+//    }
 
     //Compares the cards on the field with the card of the player who called the check, return true if there is any card on top of the face up pile that matches the player's card.
     private boolean comparePlayerCards(int turn, Card comparableCard) {
@@ -374,9 +374,5 @@ public class LogicEngine {
 
     }
 
-    public LogicStatus getCurrentLogicStatus() {
-        //TODO give proper information regarding the game status
-        return LogicStatus.WAITING;
-    }
 
 }
