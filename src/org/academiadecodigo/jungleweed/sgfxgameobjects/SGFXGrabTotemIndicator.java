@@ -13,7 +13,7 @@ public class SGFXGrabTotemIndicator extends AbstractIndicator {
 
     @Override
     public void draw() {
-        this.text = new Text(this.getX(), this.getY(), "Player " + super.getProperty() + " has grabbed the Totem!!");
+        this.text = new Text(this.getX(), this.getY(), "Player " + super.getProperty() + " has grabbed the TotemStandingUp!!");
         this.text.setColor(Color.CYAN);
         this.text.draw();
         this.text.grow(40,40);

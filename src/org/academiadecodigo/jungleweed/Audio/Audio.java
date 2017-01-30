@@ -29,6 +29,7 @@ public class Audio {
     }
 
     public void startTheme()  {
+
         try {
             music = new AudioStream(theme);
             AudioPlayer.player.start(music);
@@ -38,7 +39,13 @@ public class Audio {
     }
 
     public void stopTheme() {
-        AudioPlayer.player.stop(music);
+
+        if (music == null) {
+            return;
+        }
+
+        //AudioPlayer.player.stop(music);
+
         try {
             music.close();
         } catch (IOException e) {
@@ -70,7 +77,6 @@ public class Audio {
         try {
             fileflip = new FileInputStream("res/flip.wav");
             effect = new AudioStream(fileflip);
-            System.out.println(effect.getLength());
             AudioPlayer.player.start(effect);
         } catch (IOException e) {
             e.printStackTrace();

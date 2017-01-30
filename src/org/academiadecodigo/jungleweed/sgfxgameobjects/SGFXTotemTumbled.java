@@ -4,19 +4,23 @@ import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractRepresentabl
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**
- * Created by codecadet on 1/27/17.
+ * Created by codecadet on 1/30/17.
  */
-public class SGFXTotem extends AbstractRepresentable {
+public class SGFXTotemTumbled extends AbstractRepresentable {
 
-    private Picture picture;
+    private Picture picure;
 
-    public SGFXTotem() {
+    public SGFXTotemTumbled() {
 
     }
 
+    @Override
     public void draw() {
+
     }
 
+    @Override
     public void hide() {
+
     }
 }

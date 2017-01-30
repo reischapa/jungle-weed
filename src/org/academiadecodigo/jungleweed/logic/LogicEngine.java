@@ -115,7 +115,7 @@ public class LogicEngine {
 
             if (this.players[i].isAgarraPau()) {
 
-                System.out.println("SGFXTotem is Grabbed");
+                System.out.println("SGFXTotemStandingUp is Grabbed");
                 return false;
 
             }

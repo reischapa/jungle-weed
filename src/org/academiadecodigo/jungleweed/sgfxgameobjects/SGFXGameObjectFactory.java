@@ -10,19 +10,27 @@ import org.academiadecodigo.jungleweed.gameobjects.GameObjectFactory;
  */
 public class SGFXGameObjectFactory extends GameObjectFactory {
 
+    private static int WIDTH = 900;
+    private static int HEIGHT = 900;
+
+    private static int X_PADDING = 10;
+    private static int Y_PADDING = 10;
+
     @Override
     public Representable getRepresentableOfType(Game.RepresentableType type) {
 
         switch (type) {
-            case TOTEM:
-                return new SGFXTotem();
+            case TOTEMSTANDINGUP:
+                return new SGFXImage("res/TOTEMSTANDINGUP.png", WIDTH/2 - 80, HEIGHT/2 - 100);
             case TABLE:
-                return new SGFXTable();
+                return new SGFXImage("res/BACKGROUND2.JPEG", X_PADDING, Y_PADDING);
             case TITLESCREEN:
-                return new SGFXTitleScreen();
+                return new SGFXImage("res/TITLESCREEN.png", X_PADDING, Y_PADDING);
+            case TOTEMTUMBLED:
+                return new SGFXImage("res/TOTEMSTANDINGUP.png", WIDTH/2 - 80, HEIGHT/2 - 100);
             default:
                 System.out.println("DEU MERDA");
-                return new SGFXTotem();
+                return new SGFXTotemStandingUp();
         }
 
     }

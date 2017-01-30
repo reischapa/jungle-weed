@@ -16,7 +16,6 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class Game implements KeyboardHandler {
     }
 
     public enum RepresentableType {
-        TOTEM, TABLE, TITLESCREEN,
+        TOTEMSTANDINGUP, TABLE, TITLESCREEN, TOTEMTUMBLED
     }
 
     public enum IndicatorType {
@@ -69,7 +68,9 @@ public class Game implements KeyboardHandler {
 
     private Representable field;
 
-    private Representable totem;
+    private Representable totemStandingUp;
+
+    private Representable totemTumbled;
 
     private Indicator endScreen;
 
@@ -131,8 +132,10 @@ public class Game implements KeyboardHandler {
         this.audio = new Audio();
 
         this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
-        this.totem = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEM);
         this.titleScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TITLESCREEN);
+
+        this.totemStandingUp = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEMSTANDINGUP);
+        this.totemTumbled = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEMTUMBLED);
 
         this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
 
@@ -152,12 +155,13 @@ public class Game implements KeyboardHandler {
 
     public void reset() {
         this.init();
+        this.hideAllRepresentables();
         this.showGreetMenu();
     }
 
     private void showGreetMenu() {
-        this.hideAllRepresentables();
         this.gameState = GameState.GREET;
+
         this.audio.startTheme();
 
         this.titleScreen.draw();
@@ -166,7 +170,6 @@ public class Game implements KeyboardHandler {
 
     private void showMainGame() {
         this.gameState = GameState.GAME;
-        this.hideAllRepresentables();
 
         this.field.draw();
 
@@ -174,7 +177,7 @@ public class Game implements KeyboardHandler {
         this.logicEngine.init();
         this.logicEngine.start();
 
-        this.totem.draw();
+        this.totemStandingUp.draw();
 
         this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
         this.playerTurnIndicator.draw();
@@ -198,23 +201,14 @@ public class Game implements KeyboardHandler {
             this.showMainGame();
         }
 
-        if (key == exitGameKey) {
-            System.exit(0);
-        }
-
     }
 
     public void catchGameKeys(KeyboardEvent event) {
 
         Integer key = event.getKey();
 
-        if (exitGameKey == key) {
-            System.exit(0);
-        }
-
         if (resetGameKey == key) {
             this.reset();
-            this.showGreetMenu();
             return;
         }
 
@@ -229,9 +223,7 @@ public class Game implements KeyboardHandler {
 
             if (allGrabKeys[i] == key) {
                 if (this.logicEngine.grabTotem(i)) {
-                    this.playerGrabIndicator.setProperty(0);
-                } else {
-                    this.playerGrabIndicator.setProperty(1);
+                    this.playerGrabIndicator.setProperty(i+1);
                 }
                 this.playerGrabIndicator.draw();
             }
@@ -247,8 +239,6 @@ public class Game implements KeyboardHandler {
         this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
         this.playerTurnIndicator.draw();
 
-
-
     }
 
 
@@ -260,14 +250,24 @@ public class Game implements KeyboardHandler {
             this.reset();
         }
 
-        if (key == exitGameKey) {
+    }
+
+    public boolean catchCommonScreenKeys(KeyboardEvent event) {
+
+        if (event.getKey() == exitGameKey) {
             System.exit(0);
         }
+
+        return false;
     }
 
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
+
+        if (catchCommonScreenKeys(keyboardEvent)) {
+            return;
+        }
 
         switch (this.gameState) {
             case GREET:
@@ -321,7 +321,7 @@ public class Game implements KeyboardHandler {
 
     private void hideAllRepresentables() {
         this.field.hide();
-        this.totem.hide();
+        this.totemStandingUp.hide();
         this.titleScreen.hide();
         this.endScreen.hide();
     }

@@ -3,18 +3,15 @@ package org.academiadecodigo.jungleweed.gameobjects;
 import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractRepresentable;
 
 /**
- * Created by codecadet on 1/29/17.
+ * Created by codecadet on 1/30/17.
  */
-public class Totem extends AbstractRepresentable {
-
+public class TotemTumbled extends AbstractRepresentable {
     @Override
     public void draw() {
-        System.out.println("the totem has been drawn");
+        System.out.println("The totem has tumbled!!");
     }
 
     @Override
     public void hide() {
-        System.out.println("the totem has been hidden");
     }
-
 }

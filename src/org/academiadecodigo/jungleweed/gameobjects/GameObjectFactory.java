@@ -12,15 +12,17 @@ public class GameObjectFactory {
 
     public Representable getRepresentableOfType(Game.RepresentableType type) {
         switch (type) {
-            case TOTEM:
-                return new Totem();
+            case TOTEMSTANDINGUP:
+                return new TotemStandingUp();
             case TABLE:
                 return new Table();
             case TITLESCREEN:
                 return new TitleScreen();
+            case TOTEMTUMBLED:
+                return new TotemTumbled();
             default:
                 System.out.println("DEU MERDA");
-                return new Totem();
+                return new TotemStandingUp();
         }
     }
 
