@@ -23,14 +23,14 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
             case TOTEMSTANDINGUP:
                 return new SGFXImage("res/TOTEMSTANDINGUP.png", WIDTH/2 - 80, HEIGHT/2 - 100);
             case TABLE:
-                return new SGFXImage("res/BACKGROUND2.JPEG", X_PADDING, Y_PADDING);
+                return new SGFXImage("res/BACKGROUND.JPEG", X_PADDING, Y_PADDING);
             case TITLESCREEN:
                 return new SGFXImage("res/TITLESCREEN.png", X_PADDING, Y_PADDING);
             case TOTEMTUMBLED:
-                return new SGFXImage("res/TOTEMSTANDINGUP.png", WIDTH/2 - 80, HEIGHT/2 - 100);
+                return new SGFXImage("res/TOTEMTUMBLED.png", WIDTH/2 - 120, HEIGHT/2 - 100);
             default:
                 System.out.println("DEU MERDA");
-                return new SGFXTotemStandingUp();
+                throw new UnsupportedOperationException();
         }
 
     }

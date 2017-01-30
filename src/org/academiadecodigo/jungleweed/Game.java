@@ -18,6 +18,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * Created by codecadet on 1/27/17.
@@ -213,6 +214,7 @@ public class Game implements KeyboardHandler {
         }
 
         this.hideAllIndicators();
+        this.totemStandingUp.draw();
 
         for (int i = 0; i < this.numPlayers; i++) {
             if (allRevealKeys[i] == key) {
@@ -222,11 +224,14 @@ public class Game implements KeyboardHandler {
             }
 
             if (allGrabKeys[i] == key) {
-                if (this.logicEngine.grabTotem(i)) {
+
+                if ( (this.logicEngine.grabTotem(i) )) {
                     this.playerGrabIndicator.setProperty(i+1);
                 }
                 this.playerGrabIndicator.draw();
+                this.totemStandingUp.hide();
             }
+
         }
 
 
@@ -331,7 +336,16 @@ public class Game implements KeyboardHandler {
         this.playerTurnIndicator.hide();
     }
 
+    private void drawTotemStandingUp() {
+        this.totemTumbled.hide();
+        this.totemStandingUp.draw();
+    }
 
+
+    private void drawTotemTumbled() {
+        this.totemTumbled.draw();
+        this.totemStandingUp.hide();
+    }
 
 }
 
