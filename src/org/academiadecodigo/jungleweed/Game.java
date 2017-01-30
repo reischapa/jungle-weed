@@ -215,17 +215,15 @@ public class Game implements KeyboardHandler {
 
         for (int i = 0; i < this.numPlayers; i++) {
             if (allRevealKeys[i] == key) {
-                this.logicEngine.getPlayerFaceUpCard(i);
-                this.audio.playFlip();
-                try {
-                    Thread.sleep(100);
-                } catch (Exception e) {
+                if (this.logicEngine.getPlayerFaceUpCard(i)) {
+                    this.audio.playFlip();
                 }
-                this.audio.stopFlip();
             }
 
             if (allGrabKeys[i] == key) {
-                this.logicEngine.grabTotem(i);
+                if (this.logicEngine.grabTotem(i)) {
+                    //TODO SOUND EFFECT
+                }
             }
         }
 

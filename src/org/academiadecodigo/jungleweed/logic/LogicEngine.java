@@ -76,7 +76,7 @@ public class LogicEngine {
     // Turns one player card from the face down pile to the top of the face up pile, if it's that player's turn,
     // if the turned up card is a ChangeColor card, the game will now compare card colors instead of shapes,
     // when that card is no longer on top changes the game logic back to shapes.
-    public void getPlayerFaceUpCard(int turn) {
+    public boolean getPlayerFaceUpCard(int turn) {
 
         if (this.playerTurn == turn) {
 
@@ -98,24 +98,25 @@ public class LogicEngine {
             System.out.println(comparableCards[playerTurn].getShape() + " " + comparableCards[playerTurn].getColor());
             nextPlayerTurn();
 
+            return true;
+
         } else {
 
-            System.out.println("Not Your Turn");
-
+            return false;
         }
 
     }
 
     // When the player grabs the totems it compares all cards, if there's a match between the player's card and any other card on top of the face up pile,
     // the player wins and the loser must take his cards, if he loses he must take everybody's face up cards.
-    public void grabTotem(int turn) {
+    public boolean grabTotem(int turn) {
 
         for (int i = 0; i < this.players.length; i++) {
 
             if (this.players[i].isAgarraPau()) {
 
                 System.out.println("SGFXTotem is Grabbed");
-                return;
+                return false;
 
             }
         }
@@ -127,6 +128,8 @@ public class LogicEngine {
 
         this.players[turn].largaPau();
         isGameOver();
+
+        return ganhou;
 
     }
 

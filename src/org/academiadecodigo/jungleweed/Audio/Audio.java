@@ -68,25 +68,33 @@ public class Audio {
 
 
         try {
+            fileflip = new FileInputStream("res/flip.wav");
             effect = new AudioStream(fileflip);
+            System.out.println(effect.getLength());
+            AudioPlayer.player.start(effect);
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
         }
-        System.out.println(effect.getLength());
-        AudioPlayer.player.start(effect);
 
+
+
+        try {
+            Thread.sleep(100);
+            fileflip.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     public void stopFlip()  {
-
-        AudioPlayer.player.stop(effect);
         try {
-            effect.close();
+            this.effect.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        effect = null;
     }
 
 
