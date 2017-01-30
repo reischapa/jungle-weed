@@ -1,10 +1,5 @@
 package org.academiadecodigo.jungleweed.card;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
-import org.academiadecodigo.jungleweed.card.Card;
-import org.academiadecodigo.jungleweed.card.CardColor;
-import org.academiadecodigo.jungleweed.card.CardShape;
-import org.academiadecodigo.jungleweed.logic.LogicEngine;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**

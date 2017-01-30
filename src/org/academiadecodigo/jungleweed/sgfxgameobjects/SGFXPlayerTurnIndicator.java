@@ -1,7 +1,6 @@
-package org.academiadecodigo.jungleweed.GameObjects;
+package org.academiadecodigo.jungleweed.sgfxgameobjects;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.AbstractIndicator;
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Indicator;
+import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractIndicator;
 import org.academiadecodigo.jungleweed.player.SGFXPlayerFactory;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Ellipse;

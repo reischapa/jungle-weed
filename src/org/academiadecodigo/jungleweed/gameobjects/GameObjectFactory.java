@@ -1,7 +1,8 @@
-package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
+package org.academiadecodigo.jungleweed.gameobjects;
 
 import org.academiadecodigo.jungleweed.Game;
-import org.academiadecodigo.jungleweed.GameObjects.*;
+import org.academiadecodigo.jungleweed.gameobjectsframework.Indicator;
+import org.academiadecodigo.jungleweed.gameobjectsframework.Representable;
 
 /**
  * Created by codecadet on 1/29/17.

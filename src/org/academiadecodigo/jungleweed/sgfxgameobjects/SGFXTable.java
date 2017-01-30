@@ -1,8 +1,6 @@
-package org.academiadecodigo.jungleweed.GameObjects;
+package org.academiadecodigo.jungleweed.sgfxgameobjects;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.AbstractRepresentable;
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
-import org.academiadecodigo.jungleweed.logic.LogicEngine;
+import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractRepresentable;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**

@@ -1,16 +1,15 @@
 package org.academiadecodigo.jungleweed;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.GameObjectFactory;
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Indicator;
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.SGFXGameObjectFactory;
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.Representable;
+import org.academiadecodigo.jungleweed.gameobjects.GameObjectFactory;
+import org.academiadecodigo.jungleweed.gameobjectsframework.Indicator;
+import org.academiadecodigo.jungleweed.sgfxgameobjects.SGFXGameObjectFactory;
+import org.academiadecodigo.jungleweed.gameobjectsframework.Representable;
 import org.academiadecodigo.jungleweed.card.CardColor;
 import org.academiadecodigo.jungleweed.card.SGFXCardFactory;
 import org.academiadecodigo.jungleweed.card.CardShape;
 import org.academiadecodigo.jungleweed.logic.LogicEngine;
 import org.academiadecodigo.jungleweed.player.PlayerFactory;
 import org.academiadecodigo.jungleweed.player.SGFXPlayerFactory;
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -123,8 +122,6 @@ public class Game implements KeyboardHandler {
                 throw new UnsupportedOperationException();
         }
 
-        this.logicEngine = new LogicEngine(this.numPlayers, playerFactory, new SGFXCardFactory(CardShape.values(), CardColor.values()));
-        this.logicEngine.init();
 
         this.keyboard = new Keyboard(this);
 
@@ -163,6 +160,8 @@ public class Game implements KeyboardHandler {
 
         this.field.draw();
 
+        this.logicEngine = new LogicEngine(this.numPlayers, playerFactory, new SGFXCardFactory(CardShape.values(), CardColor.values()));
+        this.logicEngine.init();
         this.logicEngine.start();
 
         this.totem.draw();
@@ -212,6 +211,9 @@ public class Game implements KeyboardHandler {
             this.showEndScreen();
             return;
         }
+
+        this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
+        this.playerTurnIndicator.draw();
 
 
         if (exitGameKey == key) {
@@ -290,6 +292,9 @@ public class Game implements KeyboardHandler {
         this.totem.hide();
         this.titleScreen.hide();
         this.endScreen.hide();
+    }
+
+    private void hideAllIndicators() {
         this.playerGrabIndicator.hide();
         this.playerTurnIndicator.hide();
     }

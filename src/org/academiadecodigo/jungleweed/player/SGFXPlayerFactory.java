@@ -1,7 +1,5 @@
 package org.academiadecodigo.jungleweed.player;
 
-import org.academiadecodigo.jungleweed.GameObjects.SGFXTable;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package org.academiadecodigo.jungleweed.GameObjects;
+package org.academiadecodigo.jungleweed.sgfxgameobjects;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.AbstractRepresentable;
+import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractRepresentable;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**
@@ -10,12 +10,13 @@ public class SGFXEndScreen extends AbstractRepresentable {
     private Picture picture;
 
     public SGFXEndScreen() {
-        this.picture = new Picture(10, 10, "res/ENDSCREEN.jpeg");
+        this.setX(10);
+        this.setY(10);
+        this.picture = new Picture(this.getX(), this.getY(), "res/ENDSCREEN.jpeg");
     }
 
     @Override
     public void draw() {
-        this.picture.translate(this.getX() - this.picture.getX(), this.getY() - this.picture.getY());
         this.picture.draw();
     }
 

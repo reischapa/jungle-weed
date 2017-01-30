@@ -1,8 +1,7 @@
-package org.academiadecodigo.jungleweed.GameObjects;
+package org.academiadecodigo.jungleweed.sgfxgameobjects;
 
-import org.academiadecodigo.jungleweed.GameObjectsFrameWork.AbstractIndicator;
+import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractIndicator;
 import org.academiadecodigo.simplegraphics.graphics.Text;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**
  * Created by codecadet on 1/29/17.
