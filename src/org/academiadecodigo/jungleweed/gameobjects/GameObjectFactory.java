@@ -32,7 +32,7 @@ public class GameObjectFactory {
             case GRABTOTEM:
                 return new GrabTotemIndicator();
             case ENDSCREEN:
-                return new EndScreen();
+                return new EndScreenIndicator();
             default:
                 System.out.println("DEU MERDA");
                 return null;

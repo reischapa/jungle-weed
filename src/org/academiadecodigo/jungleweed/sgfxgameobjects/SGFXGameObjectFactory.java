@@ -35,7 +35,7 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
             case GRABTOTEM:
                 return new SGFXGrabTotemIndicator();
             case ENDSCREEN:
-                return new SGFXEndScreen();
+                return new SGFXEndScreenIndicator();
             default:
                 return new SGFXPlayerTurnIndicator();
         }

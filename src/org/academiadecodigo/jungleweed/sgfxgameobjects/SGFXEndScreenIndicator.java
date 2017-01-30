@@ -8,18 +8,18 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 /**
  * Created by codecadet on 1/30/17.
  */
-public class SGFXEndScreen extends AbstractIndicator {
+public class SGFXEndScreenIndicator extends AbstractIndicator {
     private Picture picture;
     private Text text;
 
-    public SGFXEndScreen() {
+    public SGFXEndScreenIndicator() {
         this.setX(10);
         this.setY(10);
     }
 
     @Override
     public void draw() {
-        this.picture = new Picture(this.getX(), this.getY(), "res/ENDSCREEN2.jpeg");
+        this.picture = new Picture(this.getX(), this.getY(), "res/ENDSCREEN.jpeg");
         this.picture.draw();
     }
 

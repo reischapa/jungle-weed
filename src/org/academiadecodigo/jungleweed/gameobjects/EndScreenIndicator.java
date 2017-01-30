@@ -6,7 +6,7 @@ import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractRepresentabl
 /**
  * Created by codecadet on 1/30/17.
  */
-public class EndScreen extends AbstractIndicator {
+public class EndScreenIndicator extends AbstractIndicator {
     @Override
     public void draw() {
         System.out.println("Player " + (this.getProperty() + 1) + " wins!!");

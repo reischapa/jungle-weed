@@ -42,11 +42,11 @@ public class Game implements KeyboardHandler {
     }
 
 
-    private final Integer[] allRevealKeys = {KeyboardEvent.KEY_1, KeyboardEvent.KEY_8, KeyboardEvent.KEY_K, KeyboardEvent.KEY_X};
-    private final Integer[] allGrabKeys = {KeyboardEvent.KEY_Q, KeyboardEvent.KEY_9, KeyboardEvent.KEY_L, KeyboardEvent.KEY_C};
-    private final Integer startGameKey = KeyboardEvent.KEY_SPACE;
-    private final Integer resetGameKey = KeyboardEvent.KEY_Z;
-    private final Integer exitGameKey = KeyboardEvent.KEY_RIGHT;
+    private final int[] allRevealKeys = {KeyboardEvent.KEY_1, KeyboardEvent.KEY_0, KeyboardEvent.KEY_M, KeyboardEvent.KEY_Z};
+    private final int[] allGrabKeys = {KeyboardEvent.KEY_2, KeyboardEvent.KEY_9, KeyboardEvent.KEY_N, KeyboardEvent.KEY_X};
+    private final int startGameKey = KeyboardEvent.KEY_SPACE;
+    private final int resetGameKey = KeyboardEvent.KEY_B;
+    private final int exitGameKey = KeyboardEvent.KEY_RIGHT;
 
     private List<Integer> revealKeys;
     private List<Integer> grabKeys;
@@ -59,7 +59,7 @@ public class Game implements KeyboardHandler {
 
     private PlayerFactory playerFactory;
 
-    private SGFXCardFactory cardFactory;
+    //private SGFXCardFactory cardFactory;
 
     private GameGraphicsType gameGraphicsType;
 
@@ -223,10 +223,12 @@ public class Game implements KeyboardHandler {
 
             if (allGrabKeys[i] == key) {
                 if (this.logicEngine.grabTotem(i)) {
-                    //TODO SOUND EFFECT
+                    this.playerGrabIndicator.setProperty(i+1);
+                    this.playerGrabIndicator.draw();
                 }
             }
         }
+
 
         if (this.logicEngine.getGameEnd()) {
             this.showEndScreen();
@@ -243,7 +245,16 @@ public class Game implements KeyboardHandler {
 
 
     public void catchEndScreenKeys(KeyboardEvent event) {
-        this.catchGreetKeys(event);
+
+        Integer key = event.getKey();
+
+        if (key == resetGameKey) {
+            this.reset();
+        }
+
+        if (key == exitGameKey) {
+            System.exit(0);
+        }
     }
 
 
