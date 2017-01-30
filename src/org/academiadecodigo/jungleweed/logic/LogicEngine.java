@@ -78,25 +78,25 @@ public class LogicEngine {
     // when that card is no longer on top changes the game logic back to shapes.
     public boolean getPlayerFaceUpCard(int turn) {
 
-        if (this.playerTurn == turn) {
+        if (this.playerTurn == turn ) {
 
-            this.players[this.playerTurn].revealNextCard();
-            this.comparableCards[this.playerTurn] = this.players[this.playerTurn].getFaceUpCard();
+                this.players[this.playerTurn].revealNextCard();
+                this.comparableCards[this.playerTurn] = this.players[this.playerTurn].getFaceUpCard();
 
-            if (this.comparableCards[this.playerTurn].getShape() == CardShape.CHANGECOLOR && this.color == false) {
+                if (this.comparableCards[this.playerTurn].getShape() == CardShape.CHANGECOLOR && this.color == false) {
 
-                changeCompareType();
-                this.color = true;
-                System.out.println("COLOR= " + this.color);
+                    changeCompareType();
+                    this.color = true;
+                    System.out.println("COLOR= " + this.color);
 
-            } else if (this.color) {
+                } else if (this.color) {
 
-                isColor();
+                    isColor();
 
-            }
+                }
 
-            System.out.println(comparableCards[playerTurn].getShape() + " " + comparableCards[playerTurn].getColor());
-            nextPlayerTurn();
+                System.out.println(comparableCards[playerTurn].getShape() + " " + comparableCards[playerTurn].getColor());
+                nextPlayerTurn();
 
             return true;
 
@@ -185,8 +185,6 @@ public class LogicEngine {
 
         this.playerTurn = turn;
         clearComparableCards();
-        System.out.println(players[0].getNumberRevealedCards());
-        System.out.println(players[1].getNumberRevealedCards());
         this.players[turn].getTotalNumberOfCards();
         tradeAllCards(turn);
         return false;
@@ -199,7 +197,16 @@ public class LogicEngine {
         if (this.playerTurn < this.players.length - 1) {
 
             this.playerTurn++;
-
+            for(Player play : players) {
+                if(play == players[playerTurn]) {
+                    if (play.getNumberFaceDownCards() == 0) {
+                        this.playerTurn++;
+                        if(playerTurn > this.players.length){
+                            this.playerTurn = 0;
+                        }
+                    }
+                }
+            }
         } else {
 
             this.playerTurn = 0;
