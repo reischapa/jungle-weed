@@ -28,6 +28,8 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
         switch (type) {
             case CURRENTPLAYER:
                 return new SGFXPlayerTurnIndicator();
+            case GRABTOTEM:
+                return new SGFXGrabTotemIndicator();
             default:
                 return new SGFXPlayerTurnIndicator();
         }

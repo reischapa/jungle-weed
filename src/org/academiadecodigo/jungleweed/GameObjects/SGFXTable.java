@@ -14,6 +14,8 @@ public class SGFXTable extends AbstractRepresentable{
     public static final int Y_PADDING = 10;
 
 
+
+
     private Picture picture;
 
     public SGFXTable() {

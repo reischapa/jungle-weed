@@ -32,7 +32,7 @@ public class Game implements KeyboardHandler {
     }
 
     public enum IndicatorType {
-        CURRENTPLAYER,
+        CURRENTPLAYER, GRABTOTEM
     }
 
 
@@ -59,6 +59,8 @@ public class Game implements KeyboardHandler {
     private Representable totem;
 
     private Indicator playerTurnIndicator;
+
+    private Indicator playerGrabIndicator;
 
     public static void main(String[] args) {
 
@@ -142,6 +144,8 @@ public class Game implements KeyboardHandler {
         this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
         this.playerTurnIndicator.draw();
 
+        this.playerGrabIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.GRABTOTEM);
+
     }
 
 
@@ -167,7 +171,16 @@ public class Game implements KeyboardHandler {
             }
 
             if (keyboardEvent.getKey() == this.grabKeys.get(i)) {
+                this.playerGrabIndicator.setProperty(i);
+                this.playerGrabIndicator.draw();
                 this.logicEngine.grabTotem(i);
+
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             }
 

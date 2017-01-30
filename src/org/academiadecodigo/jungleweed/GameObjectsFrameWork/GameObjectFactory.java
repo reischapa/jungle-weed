@@ -1,6 +1,7 @@
 package org.academiadecodigo.jungleweed.GameObjectsFrameWork;
 
 import org.academiadecodigo.jungleweed.Game;
+import org.academiadecodigo.jungleweed.GameObjects.GrabTotemIndicator;
 import org.academiadecodigo.jungleweed.GameObjects.PlayerTurnIndicator;
 import org.academiadecodigo.jungleweed.GameObjects.Table;
 import org.academiadecodigo.jungleweed.GameObjects.Totem;
@@ -28,6 +29,8 @@ public class GameObjectFactory {
         switch (type) {
             case CURRENTPLAYER:
                 return new PlayerTurnIndicator();
+            case GRABTOTEM:
+                return new GrabTotemIndicator();
             default:
                 System.out.println("DEU MERDA");
                 return null;
