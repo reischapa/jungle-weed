@@ -1,14 +1,15 @@
 package org.academiadecodigo.jungleweed.gameobjects;
 
+import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractIndicator;
 import org.academiadecodigo.jungleweed.gameobjectsframework.AbstractRepresentable;
 
 /**
  * Created by codecadet on 1/30/17.
  */
-public class EndScreen extends AbstractRepresentable {
+public class EndScreen extends AbstractIndicator {
     @Override
     public void draw() {
-        System.out.println("GAME OVER MAN, GAME OVER!!!");
+        System.out.println("Player " + (this.getProperty() + 1) + " wins!!");
     }
 
     @Override

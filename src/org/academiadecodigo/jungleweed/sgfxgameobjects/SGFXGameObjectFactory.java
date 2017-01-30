@@ -20,8 +20,6 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
                 return new SGFXTable();
             case TITLESCREEN:
                 return new SGFXTitleScreen();
-            case ENDSCREEN:
-                return new SGFXEndScreen();
             default:
                 System.out.println("DEU MERDA");
                 return new SGFXTotem();
@@ -36,6 +34,8 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
                 return new SGFXPlayerTurnIndicator();
             case GRABTOTEM:
                 return new SGFXGrabTotemIndicator();
+            case ENDSCREEN:
+                return new SGFXEndScreen();
             default:
                 return new SGFXPlayerTurnIndicator();
         }

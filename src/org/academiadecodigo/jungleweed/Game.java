@@ -34,16 +34,16 @@ public class Game implements KeyboardHandler {
     }
 
     public enum RepresentableType {
-        TOTEM, TABLE, TITLESCREEN, ENDSCREEN
+        TOTEM, TABLE, TITLESCREEN,
     }
 
     public enum IndicatorType {
-        CURRENTPLAYER, GRABTOTEM
+        CURRENTPLAYER, GRABTOTEM, ENDSCREEN
     }
 
 
-    private final Integer[] allRevealKeys = {KeyboardEvent.KEY_1, KeyboardEvent.KEY_4, KeyboardEvent.KEY_7, KeyboardEvent.KEY_0};
-    private final Integer[] allGrabKeys = {KeyboardEvent.KEY_Q, KeyboardEvent.KEY_R, KeyboardEvent.KEY_Y, KeyboardEvent.KEY_O};
+    private final Integer[] allRevealKeys = {KeyboardEvent.KEY_1, KeyboardEvent.KEY_8, KeyboardEvent.KEY_K, KeyboardEvent.KEY_X};
+    private final Integer[] allGrabKeys = {KeyboardEvent.KEY_Q, KeyboardEvent.KEY_9, KeyboardEvent.KEY_L, KeyboardEvent.KEY_C};
     private final Integer startGameKey = KeyboardEvent.KEY_SPACE;
     private final Integer resetGameKey = KeyboardEvent.KEY_Z;
     private final Integer exitGameKey = KeyboardEvent.KEY_RIGHT;
@@ -71,7 +71,7 @@ public class Game implements KeyboardHandler {
 
     private Representable totem;
 
-    private Representable endScreen;
+    private Indicator endScreen;
 
     private Indicator playerTurnIndicator;
 
@@ -133,10 +133,10 @@ public class Game implements KeyboardHandler {
         this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
         this.totem = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEM);
         this.titleScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TITLESCREEN);
-        this.endScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.ENDSCREEN);
 
         this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
         this.playerGrabIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.GRABTOTEM);
+        this.endScreen = this.gameObjectFactory.getIndicatorOfType(IndicatorType.ENDSCREEN);
 
         this.constructEventListeners();
 
@@ -144,7 +144,6 @@ public class Game implements KeyboardHandler {
 
     public void start() {
         this.showGreetMenu();
-        //this.audio.startTheme();
     }
 
     public void reset() {
@@ -155,6 +154,7 @@ public class Game implements KeyboardHandler {
     private void showGreetMenu() {
         this.hideAllRepresentables();
         this.gameState = GameState.GREET;
+        this.audio.startTheme();
 
         this.titleScreen.draw();
     }
@@ -182,6 +182,7 @@ public class Game implements KeyboardHandler {
         this.gameState = GameState.GAMEEND;
         this.hideAllRepresentables();
 
+        this.endScreen.setProperty(1);
         this.endScreen.draw();
     }
 

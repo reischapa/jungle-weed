@@ -74,9 +74,7 @@ public class Audio {
             AudioPlayer.player.start(effect);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
         }
-
 
 
         try {
@@ -85,7 +83,7 @@ public class Audio {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 
     public void stopFlip()  {
