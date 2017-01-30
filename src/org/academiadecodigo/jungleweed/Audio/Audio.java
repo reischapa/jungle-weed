@@ -7,53 +7,86 @@ import  java.io.*;
  */
 public class Audio {
 
-    private static InputStream theme;
-    private static InputStream endtheme;
-    private static InputStream fileflip;
+    private InputStream theme;
+    private InputStream endtheme;
+    private InputStream fileflip;
 
-    private static AudioStream music;
-    private static AudioStream effect;
+    private AudioStream music;
+    private AudioStream effect;
 
-    public Audio() throws FileNotFoundException {
+    public Audio() {
 
-        fileflip = new FileInputStream("res/flip.wav");
-        endtheme = new FileInputStream("res/TokenTango.wav");
-        theme = new FileInputStream("res/JungleJapes.wav");
+        try {
+
+            fileflip = new FileInputStream("res/flip.wav");
+            endtheme = new FileInputStream("res/TokenTango.wav");
+            theme = new FileInputStream("res/JungleJapes.wav");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public static void startTheme() throws IOException {
-        music = new AudioStream(theme);
+    public void startTheme()  {
+        try {
+            music = new AudioStream(theme);
+            AudioPlayer.player.start(music);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopTheme() {
+        AudioPlayer.player.stop(music);
+        try {
+            music.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void startEndTheme()  {
+        try {
+            music = new AudioStream(endtheme);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         AudioPlayer.player.start(music);
     }
 
-    public static void stopTheme() throws IOException {
+    public void stopEndTheme() {
         AudioPlayer.player.stop(music);
-        music.close();
+        try {
+            music.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void startEndTheme() throws IOException {
-        music = new AudioStream(endtheme);
-        AudioPlayer.player.start(music);
-    }
+    public void playFlip()  {
 
-    public static void stopEndTheme() throws IOException {
-        AudioPlayer.player.stop(music);
-        music.close();
-    }
 
-    public static void playFlip() throws IOException {
-        effect = new AudioStream(fileflip);
+        try {
+            effect = new AudioStream(fileflip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(effect.getLength());
-        //effect.skip(200);
         AudioPlayer.player.start(effect);
 
     }
 
-    public static void stopFlip() throws IOException {
+    public void stopFlip()  {
 
         AudioPlayer.player.stop(effect);
-        effect.close();
+        try {
+            effect.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        effect = null;
     }
 
 

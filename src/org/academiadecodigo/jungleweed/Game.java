@@ -1,5 +1,6 @@
 package org.academiadecodigo.jungleweed;
 
+import org.academiadecodigo.jungleweed.Audio.Audio;
 import org.academiadecodigo.jungleweed.gameobjects.GameObjectFactory;
 import org.academiadecodigo.jungleweed.gameobjectsframework.Indicator;
 import org.academiadecodigo.jungleweed.sgfxgameobjects.SGFXGameObjectFactory;
@@ -15,6 +16,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -77,6 +79,8 @@ public class Game implements KeyboardHandler {
 
     private GameState gameState;
 
+    private Audio audio;
+
     public static void main(String[] args) {
 
         Game c = new Game(4, GameGraphicsType.SIMPLEGFX);
@@ -124,6 +128,8 @@ public class Game implements KeyboardHandler {
 
         this.keyboard = new Keyboard(this);
 
+        this.audio = new Audio();
+
         this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
         this.totem = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEM);
         this.titleScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TITLESCREEN);
@@ -138,6 +144,7 @@ public class Game implements KeyboardHandler {
 
     public void start() {
         this.showGreetMenu();
+        //this.audio.startTheme();
     }
 
     public void reset() {
@@ -209,6 +216,12 @@ public class Game implements KeyboardHandler {
         for (int i = 0; i < this.numPlayers; i++) {
             if (allRevealKeys[i] == key) {
                 this.logicEngine.getPlayerFaceUpCard(i);
+                this.audio.playFlip();
+                try {
+                    Thread.sleep(100);
+                } catch (Exception e) {
+                }
+                this.audio.stopFlip();
             }
 
             if (allGrabKeys[i] == key) {
