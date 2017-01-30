@@ -13,7 +13,7 @@ public class SGFXTitleScreen extends AbstractRepresentable {
     public SGFXTitleScreen() {
         this.setX(10);
         this.setY(10);
-        this.picture = new Picture(this.getX(), this.getY(), "res/TITLESCREEN.jpeg");
+        this.picture = new Picture(this.getX(), this.getY(), "res/TITLESCREEN.png");
     }
 
     @Override

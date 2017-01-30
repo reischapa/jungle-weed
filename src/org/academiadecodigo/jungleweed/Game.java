@@ -31,7 +31,6 @@ public class Game implements KeyboardHandler {
         GREET, GAME, GAMEEND,
     }
 
-
     public enum RepresentableType {
         TOTEM, TABLE, TITLESCREEN, ENDSCREEN
     }
@@ -197,6 +196,16 @@ public class Game implements KeyboardHandler {
 
         Integer key = event.getKey();
 
+        if (exitGameKey == key) {
+            System.exit(0);
+        }
+
+        if (resetGameKey == key) {
+            this.reset();
+            this.showGreetMenu();
+            return;
+        }
+
         for (int i = 0; i < this.numPlayers; i++) {
             if (allRevealKeys[i] == key) {
                 this.logicEngine.getPlayerFaceUpCard(i);
@@ -212,19 +221,11 @@ public class Game implements KeyboardHandler {
             return;
         }
 
+        this.hideAllIndicators();
         this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
         this.playerTurnIndicator.draw();
 
 
-        if (exitGameKey == key) {
-            System.exit(0);
-        }
-
-        if (resetGameKey == key) {
-            this.reset();
-            this.showGreetMenu();
-            return;
-        }
 
     }
 

@@ -8,10 +8,10 @@ import java.util.List;
  * Created by codecadet on 1/22/17.
  */
 public class SGFXPlayerFactory extends PlayerFactory {
-    public static final int[] faceUpPositionX = {30, 380, 550, 200};
-    public static final int[] faceUpPositionY = {210, 30 , 390, 550};
-    public static final int[] faceDownPositionX = {30 , 200, 550, 380 };
-    public static final int[] faceDownPositionY = {390 , 30, 210, 550 };
+    public static final int[] faceUpPositionX = {30, 290, 730, 290};
+    public static final int[] faceUpPositionY = {290, 30 , 290, 730};
+    public static final int[] faceDownPositionX = {30 , 470, 730, 470 };
+    public static final int[] faceDownPositionY = {470 , 30, 470, 730 };
 
     private int nPlayers;
 

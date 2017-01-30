@@ -17,7 +17,7 @@ public class SGFXTable extends AbstractRepresentable{
     private Picture picture;
 
     public SGFXTable() {
-        this.picture = new Picture(X_PADDING, Y_PADDING, "res/BACKGROUND.JPEG");
+        this.picture = new Picture(X_PADDING, Y_PADDING, "res/BACKGROUND2.JPEG");
     }
 
 
