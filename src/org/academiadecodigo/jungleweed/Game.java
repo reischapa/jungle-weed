@@ -34,7 +34,7 @@ public class Game implements KeyboardHandler {
     }
 
     public enum RepresentableType {
-        TOTEMSTANDINGUP, TABLE, TITLESCREEN, TOTEMTUMBLED
+        TOTEMSTANDINGUP, TABLE, TITLESCREEN, TOTEMTUMBLED, INSTRUCTIONS
     }
 
     public enum IndicatorType {
@@ -71,7 +71,7 @@ public class Game implements KeyboardHandler {
 
     private Representable totemStandingUp;
 
-    private Representable totemTumbled;
+    private Representable instructions;
 
     private Indicator endScreen;
 
@@ -82,6 +82,8 @@ public class Game implements KeyboardHandler {
     private GameState gameState;
 
     private Audio audio;
+
+    boolean showInstructions = true;
 
     public static void main(String[] args) {
 
@@ -133,10 +135,12 @@ public class Game implements KeyboardHandler {
         this.audio = new Audio();
 
         this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
+
         this.titleScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TITLESCREEN);
 
         this.totemStandingUp = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEMSTANDINGUP);
-        this.totemTumbled = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TOTEMTUMBLED);
+
+        this.instructions = this.gameObjectFactory.getRepresentableOfType(RepresentableType.INSTRUCTIONS);
 
         this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
 
@@ -155,6 +159,7 @@ public class Game implements KeyboardHandler {
     public void reset() {
         this.init();
         this.hideAllRepresentables();
+        this.showInstructions = true;
         this.showGreetMenu();
     }
 
@@ -188,7 +193,6 @@ public class Game implements KeyboardHandler {
         this.gameState = GameState.GAMEEND;
         this.hideAllRepresentables();
 
-        this.endScreen.setProperty(1);
         this.endScreen.draw();
     }
 
@@ -196,7 +200,15 @@ public class Game implements KeyboardHandler {
     public void catchGreetKeys(KeyboardEvent event) {
         Integer key = event.getKey();
 
+
         if (key == startGameKey) {
+
+            if (this.showInstructions) {
+                this.instructions.draw();
+                this.showInstructions = false;
+                return;
+            }
+
             this.showMainGame();
         }
 
@@ -224,8 +236,13 @@ public class Game implements KeyboardHandler {
             if (allGrabKeys[i] == key) {
 
                 this.playerGrabIndicator.setProperty(i+1);
+                boolean wonGrab;
+                if ( (wonGrab = this.logicEngine.grabTotem(i) )) {
+                    //TODO SOUND LOGIC HERE
+                }
 
-                if ( (this.logicEngine.grabTotem(i) )) {
+                if (this.logicEngine.playerFaceDownCards(i) == 0 && wonGrab) {
+                    this.endScreen.setProperty(i+1);
                 }
 
                 this.playerGrabIndicator.draw();
@@ -334,17 +351,6 @@ public class Game implements KeyboardHandler {
     private void hideAllIndicators() {
         this.playerGrabIndicator.hide();
         this.playerTurnIndicator.hide();
-    }
-
-    private void drawTotemStandingUp() {
-        this.totemTumbled.hide();
-        this.totemStandingUp.draw();
-    }
-
-
-    private void drawTotemTumbled() {
-        this.totemTumbled.draw();
-        this.totemStandingUp.hide();
     }
 
 }

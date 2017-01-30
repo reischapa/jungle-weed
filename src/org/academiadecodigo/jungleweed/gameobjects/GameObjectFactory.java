@@ -20,9 +20,10 @@ public class GameObjectFactory {
                 return new TitleScreen();
             case TOTEMTUMBLED:
                 return new TotemTumbled();
+            case INSTRUCTIONS:
+                return new Table();
             default:
-                System.out.println("DEU MERDA");
-                return new TotemStandingUp();
+                throw new UnsupportedOperationException();
         }
     }
 
@@ -36,8 +37,7 @@ public class GameObjectFactory {
             case ENDSCREEN:
                 return new EndScreenIndicator();
             default:
-                System.out.println("DEU MERDA");
-                return null;
+                throw new UnsupportedOperationException();
         }
     }
 

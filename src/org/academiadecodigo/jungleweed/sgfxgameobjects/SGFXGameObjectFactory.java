@@ -28,6 +28,8 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
                 return new SGFXImage("res/TITLESCREEN.jpeg", X_PADDING, Y_PADDING);
             case TOTEMTUMBLED:
                 return new SGFXImage("res/TOTEMTUMBLED.png", WIDTH/2 - 120, HEIGHT/2 - 100);
+            case INSTRUCTIONS:
+                return new SGFXImage("res/INSTRUCTIONS.jpeg", (WIDTH+X_PADDING - 538) / 2, (HEIGHT+Y_PADDING - 538) / 2 );
             default:
                 throw new UnsupportedOperationException();
         }
@@ -42,7 +44,7 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
             case GRABTOTEM:
                 return new SGFXGrabTotemIndicator(22*WIDTH/50, 58*HEIGHT/80);
             case ENDSCREEN:
-                return new SGFXEndScreenIndicator();
+                return new SGFXEndScreenIndicator(X_PADDING,Y_PADDING);
             default:
                 throw new UnsupportedOperationException();
         }
