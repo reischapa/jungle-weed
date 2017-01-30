@@ -39,8 +39,10 @@ public class SGFXPlayer extends Player {
         }
 
         super.addCards(cards);
+        this.deleteScore();
         this.drawCards();
         this.showScore();
+
     }
 
 
@@ -109,7 +111,9 @@ public class SGFXPlayer extends Player {
     }
 
     private void deleteScore(){
-        score.delete();
+        if (score != null) {
+            score.delete();
+        }
     }
 
 

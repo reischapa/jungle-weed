@@ -45,7 +45,7 @@ public class Game implements KeyboardHandler {
     private final int[] allRevealKeys = {KeyboardEvent.KEY_1, KeyboardEvent.KEY_0, KeyboardEvent.KEY_M, KeyboardEvent.KEY_Z};
     private final int[] allGrabKeys = {KeyboardEvent.KEY_2, KeyboardEvent.KEY_9, KeyboardEvent.KEY_N, KeyboardEvent.KEY_X};
     private final int startGameKey = KeyboardEvent.KEY_SPACE;
-    private final int resetGameKey = KeyboardEvent.KEY_B;
+    private final int resetGameKey = KeyboardEvent.KEY_LEFT;
     private final int exitGameKey = KeyboardEvent.KEY_RIGHT;
 
     private List<Integer> revealKeys;
@@ -135,7 +135,11 @@ public class Game implements KeyboardHandler {
         this.titleScreen = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TITLESCREEN);
 
         this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
+
         this.playerGrabIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.GRABTOTEM);
+        this.playerGrabIndicator.setX(450);
+        this.playerGrabIndicator.setY(450);
+
         this.endScreen = this.gameObjectFactory.getIndicatorOfType(IndicatorType.ENDSCREEN);
 
         this.constructEventListeners();
@@ -214,6 +218,8 @@ public class Game implements KeyboardHandler {
             return;
         }
 
+        this.hideAllIndicators();
+
         for (int i = 0; i < this.numPlayers; i++) {
             if (allRevealKeys[i] == key) {
                 if (this.logicEngine.getPlayerFaceUpCard(i)) {
@@ -223,9 +229,11 @@ public class Game implements KeyboardHandler {
 
             if (allGrabKeys[i] == key) {
                 if (this.logicEngine.grabTotem(i)) {
-                    this.playerGrabIndicator.setProperty(i+1);
-                    this.playerGrabIndicator.draw();
+                    this.playerGrabIndicator.setProperty(0);
+                } else {
+                    this.playerGrabIndicator.setProperty(1);
                 }
+                this.playerGrabIndicator.draw();
             }
         }
 
@@ -235,7 +243,7 @@ public class Game implements KeyboardHandler {
             return;
         }
 
-        this.hideAllIndicators();
+
         this.playerTurnIndicator.setProperty(this.logicEngine.getPlayerTurn());
         this.playerTurnIndicator.draw();
 
