@@ -25,11 +25,10 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
             case TABLE:
                 return new SGFXImage("res/BACKGROUND.JPEG", X_PADDING, Y_PADDING);
             case TITLESCREEN:
-                return new SGFXImage("res/TITLESCREEN.png", X_PADDING, Y_PADDING);
+                return new SGFXImage("res/TITLESCREEN.jpeg", X_PADDING, Y_PADDING);
             case TOTEMTUMBLED:
                 return new SGFXImage("res/TOTEMTUMBLED.png", WIDTH/2 - 120, HEIGHT/2 - 100);
             default:
-                System.out.println("DEU MERDA");
                 throw new UnsupportedOperationException();
         }
 
@@ -41,11 +40,11 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
             case CURRENTPLAYER:
                 return new SGFXPlayerTurnIndicator();
             case GRABTOTEM:
-                return new SGFXGrabTotemIndicator();
+                return new SGFXGrabTotemIndicator(22*WIDTH/50, 58*HEIGHT/80);
             case ENDSCREEN:
                 return new SGFXEndScreenIndicator();
             default:
-                return new SGFXPlayerTurnIndicator();
+                throw new UnsupportedOperationException();
         }
     }
 

@@ -141,8 +141,6 @@ public class Game implements KeyboardHandler {
         this.playerTurnIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.CURRENTPLAYER);
 
         this.playerGrabIndicator = this.gameObjectFactory.getIndicatorOfType(IndicatorType.GRABTOTEM);
-        this.playerGrabIndicator.setX(450);
-        this.playerGrabIndicator.setY(450);
 
         this.endScreen = this.gameObjectFactory.getIndicatorOfType(IndicatorType.ENDSCREEN);
 
@@ -225,9 +223,11 @@ public class Game implements KeyboardHandler {
 
             if (allGrabKeys[i] == key) {
 
+                this.playerGrabIndicator.setProperty(i+1);
+
                 if ( (this.logicEngine.grabTotem(i) )) {
-                    this.playerGrabIndicator.setProperty(i+1);
                 }
+
                 this.playerGrabIndicator.draw();
                 this.totemStandingUp.hide();
             }
