@@ -26,8 +26,6 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
                 return new SGFXImage("res/BACKGROUND.JPEG", X_PADDING, Y_PADDING);
             case TITLESCREEN:
                 return new SGFXImage("res/TITLESCREEN.jpeg", X_PADDING, Y_PADDING);
-            case TOTEMTUMBLED:
-                return new SGFXImage("res/TOTEMTUMBLED.png", WIDTH/2 - 120, HEIGHT/2 - 100);
             case INSTRUCTIONS:
                 return new SGFXImage("res/INSTRUCTIONS.jpg", (WIDTH+X_PADDING - 538) / 2, (HEIGHT+Y_PADDING - 538) / 2 );
             default:

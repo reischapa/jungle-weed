@@ -47,6 +47,7 @@ public class Game implements KeyboardHandler {
     private final int startGameKey = KeyboardEvent.KEY_SPACE;
     private final int resetGameKey = KeyboardEvent.KEY_LEFT;
     private final int exitGameKey = KeyboardEvent.KEY_RIGHT;
+    private final int debugGameKey = KeyboardEvent.KEY_DOWN;
 
     private List<Integer> revealKeys;
     private List<Integer> grabKeys;
@@ -158,13 +159,13 @@ public class Game implements KeyboardHandler {
 
     public void reset() {
         this.init();
-        this.hideAllRepresentables();
         this.showInstructions = true;
         this.showGreetMenu();
     }
 
     private void showGreetMenu() {
         this.gameState = GameState.GREET;
+        this.hideAllRepresentables();
 
         this.audio.startTheme();
 
@@ -174,6 +175,7 @@ public class Game implements KeyboardHandler {
 
     private void showMainGame() {
         this.gameState = GameState.GAME;
+        this.hideAllRepresentables();
 
         this.field.draw();
 
@@ -192,6 +194,8 @@ public class Game implements KeyboardHandler {
     private void showEndScreen() {
         this.gameState = GameState.GAMEEND;
         this.hideAllRepresentables();
+
+        this.audio.stopTheme();
 
         this.endScreen.draw();
     }
@@ -223,6 +227,11 @@ public class Game implements KeyboardHandler {
             return;
         }
 
+        if (debugGameKey == key) {
+            this.logicEngine.playerInfo();
+            return;
+        }
+
         this.hideAllIndicators();
         this.totemStandingUp.draw();
 
@@ -236,13 +245,11 @@ public class Game implements KeyboardHandler {
             if (allGrabKeys[i] == key) {
 
                 this.playerGrabIndicator.setProperty(i+1);
-                boolean wonGrab;
-                if ( (wonGrab = this.logicEngine.grabTotem(i) )) {
-                    //TODO SOUND LOGIC HERE
-                }
 
-                if (this.logicEngine.playerFaceDownCards(i) == 0 && wonGrab) {
-                    this.endScreen.setProperty(i+1);
+                if (  this.logicEngine.grabTotem(i) ) {
+                    //TODO SOUND for successful player grab
+                } else {
+                    //TODO SOUND for unsuccessful player grab
                 }
 
                 this.playerGrabIndicator.draw();
@@ -251,8 +258,10 @@ public class Game implements KeyboardHandler {
 
         }
 
+        int winnerTurn = this.logicEngine.getWinnerPlayerTurn();
 
-        if (this.logicEngine.getGameEnd()) {
+        if (winnerTurn >= 0) {
+            this.endScreen.setProperty(winnerTurn+1);
             this.showEndScreen();
             return;
         }
@@ -262,6 +271,8 @@ public class Game implements KeyboardHandler {
         this.playerTurnIndicator.draw();
 
     }
+
+
 
 
     public void catchEndScreenKeys(KeyboardEvent event) {
@@ -302,7 +313,6 @@ public class Game implements KeyboardHandler {
                 this.catchEndScreenKeys(keyboardEvent);
                 break;
             default:
-                System.out.println("Deu merda");
                 throw new UnsupportedOperationException();
         }
 
@@ -326,6 +336,7 @@ public class Game implements KeyboardHandler {
         this.addEventListener(startGameKey);
         this.addEventListener(resetGameKey);
         this.addEventListener(exitGameKey);
+        this.addEventListener(debugGameKey);
 
 
     }
@@ -346,11 +357,13 @@ public class Game implements KeyboardHandler {
         this.totemStandingUp.hide();
         this.titleScreen.hide();
         this.endScreen.hide();
+        this.hideAllIndicators();
     }
 
     private void hideAllIndicators() {
         this.playerGrabIndicator.hide();
         this.playerTurnIndicator.hide();
+        this.endScreen.hide();
     }
 
 }

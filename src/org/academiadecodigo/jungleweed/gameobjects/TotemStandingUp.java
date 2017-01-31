@@ -9,12 +9,12 @@ public class TotemStandingUp extends AbstractRepresentable {
 
     @Override
     public void draw() {
-        System.out.println("the totem has been drawn");
+        System.out.println("The totem has been put in the table.");
     }
 
     @Override
     public void hide() {
-        System.out.println("the totem has been hidden");
+        System.out.println("The totem has been grabbed!");
     }
 
 }

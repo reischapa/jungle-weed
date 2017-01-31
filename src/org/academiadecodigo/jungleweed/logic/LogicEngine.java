@@ -33,6 +33,8 @@ public class LogicEngine {
     private boolean gameEnd;
     private PlayerFactory playerFactory;
 
+    private int winnerPlayerTurn;
+
 
     public LogicEngine(int numPlayers, PlayerFactory playerFactory, SGFXCardFactory cardFactory) {
 
@@ -47,6 +49,8 @@ public class LogicEngine {
         this.gameEnd = false;
 
         this.cardFactory = cardFactory;
+
+        this.winnerPlayerTurn = -1;
     }
 
     // Initializes Players, creates a deck of crads and deals all the cards to the respective players.
@@ -83,7 +87,6 @@ public class LogicEngine {
 
                 changeCompareType();
                 this.color = true;
-                System.out.println("COLOR= " + this.color);
 
             } else if (this.color) {
 
@@ -91,7 +94,7 @@ public class LogicEngine {
 
             }
 
-            System.out.println(comparableCards[playerTurn].getShape() + " " + comparableCards[playerTurn].getColor());
+            //System.out.println(comparableCards[playerTurn].getShape() + " " + comparableCards[playerTurn].getColor());
             nextPlayerTurn();
 
             return true;
@@ -111,7 +114,6 @@ public class LogicEngine {
 
             if (this.players[i].isAgarraPau()) {
 
-                System.out.println("SGFXTotemStandingUp is Grabbed");
                 return false;
 
             }
@@ -132,27 +134,19 @@ public class LogicEngine {
     //Checks if the game is over by looking at all the player cards, if a player has no cards then the game is over.
     private void isGameOver() {
 
-        for (Player player : players) {
+        for (int i = 0; i < this.numPlayers; i++) {
 
-            if (player.getTotalNumberOfCards() == 0) {
+            if (this.players[i].getTotalNumberOfCards() == 0) {
 
                 this.gameEnd = true;
+                this.winnerPlayerTurn = i;
+
             }
 
         }
 
     }
 
-    //Resets the game back to the beginning, creates all the cards again and gives them to the players.
-//    public void reset() {
-//
-//        this.gameEnd = false;
-//        this.playerTurn = 0;
-//        clearComparableCards();
-//        init();
-//        start();
-//
-//    }
 
     //Compares the cards on the field with the card of the player who called the check, return true if there is any card on top of the face up pile that matches the player's card.
     private boolean comparePlayerCards(int turn, Card comparableCard) {
@@ -193,23 +187,6 @@ public class LogicEngine {
         if (this.playerTurn < this.players.length - 1) {
 
             this.playerTurn++;
-
-            /*for(Player play : players) {
-
-                if(play == players[playerTurn]) {
-
-                    if (play.getNumberFaceDownCards() == 0) {
-                        this.playerTurn++;
-                        if(playerTurn == this.players.length - 1){
-                            if(players[0].getNumberFaceDownCards() == 0){
-                                this.playerTurn = 4;
-                            }else {
-                                this.playerTurn = 0;
-                            }
-                        }
-                    }
-                }
-            }*/
         } else {
 
             this.playerTurn = 0;
@@ -359,27 +336,6 @@ public class LogicEngine {
 
     }
 
-    //Returns a player's total number of cards.
-    public int playerTotalCards(int turn) {
-
-        return this.players[turn].getTotalNumberOfCards();
-
-    }
-
-    //Returns a player's face down cards.
-    public int playerFaceDownCards(int turn) {
-
-        return this.players[turn].getNumberFaceDownCards();
-
-    }
-
-    //Return a player's revealed card.
-    public int playerRevealedCards(int turn) {
-
-        return this.players[turn].getNumberRevealedCards();
-
-    }
-
     //Returns the current player turn.
     public int getPlayerTurn() {
 
@@ -387,5 +343,7 @@ public class LogicEngine {
 
     }
 
-
+    public int getWinnerPlayerTurn() {
+        return winnerPlayerTurn;
+    }
 }

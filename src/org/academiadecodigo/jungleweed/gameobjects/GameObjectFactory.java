@@ -18,8 +18,6 @@ public class GameObjectFactory {
                 return new Table();
             case TITLESCREEN:
                 return new TitleScreen();
-            case TOTEMTUMBLED:
-                return new TotemTumbled();
             case INSTRUCTIONS:
                 return new Instructions();
             default:

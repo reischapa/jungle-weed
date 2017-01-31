@@ -23,12 +23,12 @@ public class SGFXEndScreenIndicator extends AbstractIndicator {
         this.picture = new Picture(this.getX(), this.getY(), "res/ENDSCREEN.jpeg");
         this.picture.draw();
 
-//        this.text = new Text(this.getX() + 2*this.picture.getWidth()/10 , this.getY() + 9*this.picture.getHeight()/10 , "Player " + this.getProperty() + " wins the game!");
-//        this.text.setColor(Color.BLUE);
-//
-//        this.text.grow(120,12);
-//
-//        this.text.draw();
+        this.text = new Text(this.getX() + 2*this.picture.getWidth()/10 , this.getY() + 9*this.picture.getHeight()/10 , "Player " + this.getProperty() + " wins the game!");
+        this.text.setColor(Color.BLUE);
+
+        this.text.grow(120,12);
+
+        this.text.draw();
 
     }
 

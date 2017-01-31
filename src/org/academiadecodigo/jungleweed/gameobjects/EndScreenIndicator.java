@@ -14,6 +14,5 @@ public class EndScreenIndicator extends AbstractIndicator {
 
     @Override
     public void hide() {
-
     }
 }
