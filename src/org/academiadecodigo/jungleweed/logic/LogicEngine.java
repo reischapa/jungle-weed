@@ -17,10 +17,6 @@ public class LogicEngine {
         COLOR, SHAPE;
     }
 
-    public enum LogicStatus {
-        TOBERUN, WAITING, GRABBING, TRADING, FINISHED;
-    }
-
 
     private int numPlayers;
     private int nCardsTotal;

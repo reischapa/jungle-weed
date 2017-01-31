@@ -56,15 +56,5 @@ public class SGFXCardFactory {
     }
 
 
-    public Card getACard() {
-        if (this.readyCards.size() == 0) {
-            System.out.println("That dont work");
-            throw new NullPointerException();
-        }
-
-        return this.readyCards.pop();
-
-    }
-
 
 }

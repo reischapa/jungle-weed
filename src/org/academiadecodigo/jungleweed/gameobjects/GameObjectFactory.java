@@ -21,7 +21,7 @@ public class GameObjectFactory {
             case TOTEMTUMBLED:
                 return new TotemTumbled();
             case INSTRUCTIONS:
-                return new Table();
+                return new Instructions();
             default:
                 throw new UnsupportedOperationException();
         }

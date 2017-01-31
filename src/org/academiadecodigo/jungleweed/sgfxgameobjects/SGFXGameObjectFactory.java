@@ -29,7 +29,7 @@ public class SGFXGameObjectFactory extends GameObjectFactory {
             case TOTEMTUMBLED:
                 return new SGFXImage("res/TOTEMTUMBLED.png", WIDTH/2 - 120, HEIGHT/2 - 100);
             case INSTRUCTIONS:
-                return new SGFXImage("res/INSTRUCTIONS.jpeg", (WIDTH+X_PADDING - 538) / 2, (HEIGHT+Y_PADDING - 538) / 2 );
+                return new SGFXImage("res/INSTRUCTIONS.jpg", (WIDTH+X_PADDING - 538) / 2, (HEIGHT+Y_PADDING - 538) / 2 );
             default:
                 throw new UnsupportedOperationException();
         }
