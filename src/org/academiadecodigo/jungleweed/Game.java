@@ -1,6 +1,7 @@
 package org.academiadecodigo.jungleweed;
 
-import org.academiadecodigo.jungleweed.Audio.Audio;
+//import org.academiadecodigo.jungleweed.Audio.Audio;
+import org.academiadecodigo.jungleweed.Audio.NewAudio;
 import org.academiadecodigo.jungleweed.gameobjects.GameObjectFactory;
 import org.academiadecodigo.jungleweed.gameobjectsframework.Indicator;
 import org.academiadecodigo.jungleweed.sgfxgameobjects.SGFXGameObjectFactory;
@@ -82,7 +83,7 @@ public class Game implements KeyboardHandler {
 
     private GameState gameState;
 
-    private Audio audio;
+    //private Audio audio;
 
     boolean showInstructions = true;
 
@@ -133,7 +134,8 @@ public class Game implements KeyboardHandler {
 
         this.keyboard = new Keyboard(this);
 
-        this.audio = new Audio();
+        //this.audio = new Audio();
+        NewAudio.load(new String[]{"flip", "theme"});
 
         this.field = this.gameObjectFactory.getRepresentableOfType(RepresentableType.TABLE);
 
@@ -167,7 +169,8 @@ public class Game implements KeyboardHandler {
         this.gameState = GameState.GREET;
         this.hideAllRepresentables();
 
-        this.audio.startTheme();
+        //this.audio.startTheme();
+        NewAudio.start("theme");
 
         this.titleScreen.draw();
     }
@@ -195,7 +198,8 @@ public class Game implements KeyboardHandler {
         this.gameState = GameState.GAMEEND;
         this.hideAllRepresentables();
 
-        this.audio.stopTheme();
+        //this.audio.stopTheme();
+        NewAudio.stop("theme");
 
         this.endScreen.draw();
     }
@@ -238,7 +242,8 @@ public class Game implements KeyboardHandler {
         for (int i = 0; i < this.numPlayers; i++) {
             if (allRevealKeys[i] == key) {
                 if (this.logicEngine.getPlayerFaceUpCard(i)) {
-                    this.audio.playFlip();
+                    //this.audio.playFlip();
+                    NewAudio.start("flip");
                 }
             }
 
